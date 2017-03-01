@@ -42,31 +42,51 @@ namespace Launching_Interface
 
         private void Save0Button_Click(object sender, RoutedEventArgs e)
         {
-            CreateSave();
-            //Process.Start("F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe");
+            CreateSave("0");
+            string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.FileName = path;
+            p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
+            Process.Start(p);
             Application.Current.Shutdown();
         }
 
-        void CreateSave()
+        void CreateSave(string saveNumber)
         {
-            StreamWriter writer = new StreamWriter("../../Saves/save0.txt");
+            StreamWriter writer = new StreamWriter("../../Saves/save" + saveNumber + ".txt");
 
             writer.WriteLine("Level: 0");
+            writer.WriteLine("Position: {X:5 Y:5 Z:5}");
+            writer.WriteLine("Language: " + GameDataManager.Language);
             writer.WriteLine("World: Lobby");
-            writer.WriteLine("Position: {X:0 Y:0 Z:0}");
             writer.WriteLine("Percentage: 0%");
             writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
+            writer.Close();
+            writer = new StreamWriter("../../Saves/save.txt");
+            writer.WriteLine(saveNumber);
             writer.Close();
         }
 
         private void Save1Button_Click(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new GamePage());
+            CreateSave("1");
+            string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.FileName = path;
+            p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
+            Process.Start(p);
+            Application.Current.Shutdown();
         }
 
         private void Save2Button_Click(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new GamePage());
+            CreateSave("2");
+            string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            ProcessStartInfo p = new ProcessStartInfo();
+            p.FileName = path;
+            p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
+            Process.Start(p);
+            Application.Current.Shutdown();
         }
 
         private void Create0_Loaded(object sender, RoutedEventArgs e)
