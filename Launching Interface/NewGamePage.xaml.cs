@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.IO;
 
 namespace Launching_Interface
 {
@@ -41,8 +42,21 @@ namespace Launching_Interface
 
         private void Save0Button_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe");
+            CreateSave();
+            //Process.Start("F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe");
             Application.Current.Shutdown();
+        }
+
+        void CreateSave()
+        {
+            StreamWriter writer = new StreamWriter("../../Saves/save0.txt");
+
+            writer.WriteLine("Level: 0");
+            writer.WriteLine("World: Lobby");
+            writer.WriteLine("Position: {X:0 Y:0 Z:0}");
+            writer.WriteLine("Percentage: 0%");
+            writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
+            writer.Close();
         }
 
         private void Save1Button_Click(object sender, RoutedEventArgs e)
