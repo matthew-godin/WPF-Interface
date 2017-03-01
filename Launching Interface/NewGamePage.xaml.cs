@@ -12,48 +12,107 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Launching_Interface
 {
-   /// <summary>
-   /// Interaction logic for NewGamePage.xaml
-   /// </summary>
-   public partial class NewGamePage : Page
-   {
-      List<string> LanguageNewPage { get; set; }
-      public NewGamePage()
-      {
-         LanguageNewPage = new List<string>();
-         InitializeComponent();
-         if (GameDataManager.Language == 0) { LanguageNewPage = GameDataManager.FrenchList; }
-         if (GameDataManager.Language == 1) { LanguageNewPage = GameDataManager.EnglishList; }
-         if (GameDataManager.Language == 2) { LanguageNewPage = GameDataManager.SpanishList; }
-         if (GameDataManager.Language == 3) { LanguageNewPage = GameDataManager.JapaneseList; }
+    /// <summary>
+    /// Interaction logic for NewGamePage.xaml
+    /// </summary>
+    public partial class NewGamePage : Page
+    {
+        List<string> LanguagesLoadPage { get; set; }
+        public NewGamePage()
+        {
+            LanguagesLoadPage = new List<string>();
+            InitializeComponent();
+            if (GameDataManager.Language == 0) { LanguagesLoadPage = GameDataManager.FrenchList; }
+            if (GameDataManager.Language == 1) { LanguagesLoadPage = GameDataManager.EnglishList; }
+            if (GameDataManager.Language == 2) { LanguagesLoadPage = GameDataManager.SpanishList; }
+            if (GameDataManager.Language == 3) { LanguagesLoadPage = GameDataManager.JapaneseList; }
+            tbtitle.Text = LanguagesLoadPage[32];
+            BackButton.Text = LanguagesLoadPage[0];
+        }
 
-         tbtitle.Text = LanguageNewPage[1];
-         BackButton.Text = LanguageNewPage[0];
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainPage());
+        }
 
-         saveA.Text = LanguageNewPage[2];
-         timeA.Text = LanguageNewPage[3];
-         doneA.Text = LanguageNewPage[4];
+        private void Save0Button_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe");
+            Application.Current.Shutdown();
+        }
 
-         saveB.Text = LanguageNewPage[5];
-         timeB.Text = LanguageNewPage[6];
-         doneB.Text = LanguageNewPage[7];
+        private void Save1Button_Click(object sender, RoutedEventArgs e)
+        {
+            //this.NavigationService.Navigate(new GamePage());
+        }
 
-         saveC.Text = LanguageNewPage[8];
-         timeC.Text = LanguageNewPage[9];
-         doneC.Text = LanguageNewPage[10];
-      }
+        private void Save2Button_Click(object sender, RoutedEventArgs e)
+        {
+            //this.NavigationService.Navigate(new GamePage());
+        }
 
-      private void BackButton_Click(object sender, RoutedEventArgs e)
-      {
-         this.NavigationService.Navigate(new MainPage());
-      }
+        private void Create0_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (GameDataManager.Language == 0)
+            {
+                Create0.Source = new BitmapImage(new Uri(@"/Pictures/CreateFR.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 1)
+            {
+                Create0.Source = new BitmapImage(new Uri(@"/Pictures/Create.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 2)
+            {
+                Create0.Source = new BitmapImage(new Uri(@"/Pictures/CreateES.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 3)
+            {
+                Create0.Source = new BitmapImage(new Uri(@"/Pictures/CreateJA.png", UriKind.Relative));
+            }
+        }
 
-      private void Save1Button_Click(object sender, RoutedEventArgs e)
-      {
-         this.NavigationService.Navigate(new GamePage());
-      }
-   }
+        private void Create1_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (GameDataManager.Language == 0)
+            {
+                Create1.Source = new BitmapImage(new Uri(@"/Pictures/CreateFR.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 1)
+            {
+                Create1.Source = new BitmapImage(new Uri(@"/Pictures/Create.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 2)
+            {
+                Create1.Source = new BitmapImage(new Uri(@"/Pictures/CreateES.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 3)
+            {
+                Create1.Source = new BitmapImage(new Uri(@"/Pictures/CreateJA.png", UriKind.Relative));
+            }
+        }
+
+        private void Create2_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (GameDataManager.Language == 0)
+            {
+                Create2.Source = new BitmapImage(new Uri(@"/Pictures/CreateFR.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 1)
+            {
+                Create2.Source = new BitmapImage(new Uri(@"/Pictures/Create.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 2)
+            {
+                Create2.Source = new BitmapImage(new Uri(@"/Pictures/CreateES.png", UriKind.Relative));
+            }
+            else if (GameDataManager.Language == 3)
+            {
+                Create2.Source = new BitmapImage(new Uri(@"/Pictures/CreateJA.png", UriKind.Relative));
+            }
+        }
+    }
 }
