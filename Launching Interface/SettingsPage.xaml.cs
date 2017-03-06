@@ -22,10 +22,9 @@ namespace Launching_Interface
 
    public partial class SettingsPage : Page
    {
+     
       List<string> LanguagesList { get; set; }
       List<int> ListeInfosÀEnvoyer { get; set; }
-      
-
 
       int LanguageOficielle { get; set; }
       double VolumeMusique { get; set; }
@@ -44,9 +43,11 @@ namespace Launching_Interface
          InitializeComponent();
 
          ManageFPS();
+         GameDataManager.AAAA = true;
          ManageLanguages();
          ManageRenderDistance();
 
+         
          
          if(PerformanceSlider.Value < 0.2) { perfValue.Text = "30 FPS"; }  // temporaire
 
@@ -112,30 +113,73 @@ namespace Launching_Interface
 
       private void RDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) // Render Distance
       {
-         var sliderA = sender as Slider;
-         double value = sliderA.Value;
+         double value = 0;
+         if(GameDataManager.AAAA == true)
+         {
+            GameDataManager.AAAA = false;
+            switch(GameDataManager.RenderDistance)
+            {
+               case 10 :
+                  value = 0;
+                  break;
+               case 50:
+                  value = 1.25;
+                  break;
+               case 100:
+                  value = 2.5;
+                  break;
+               case 500:
+                  value = 3.75;
+                  break;
+               case 1000:
+                  value = 5;
+                  break;
+               case 5000:
+                  value = 6.25;
+                  break;
+               case 10000:
+                  value = 7.5;
+                  break;
+               case 50000:
+                  value = 8.75;
+                  break;
+               case 100000:
+                  value = 10;
+                  break;
+            }       
+         }
+         else
+         {
+            var slider = sender as Slider;
+            value = slider.Value;
+         }
 
          if (value <= 5.2)
          {
             if (value >= 0 && value <= 0.1)
             {
                GameDataManager.RenderDistance = 10;
+               RDistanceSlider.Value = 0;
             }
             if (value > 1.2 && value < 1.3)
             {
                GameDataManager.RenderDistance = 50;
+               RDistanceSlider.Value = 1.25;
             }
             if (value > 2.4 && value < 2.6)
             {
                GameDataManager.RenderDistance = 100;
+               RDistanceSlider.Value = 2.5;
             }
             if (value > 3.7 && value < 3.8)
             {
                GameDataManager.RenderDistance = 500;
+               RDistanceSlider.Value = 3.75;
             }
             if (value > 4.9 && value < 5.1)
             {
                GameDataManager.RenderDistance = 1000;
+               RDistanceSlider.Value = 5;
             }
          }
          else
@@ -143,22 +187,53 @@ namespace Launching_Interface
             if (value > 6.2 && value < 6.3)
             {
                GameDataManager.RenderDistance = 5000;
+               RDistanceSlider.Value = 6.25;
             }
             if (value > 7.4 && value < 7.6)
             {
                GameDataManager.RenderDistance = 10000;
+               RDistanceSlider.Value = 7.5;
             }
             if (value > 8.7 && value < 8.8)
             {
                GameDataManager.RenderDistance = 50000;
+               RDistanceSlider.Value = 8.75;
             }
             if (value > 9.9 && value <= 10)
             {
                GameDataManager.RenderDistance = 100000;
+               RDistanceSlider.Value = 10;
             }
          }
          rdvalue.Text = GameDataManager.RenderDistance.ToString();
         
+      }
+      private void PerformanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+      {
+         var slider = sender as Slider;
+         double value = slider.Value;
+
+         if (value >= 0 && value <= 0.5)
+         {
+            GameDataManager.Fps = 30;
+            PerformanceSlider.Value = 0;
+         }
+         else if (value > 3.2 && value < 3.4)
+         {
+            GameDataManager.Fps = 60;
+            PerformanceSlider.Value = 3.333333;
+         }
+         else if (value > 6.5 && value < 6.7)
+         {
+            GameDataManager.Fps = 90;
+            PerformanceSlider.Value = 6.66666;
+         }
+         else if (value < 10 && value > 9.9)
+         {
+            GameDataManager.Fps = 120;
+            PerformanceSlider.Value = 10;
+         }
+         perfValue.Text = GameDataManager.Fps.ToString() + " FPS";
       }
       private void ButFull_Unchecked(object sender, RoutedEventArgs e)
       {
@@ -373,37 +448,7 @@ namespace Launching_Interface
          if (GameDataManager.RenderDistance == 50000) { a = 50000; }
          if (GameDataManager.RenderDistance == 100000) { a = 100000; }
          RDistanceSlider.Value = a;
-      }
-
-
-
-
-      private void PerformanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-      {    
-         var slider = sender as Slider;
-         double value = slider.Value;
-
-         if (value >= 0 && value <= 0.5)
-         {
-            GameDataManager.Fps = 30;
-            PerformanceSlider.Value = 0;
-         }
-         else if (value > 3.2 && value < 3.4)
-         {
-            GameDataManager.Fps = 60;
-            PerformanceSlider.Value = 3.333333;
-         }
-         else if (value > 6.5 && value < 6.7)
-         {
-            GameDataManager.Fps = 90;
-            PerformanceSlider.Value = 6.66666;
-         }
-          else if (value < 10 && value > 9.9)
-         {
-            GameDataManager.Fps = 120;
-            PerformanceSlider.Value = 10;
-         }
-         perfValue.Text = GameDataManager.Fps.ToString() + " FPS";        
+         GameDataManager.RenderDistance = a;
       }
 
       private void GameMusicSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -430,6 +475,9 @@ namespace Launching_Interface
 
       }
 
-      
+      private void rdvalue_TextChanged(object sender, TextChangedEventArgs e)
+      {
+
+      }
    }
 }
