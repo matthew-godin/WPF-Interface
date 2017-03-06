@@ -39,6 +39,20 @@ namespace Launching_Interface
          hi.Text = LanguagesMainPage[28];
 
 
+         if(GameDataManager.FullscreenMode == 1)
+         {
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+            Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+         }
+         else
+         {
+            Application.Current.MainWindow.WindowState = WindowState.Normal;
+            Application.Current.MainWindow.WindowStyle = WindowStyle.SingleBorderWindow;
+            Application.Current.MainWindow.ResizeMode = ResizeMode.CanResize;
+         }
+
+
 
       }
       private void LoadGameButton_Click(object sender, RoutedEventArgs e)

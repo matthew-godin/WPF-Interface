@@ -22,18 +22,14 @@ namespace Launching_Interface
       public StartPage()
       {
          InitializeComponent();
-         
+
+
       }
 
       private void Principal_Click(object sender, RoutedEventArgs e)
       {
-        
-         this.NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.Relative));
+                 this.NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.Relative));
       }
 
-      private void Principal_IsHitTestVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-      {
-
-      }
    }
 }

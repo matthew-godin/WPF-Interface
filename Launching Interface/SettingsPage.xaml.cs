@@ -33,8 +33,9 @@ namespace Launching_Interface
       double VolumeMusique { get; set; }
       double VolumeEffets { get; set; }
 
-      bool choixFullscreen = false;
-      bool choixController = false;
+      WindowStyle WindowStyle { get; set; }
+      ResizeMode ResizeMode { get; set; }
+      
 
       public SettingsPage()
       {
@@ -53,7 +54,7 @@ namespace Launching_Interface
          }
          else
          {
-            ListeInfosÀEnvoyer = GameDataManager.ListeInfosRecus;
+            ListeInfosÀEnvoyer    = GameDataManager.ListeInfosRecus;
 
             ListeInfosÀEnvoyer[0] = GameDataManager.Language;
             ListeInfosÀEnvoyer[1] = GameDataManager.Fps;
@@ -63,13 +64,7 @@ namespace Launching_Interface
             ListeInfosÀEnvoyer[5] = GameDataManager.FullscreenMode;
             ListeInfosÀEnvoyer[6] = GameDataManager.KeyboardMode;
          }
-
-
-
          InitializeComponent();
-         ManageLanguages();
-         ManageFPS();
-         ManageRenderDistance();
 
          ManageSettings();
       }
@@ -168,30 +163,57 @@ namespace Launching_Interface
 
       private void ButFull_Unchecked(object sender, RoutedEventArgs e)
       {
-         ButFull.Content = LanguagesList[30];
          GameDataManager.FullscreenMode = 0;
-         choixFullscreen = true;      
+         if (GameDataManager.FullscreenMode == 0)
+         {
+            ButFull.Content = LanguagesList[30];
+         }
+         else if (GameDataManager.FullscreenMode == 1)
+         {
+            ButFull.Content = LanguagesList[29];
+         }
+
+         Application.Current.MainWindow.WindowState = WindowState.Normal;
+         Application.Current.MainWindow.WindowStyle = WindowStyle.SingleBorderWindow;
+         Application.Current.MainWindow.ResizeMode  = ResizeMode.CanResize;
       }
       private void ButFull_Checked(object sender, RoutedEventArgs e)
       {
-         ButFull.Content = LanguagesList[29];
+         
          GameDataManager.FullscreenMode = 1;
          GameDataManager.FirstFile = false;
-         choixFullscreen = true;
+
+         if (GameDataManager.FullscreenMode == 0)
+         {
+            ButFull.Content = LanguagesList[30];
+         }
+         else if (GameDataManager.FullscreenMode == 1)
+         {
+            ButFull.Content = LanguagesList[29];
+         }
+
+
+         Application.Current.MainWindow.WindowState = WindowState.Maximized;
+         Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+         Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+         
+
+
       }
       private void ButCont_Unchecked(object sender, RoutedEventArgs e)
       {
-         ButCont.Content = LanguagesList[23];
-         GameDataManager.KeyboardMode = 1;
-         choixController = false;
          
+         GameDataManager.KeyboardMode = 0;
+         ManageSettings();
+
       }
       private void ButCont_Checked(object sender, RoutedEventArgs e)
       {
-         ButCont.Content = LanguagesList[22];
-         GameDataManager.KeyboardMode = 0;
+         
+         GameDataManager.KeyboardMode = 1;
          GameDataManager.FirstFile = false;
-         choixController = true;
+         ManageSettings();
+
       }
 
       // Languages
@@ -227,8 +249,17 @@ namespace Launching_Interface
 
       void ManageSettings()
       {
-         Lang.Text = LanguagesList[31]; RBan.Content = LanguagesList[15]; RBfr.Content = LanguagesList[14];
-         RBes.Content = LanguagesList[16]; RBjp.Content = LanguagesList[17];
+         ManageLanguages();
+         ManageFPS();
+         ManageRenderDistance();
+
+         Lang.Text = LanguagesList[31];
+
+         RBan.Content = LanguagesList[15];
+         RBfr.Content = LanguagesList[14];
+         RBes.Content = LanguagesList[16];
+         RBjp.Content = LanguagesList[17];
+
          SEff.Text = LanguagesList[13];
          GMus.Text = LanguagesList[12];
 
@@ -241,32 +272,66 @@ namespace Launching_Interface
          Inp.Text = LanguagesList[21];
          Full.Text = LanguagesList[20];
 
-         if (choixFullscreen == true)
+         if (GameDataManager.FullscreenMode == 1)
          {
             ButFull.Content = LanguagesList[29];
+            ButFull.IsChecked = true;
          }
-         else if (choixFullscreen == false)
+         else if (GameDataManager.FullscreenMode == 0)
          {
             ButFull.Content = LanguagesList[30];
+            ButFull.IsChecked = false;
          }
 
-         if (choixController == true)
+         if (GameDataManager.KeyboardMode == 1)
          {
             ButCont.Content = LanguagesList[22];
+            ButCont.IsChecked = true;
          }
-         else if (choixController == false)
+         else if (GameDataManager.KeyboardMode == 0)
          {
             ButCont.Content = LanguagesList[23];
+            ButCont.IsChecked = false;
          }
+
+         
 
       }
 
       void ManageLanguages()
       {
-         if (GameDataManager.Language == 0) { LanguagesList = GameDataManager.FrenchList; }
-         if (GameDataManager.Language == 1) { LanguagesList = GameDataManager.EnglishList; }
-         if (GameDataManager.Language == 2) { LanguagesList = GameDataManager.SpanishList; }
-         if (GameDataManager.Language == 3) { LanguagesList = GameDataManager.JapaneseList; }
+         if (GameDataManager.Language == 0)
+         {
+            LanguagesList = GameDataManager.FrenchList;
+            RBfr.IsChecked = true;
+            RBan.IsChecked = false;
+            RBes.IsChecked = false;
+            RBjp.IsChecked = false;
+         }
+         if (GameDataManager.Language == 1)
+         {
+            LanguagesList = GameDataManager.EnglishList;
+            RBfr.IsChecked = false;
+            RBan.IsChecked = true;
+            RBes.IsChecked = false;
+            RBjp.IsChecked = false;
+         }
+         if (GameDataManager.Language == 2)
+         {
+            LanguagesList = GameDataManager.SpanishList;
+            RBfr.IsChecked = false;
+            RBan.IsChecked = false;
+            RBes.IsChecked = true;
+            RBjp.IsChecked = false;
+         }
+         if (GameDataManager.Language == 3)
+         {
+            LanguagesList = GameDataManager.JapaneseList;
+            RBfr.IsChecked = false;
+            RBan.IsChecked = false;
+            RBes.IsChecked = false;
+            RBjp.IsChecked = true;
+         }
       }
 
       #endregion
@@ -349,8 +414,12 @@ namespace Launching_Interface
       private void ResetButton_Click(object sender, RoutedEventArgs e)
       {
          GameDataManager.FirstFile = true;
-         GameDataManager.BasicSettings();         
+         GameDataManager.BasicSettings();
+         ManageSettings();
+
       }
+
+      
 
    }
 }

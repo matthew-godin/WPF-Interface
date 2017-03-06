@@ -37,7 +37,7 @@
                 <TextBox Name="soundvalue" Text="  0  " IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="White" FontWeight="Bold" Margin="120,4,50,50" BorderThickness="1.5" Height="21"/>
             </Viewbox>
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <TextBox Name="rdvalue" Text="1000" IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="White" FontWeight="Bold" Margin="120,4,40,50" BorderThickness="1.5" Height="21"/>
+                <TextBox Name="rdvalue" Text="500" IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="White" FontWeight="Bold" Margin="120,4,40,50" BorderThickness="1.5" Height="21"/>
             </Viewbox>
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <TextBox Name="musicvalue" Text="  0  " IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="White" FontWeight="Bold" Margin="120,4,50,50" BorderThickness="1.5" Height="21" TextChanged="musicvalue_TextChanged"/>
@@ -89,10 +89,10 @@
 
 
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Slider  Name="GameMusicSlider" Maximum="100" Minimum="00" Width="130" ValueChanged="GameMusicSlider_ValueChanged" Margin ="10,10,103,65" />
+                <Slider  Name="GameMusicSlider" Maximum="100" Minimum="00" Width="130" ValueChanged="GameMusicSlider_ValueChanged" Margin ="10,10,103,65" Value="50" />
             </Viewbox>
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Slider  Name="SoundEffectsSlider" Maximum="100" Minimum="0" Width="130" ValueChanged="SoundEffectsSlider_ValueChanged" Margin ="10,10,103,65" />
+                <Slider  Name="SoundEffectsSlider" Maximum="100" Minimum="0" Width="130" ValueChanged="SoundEffectsSlider_ValueChanged" Margin ="10,10,103,65" Value="50" />
             </Viewbox>
 
 
@@ -110,10 +110,10 @@
 
 
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Slider  Name="RDistanceSlider" Maximum="10" Minimum="0" Width="130" ValueChanged="RDistanceSlider_ValueChanged" Margin ="10,10,103,65" TickPlacement="BottomRight" TickFrequency="1.25" IsSnapToTickEnabled="True" FontWeight="DemiBold" />
+                <Slider  Name="RDistanceSlider" Value="3.75" Maximum="10" Minimum="0" Width="130" ValueChanged="RDistanceSlider_ValueChanged" Margin ="10,10,103,65" TickPlacement="BottomRight" TickFrequency="1.25" IsSnapToTickEnabled="True" FontWeight="DemiBold" />
             </Viewbox>
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Slider  Name="PerformanceSlider" Value="0" Maximum="10" Minimum="0" Width="130" ValueChanged="PerformanceSlider_ValueChanged" Margin ="10,10,103,65" TickPlacement="BottomRight" TickFrequency="3.3333333333" IsSnapToTickEnabled="True" FontWeight="DemiBold"/>
+                <Slider  Name="PerformanceSlider" Value="3.3" Maximum="10" Minimum="0" Width="130" ValueChanged="PerformanceSlider_ValueChanged" Margin ="10,10,103,65" TickPlacement="BottomRight" TickFrequency="3.3333333333" IsSnapToTickEnabled="True" FontWeight="DemiBold" />
             </Viewbox>
 
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

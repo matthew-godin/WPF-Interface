@@ -8,16 +8,19 @@
          d:DesignHeight="600" d:DesignWidth="800"
          Title="StartPage">
     <Grid>
+
         <Image Source="Pictures/chateau.png" Stretch="Fill" VerticalAlignment="Stretch" Margin="0"/>
-        <Grid Name="DisplaySP" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
-            
+        <Viewbox Stretch="Fill" Width="auto" Height="auto">
+            <TextBox Text="Hyper" BorderThickness="0" Margin="10,10,10,10" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" HorizontalAlignment="Stretch" Width="auto" VerticalAlignment="Stretch" Opacity="0.9"/>
+        </Viewbox>
+        <Grid Name="DisplaySP" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" >
+
+
+
+
         
-
-            <Viewbox Stretch="Fill" Width="auto" Height="auto">
-                <TextBox Text="Hyper" BorderThickness="0" Margin="10,10,10,10" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" HorizontalAlignment="Stretch" Width="auto" VerticalAlignment="Stretch" Opacity="0.9"/>
-            </Viewbox>
-            <Button Name="Principal" Background="Transparent"  Width="auto" Height="auto" Foreground="White" VerticalAlignment="Stretch" BorderThickness="0" HorizontalAlignment="Stretch" Click="Principal_Click" Margin="0"/>
-
+        <Button Name="Principal" Background="Transparent"  Width="auto" Height="auto" Foreground="White" VerticalAlignment="Stretch" BorderThickness="0" HorizontalAlignment="Stretch" Click="Principal_Click" Margin="0"/>
+            
 
         </Grid>
     </Grid>

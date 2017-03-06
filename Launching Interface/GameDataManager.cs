@@ -40,7 +40,7 @@ namespace Launching_Interface
 
       static GameDataManager()
       {
-         FirstFile = true;
+         
 
          FrenchList = new List<string>();
          EnglishList  = new List<string>();
@@ -57,8 +57,11 @@ namespace Launching_Interface
          if (File.Exists("../../Languages/toMenu.txt"))
          {
             FirstFile = false;
-            ReadFile("toMenu.txt");
-            
+            ReadFile("toMenu.txt");           
+         }
+         else
+         {
+            FirstFile = true;
          }
          
 
@@ -140,5 +143,8 @@ namespace Launching_Interface
          NbLevelxCompletes = InfoReceivedList[7];
          Temps = new TimeSpan(InfoReceivedList[8],InfoReceivedList[9],0);
       }
+
+
+
    }
 }
