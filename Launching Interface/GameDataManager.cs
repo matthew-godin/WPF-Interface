@@ -63,8 +63,7 @@ namespace Launching_Interface
          {
             FirstFile = true;
          }
-         
-
+        
          SelectSettings();
       }
 
@@ -134,8 +133,8 @@ namespace Launching_Interface
       static void ModifiedSettings()
       {
          Language = InfoReceivedList[0];
-         RenderDistance = InfoReceivedList[1];
-         Fps = InfoReceivedList[2];
+         RenderDistance = InfoReceivedList[2];
+         Fps = InfoReceivedList[1];
          MusicVolume = InfoReceivedList[3];
          SoundEffectVolume = InfoReceivedList[4];
          FullscreenMode = InfoReceivedList[5];
@@ -143,8 +142,5 @@ namespace Launching_Interface
          NbLevelxCompletes = InfoReceivedList[7];
          Temps = new TimeSpan(InfoReceivedList[8],InfoReceivedList[9],0);
       }
-
-
-
    }
 }

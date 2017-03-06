@@ -113,7 +113,7 @@
                 <Slider  Name="RDistanceSlider" Value="3.75" Maximum="10" Minimum="0" Width="130" ValueChanged="RDistanceSlider_ValueChanged" Margin ="10,10,103,65" TickPlacement="BottomRight" TickFrequency="1.25" IsSnapToTickEnabled="True" FontWeight="DemiBold" />
             </Viewbox>
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Slider  Name="PerformanceSlider" Value="3.3" Maximum="10" Minimum="0" Width="130" ValueChanged="PerformanceSlider_ValueChanged" Margin ="10,10,103,65" TickPlacement="BottomRight" TickFrequency="3.3333333333" IsSnapToTickEnabled="True" FontWeight="DemiBold" />
+                <Slider  Name="PerformanceSlider" Maximum="10" Minimum="0" Width="130" ValueChanged="PerformanceSlider_ValueChanged" Margin ="10,10,103,65" TickPlacement="BottomRight" TickFrequency="3.3333333333" IsSnapToTickEnabled="True" FontWeight="DemiBold" />
             </Viewbox>
 
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
