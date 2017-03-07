@@ -54,7 +54,7 @@
                 <TextBox Name="Resettext2" Text="       Reset       " BorderThickness="0" IsHitTestVisible="False" Margin="36,64,126,48"  Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" Height="16" MinHeight="16"/>
             </Viewbox>
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                <Button Name="ResetButton" Content="                     " FontWeight="DemiBold" Margin="13,40,85,29" ClickMode="Press" Background="Transparent" Click="ResetButton_Click" BorderThickness="1" Foreground="White" BorderBrush="White"  />
+                <Button Name="ResetButton" Content="                     " FontWeight="DemiBold" Margin="13,40,85,29" ClickMode="Press" Background="Transparent" Click="ResetButton_Click" BorderThickness="1" Foreground="White" BorderBrush="White" RenderTransformOrigin="0.587,0.973"  />
             </Viewbox>
 
 
@@ -89,10 +89,10 @@
 
 
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Slider  Name="GameMusicSlider" Maximum="100" Minimum="00" Width="130" ValueChanged="GameMusicSlider_ValueChanged" Margin ="10,10,103,65" Value="50" />
+                <Slider  Name="GameMusicSlider" Maximum="100" Minimum="00" Width="130" ValueChanged="GameMusicSlider_ValueChanged" Margin ="10,10,103,65"  />
             </Viewbox>
             <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Slider  Name="SoundEffectsSlider" Maximum="100" Minimum="0" Width="130" ValueChanged="SoundEffectsSlider_ValueChanged" Margin ="10,10,103,65" Value="50" />
+                <Slider  Name="SoundEffectsSlider" Maximum="100" Minimum="0" Width="130" ValueChanged="SoundEffectsSlider_ValueChanged" Margin ="10,10,103,65"  />
             </Viewbox>
 
 
