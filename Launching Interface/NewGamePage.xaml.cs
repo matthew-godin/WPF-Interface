@@ -31,7 +31,7 @@ namespace Launching_Interface
             if (GameDataManager.Language == 1) { LanguagesLoadPage = GameDataManager.EnglishList; }
             if (GameDataManager.Language == 2) { LanguagesLoadPage = GameDataManager.SpanishList; }
             if (GameDataManager.Language == 3) { LanguagesLoadPage = GameDataManager.JapaneseList; }
-            tbtitle.Text = LanguagesLoadPage[32];
+            tbtitle.Text = LanguagesLoadPage[1];
             BackButton.Text = LanguagesLoadPage[0];
         }
 

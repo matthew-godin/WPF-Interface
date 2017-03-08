@@ -25,6 +25,7 @@ namespace Launching_Interface
       List<string> LanguagesMainPage { get; set; }
       public MainPage()
       {
+        
          LanguagesMainPage = new List<string>();
          InitializeComponent();
          if (GameDataManager.Language == 0) { LanguagesMainPage = GameDataManager.FrenchList; }
@@ -37,6 +38,7 @@ namespace Launching_Interface
          se.Text = LanguagesMainPage[11];
          cr.Text = LanguagesMainPage[24];
          hi.Text = LanguagesMainPage[28];
+         exit.Text = LanguagesMainPage[34];
 
 
          if(GameDataManager.FullscreenMode == 1)
@@ -76,9 +78,12 @@ namespace Launching_Interface
 
       private void Highscores_Click(object sender, RoutedEventArgs e)
       {
-         NavigationService.Navigate(new Uri("HighscoresPage.xaml", UriKind.Relative));
+         // NavigationService.Navigate(new Uri("HighscoresPage.xaml", UriKind.Relative));     TO PUT BACK
       }
 
-
+      private void Quit_Click(object sender, RoutedEventArgs e)
+      {
+         Application.Current.Shutdown();
+      }
    }
 }
