@@ -23,13 +23,13 @@ namespace Launching_Interface
         public MainWindow()
         {
             InitializeComponent();
-         //MainFrame.Navigate(new MainPage());
-         MainFrame.Navigate(new StartPage());
+            MainFrame.Navigate(new MainPage());
       }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)
         {
             MainFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
+         
         }
     }
 }

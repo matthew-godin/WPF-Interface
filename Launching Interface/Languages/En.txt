@@ -32,3 +32,4 @@ Off
 Language
    Load Game   
   Reset
+Exit Game
