@@ -42,8 +42,6 @@ namespace Launching_Interface
 
       static GameDataManager()
       {
-         
-
          FrenchList = new List<string>();
          EnglishList  = new List<string>();
          SpanishList = new List<string>();

@@ -33,3 +33,4 @@ Language
    Load Game   
   Reset
 Exit Game
+  Pause
