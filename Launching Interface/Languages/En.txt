@@ -33,4 +33,6 @@ Language
    Load Game   
   Reset
 Exit Game
-  Pause
+Pause
+Menu
+Save

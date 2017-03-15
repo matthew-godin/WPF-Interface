@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 
 
@@ -23,6 +24,7 @@ namespace Launching_Interface
    /// </summary>
    public partial class InGameMenu : Page
    {
+      bool IsFirstTime { get; set; }
       List<string> LanguagesList { get; set; }
       List<int> DataListToSend { get; set; }
       
@@ -33,12 +35,15 @@ namespace Launching_Interface
       {
 
 
-
+         IsFirstTime = true;
          LanguagesList = new List<string>();
          DataListToSend = new List<int>();
 
          AssociateDataToSend();
+
          InitializeComponent();
+
+       //  GoodScreenshot();          À REMETTRE
 
          ManageFPS();
          GameDataManager.AAAA = true;
@@ -92,6 +97,8 @@ namespace Launching_Interface
 
          Application.Current.Shutdown();
       }
+
+
 
       private void MusicVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
       {
@@ -262,31 +269,33 @@ namespace Launching_Interface
             ButFull.Content = LanguagesList[29];
          }
 
-
-         Application.Current.MainWindow.WindowState = WindowState.Maximized;
-         Application.Current.MainWindow.WindowStyle = WindowStyle.None;
-         Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
-         //Application.Current.MainWindow.Left = 0;
-         //Application.Current.MainWindow.Top = 0;
-         //Application.Current.MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-         //Application.Current.MainWindow.Width = SystemParameters.VirtualScreenWidth;
-         //Application.Current.MainWindow.Height = SystemParameters.VirtualScreenHeight;
-         //Application.Current.MainWindow.Topmost = true;
-
-
-
-
-
+         if(IsFirstTime == true)
+         {
+            IsFirstTime = false;
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+            Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+         }
+         else
+         {
+            Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+            Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+            Application.Current.MainWindow.Left = 0;
+            Application.Current.MainWindow.Top = 0;
+            Application.Current.MainWindow.Width = SystemParameters.VirtualScreenWidth;
+            Application.Current.MainWindow.Height = SystemParameters.VirtualScreenHeight;
+            Application.Current.MainWindow.Topmost = true;
+         }
       }
       private void ButCont_Unchecked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.KeyboardMode = 0;
+         GameDataManager.KeyboardMode = 1;
+         
          ManageSettings();
       }
       private void ButCont_Checked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.KeyboardMode = 1;
+         GameDataManager.KeyboardMode = 0;
          GameDataManager.FirstFile = false;
          ManageSettings();
       }
@@ -344,6 +353,12 @@ namespace Launching_Interface
          Inp.Text = LanguagesList[21];
          Full.Text = LanguagesList[20];
 
+         saveText.Text = LanguagesList[37];
+         if (GameDataManager.Language == 0) { saveText.Margin = new Thickness(29, 60, 118, 48); }
+         else { saveText.Margin = new Thickness(40,64,118,48); }
+
+         menuText.Text = LanguagesList[36];
+
          if (GameDataManager.FullscreenMode == 1)
          {
             ButFull.Content = LanguagesList[29];
@@ -357,17 +372,16 @@ namespace Launching_Interface
 
          if (GameDataManager.KeyboardMode == 1)
          {
-            ButCont.Content = LanguagesList[22];
-            ButCont.IsChecked = true;
+            ButCont.Content = LanguagesList[23];
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
+            ButCont.IsChecked = false;
          }
          else if (GameDataManager.KeyboardMode == 0)
          {
-            ButCont.Content = LanguagesList[23];
-            ButCont.IsChecked = false;
+            ButCont.Content = LanguagesList[22];
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
+            ButCont.IsChecked = true;
          }
-
-
-
       }
 
       void ManageLanguages()
@@ -499,7 +513,39 @@ namespace Launching_Interface
 
       private void MenuButton_Click(object sender, RoutedEventArgs e)
       {
+         StreamWriter writer = new StreamWriter("../../Saves/save.txt");
+         writer.WriteLine();
+         writer.WriteLine("false");
          this.NavigationService.Navigate(new MainPage());
+      }
+
+      void GoodScreenshot()
+      {
+         string nameImage = "";
+
+         StreamReader dataReader = new StreamReader("../../Saves/save.txt");
+         while (!dataReader.EndOfStream)
+         {
+            switch (dataReader.ReadLine())
+            {
+               case "0":
+                  nameImage = "screenshot0.png";
+                  break;
+               case "1":
+                  nameImage = "screenshot1.png";
+                  break;
+               case "2":
+                  nameImage = "screenshot2.png";
+                  break;
+            }
+         }
+         dataReader.Close();
+         ImageFond.Source = new BitmapImage(new Uri(@"/Pictures/Saves/" + nameImage, UriKind.Relative));
+      }
+
+      private void saveButton_Click(object sender, RoutedEventArgs e)
+      {
+
       }
    }
 }

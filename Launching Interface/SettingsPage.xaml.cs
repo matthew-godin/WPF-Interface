@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Launching_Interface
 {
    /// <summary>
@@ -71,7 +72,7 @@ namespace Launching_Interface
          }
       }
 
-      private void BackButton_Click(object sender, RoutedEventArgs e)
+      public void BackButton_Click(object sender, RoutedEventArgs e)
       {
          this.NavigationService.Navigate(new MainPage());
 
@@ -465,6 +466,7 @@ namespace Launching_Interface
          double value = slider.Value;
          GameDataManager.SoundEffectVolume = (int)Math.Round(value, 0);
          soundvalue.Text = GameDataManager.SoundEffectVolume.ToString();
+         
       }
 
       private void ResetButton_Click(object sender, RoutedEventArgs e)

@@ -8,7 +8,7 @@
         d:DesignHeight="600" d:DesignWidth="800"
         Title="InGameMenu" >
     <Grid>
-        <Image Source="Pictures/SavesScreenshots/save0.bmp" Stretch="Fill" Margin="4">
+        <Image Source="Pictures/SavesScreenshots/save0.bmp" Stretch="Fill" Margin="4" Name="ImageFond">
             <Image.Effect>
                 <BlurEffect/>
             </Image.Effect>
@@ -44,7 +44,7 @@
                     <ColumnDefinition Width="25*"/>
                 </Grid.ColumnDefinitions>
                 <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch">
-                    <TextBox Name="TitleSett" Text="Settings" BorderThickness="0" IsHitTestVisible="False" Margin="-25,11,40,11" MinHeight="15" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" HorizontalAlignment="Stretch" Width="auto" Height="17" TextChanged="TitleSett_TextChanged"/>
+                    <TextBox Name="TitleSett" Text="Pause" BorderThickness="0" IsHitTestVisible="False" Margin="-17,11,40,11" MinHeight="15" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" HorizontalAlignment="Stretch" Width="auto" Height="17" TextChanged="TitleSett_TextChanged"/>
                 </Viewbox>
                 <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <TextBox Name="perfValue" Text="60 FPS" IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="White" FontWeight="Bold" Margin="125,4,30,10" BorderThickness="1.5" Height="21" TextChanged="perfovalue_TextChanged"/>
@@ -66,17 +66,23 @@
                 <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <TextBox Name="Backtext" Text="       Back        " BorderThickness="0" IsHitTestVisible="False" Margin="28,19,113,88"  Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" Height="16" MinHeight="16"/>
                 </Viewbox>
-                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <TextBox Name="Resettext2" Text="       Reset       " BorderThickness="0" IsHitTestVisible="False" Margin="36,64,126,48"  Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" Height="16" MinHeight="16"/>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBox Name="Resettext2" Text="       Reset       " BorderThickness="0" IsHitTestVisible="False" Margin="113,19,28,88"  Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" Height="16" MinHeight="16"/>
                 </Viewbox>
-                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <Button Name="ResetButton" Content="                     " FontWeight="DemiBold" Margin="13,40,85,29" ClickMode="Press" Background="Transparent" Click="ResetButton_Click" BorderThickness="1" Foreground="White" BorderBrush="White"  />
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Button Name="ResetButton" Content="                     " FontWeight="DemiBold" Margin="85,10,13,58" ClickMode="Press" Background="Transparent" Click="ResetButton_Click" BorderThickness="1" Foreground="White" BorderBrush="White"  />
                 </Viewbox>
                 <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <Button Name="MenuButton" Content="                     " FontWeight="DemiBold" Margin="13,75,85,0" ClickMode="Press" Background="Transparent" Click="MenuButton_Click" BorderThickness="1" Foreground="White" BorderBrush="White"   />
                 </Viewbox>
                 <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <TextBox Name="menuText" Text="       Menu       " BorderThickness="0" IsHitTestVisible="False" Margin="36,115,126,6"  Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" Height="16" MinHeight="16"/>
+                    <TextBox Name="menuText" Text="Menu"  BorderThickness="0" IsHitTestVisible="False" Margin="45,108,133,6"  Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" Height="16" MinHeight="16"/>
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Button Name="saveButton" Content="                     " FontWeight="DemiBold" Margin="13,40,85,29" ClickMode="Press" Background="Transparent" Click="saveButton_Click"  BorderThickness="1" Foreground="White" BorderBrush="White"   />
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBox Name="saveText" Text="Save"  BorderThickness="0" IsHitTestVisible="False" Margin="40,64,118,48"  Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="SemiBold" Height="16" MinHeight="16"/>
                 </Viewbox>
 
 
@@ -144,6 +150,21 @@
                 <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="3" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <RadioButton Name="RBjp" Content="日本語" Margin ="5,27,103,-9" Foreground="White"  Checked="RBjp_Checked" GroupName="Group2" FontWeight="DemiBold" Height="16"/>
                 </Viewbox>
+
+
+
+
+
+
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="2" Grid.Row="7" VerticalAlignment="Stretch">
+                    <Image Source="Pictures/Instructions/Controller2Sides.png" Stretch="Fill" Margin="-1700,-1000,660,0" Name="ImageInstructions" />
+                </Viewbox>
+                
+                                
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="2" Grid.Row="7" VerticalAlignment="Stretch">
+                    <Image Source="Pictures/Instructions/KeyboardKeys/WASD.png" Stretch="Fill" Margin="-1700,-1000,660,0" Name="wasd" />
+                </Viewbox>
+
 
             </Grid>
         </Grid>

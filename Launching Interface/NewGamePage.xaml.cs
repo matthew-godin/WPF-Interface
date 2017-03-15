@@ -47,8 +47,15 @@ namespace Launching_Interface
             ProcessStartInfo p = new ProcessStartInfo();
             p.FileName = path;
             p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
-            Process.Start(p);
+         Process.Start(p);
+
+
+
+
             Application.Current.Shutdown();
+
+
+
         }
 
         void CreateSave(string saveNumber)
@@ -63,7 +70,8 @@ namespace Launching_Interface
             writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
             writer.Close();
             writer = new StreamWriter("../../Saves/save.txt");
-            writer.WriteLine(saveNumber);
+         writer.WriteLine(saveNumber);
+         writer.WriteLine("true");
             writer.Close();
         }
 
