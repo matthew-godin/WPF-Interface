@@ -10,82 +10,94 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.IO;
+using System.Resources;
+using System.Reflection;
 
 namespace Launching_Interface
 {
+
    /// <summary>
-   /// Interaction logic for SettingsPage.xaml
+   /// Logic for InGameMenu
    /// </summary>
-
-   public partial class SettingsPage : Page
+   public partial class InGameMenu : Page
    {
+      bool IsFirstTime { get; set; }
       List<string> LanguagesList { get; set; }
-      List<int> ListeInfosÀEnvoyer { get; set; }
-
-      int LanguageOficielle { get; set; }
-
+      List<int> DataListToSend { get; set; }
+      
       
 
-      public SettingsPage()
+      int LanguageIndex { get; set; }
+      public InGameMenu()
       {
-         LanguagesList = new List<string>();
-         ListeInfosÀEnvoyer = new List<int>();
 
-         AssocierListeEnvoyer();
+
+         IsFirstTime = true;
+         LanguagesList = new List<string>();
+         DataListToSend = new List<int>();
+
+         AssociateDataToSend();
+
          InitializeComponent();
+
+         GoodScreenshot();
 
          ManageFPS();
          GameDataManager.AAAA = true;
          ManageLanguages();
          ManageRenderDistance();
-         ManageSound();          
+         ManageSound();
 
          ManageSettings();
+
       }
 
-      void AssocierListeEnvoyer()
+      void AssociateDataToSend()
       {
 
          if (GameDataManager.FirstFile == true)
          {
-            ListeInfosÀEnvoyer.Add(GameDataManager.Language);
-            ListeInfosÀEnvoyer.Add(GameDataManager.Fps);
-            ListeInfosÀEnvoyer.Add(GameDataManager.RenderDistance);
-            ListeInfosÀEnvoyer.Add(GameDataManager.MusicVolume);
-            ListeInfosÀEnvoyer.Add(GameDataManager.SoundEffectVolume);
-            ListeInfosÀEnvoyer.Add(GameDataManager.FullscreenMode);
-            ListeInfosÀEnvoyer.Add(GameDataManager.KeyboardMode);
+            DataListToSend.Add(GameDataManager.Language);
+            DataListToSend.Add(GameDataManager.Fps);
+            DataListToSend.Add(GameDataManager.RenderDistance);
+            DataListToSend.Add(GameDataManager.MusicVolume);
+            DataListToSend.Add(GameDataManager.SoundEffectVolume);
+            DataListToSend.Add(GameDataManager.FullscreenMode);
+            DataListToSend.Add(GameDataManager.KeyboardMode);
          }
          else
          {
-            ListeInfosÀEnvoyer = GameDataManager.ListeInfosRecus;
-            ListeInfosÀEnvoyer[0] = GameDataManager.Language;
-            ListeInfosÀEnvoyer[1] = GameDataManager.Fps;
-            ListeInfosÀEnvoyer[2] = GameDataManager.RenderDistance;
-            ListeInfosÀEnvoyer[3] = GameDataManager.MusicVolume;
-            ListeInfosÀEnvoyer[4] = GameDataManager.SoundEffectVolume;
-            ListeInfosÀEnvoyer[5] = GameDataManager.FullscreenMode;
-            ListeInfosÀEnvoyer[6] = GameDataManager.KeyboardMode;
+            DataListToSend = GameDataManager.ListeInfosRecus;
+            DataListToSend[0] = GameDataManager.Language;
+            DataListToSend[1] = GameDataManager.Fps;
+            DataListToSend[2] = GameDataManager.RenderDistance;
+            DataListToSend[3] = GameDataManager.MusicVolume;
+            DataListToSend[4] = GameDataManager.SoundEffectVolume;
+            DataListToSend[5] = GameDataManager.FullscreenMode;
+            DataListToSend[6] = GameDataManager.KeyboardMode;
          }
       }
 
-      public void BackButton_Click(object sender, RoutedEventArgs e)
+      private void BackButton_Click(object sender, RoutedEventArgs e)
       {
-         this.NavigationService.Navigate(new MainPage());
+         // this.NavigationService.Navigate(new MainPage());
 
-         ListeInfosÀEnvoyer[0] = GameDataManager.Language;
-         ListeInfosÀEnvoyer[1] = GameDataManager.Fps;
-         ListeInfosÀEnvoyer[2] = GameDataManager.RenderDistance;
-         ListeInfosÀEnvoyer[3] = GameDataManager.MusicVolume;
-         ListeInfosÀEnvoyer[4] = GameDataManager.SoundEffectVolume;
-         ListeInfosÀEnvoyer[5] = GameDataManager.FullscreenMode;
-         ListeInfosÀEnvoyer[6] = GameDataManager.KeyboardMode;
+         DataListToSend[0] = GameDataManager.Language;
+         DataListToSend[1] = GameDataManager.Fps;
+         DataListToSend[2] = GameDataManager.RenderDistance;
+         DataListToSend[3] = GameDataManager.MusicVolume;
+         DataListToSend[4] = GameDataManager.SoundEffectVolume;
+         DataListToSend[5] = GameDataManager.FullscreenMode;
+         DataListToSend[6] = GameDataManager.KeyboardMode;
 
-         GameDataManager.ÉcrireFichier(ListeInfosÀEnvoyer);
+         GameDataManager.ÉcrireFichier(DataListToSend);
+
+         Application.Current.Shutdown();
       }
+
+
 
       private void MusicVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
       {
@@ -105,12 +117,12 @@ namespace Launching_Interface
       private void RDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) // Render Distance
       {
          double value = 0;
-         if(GameDataManager.AAAA == true)
+         if (GameDataManager.AAAA == true)
          {
             GameDataManager.AAAA = false;
-            switch(GameDataManager.RenderDistance)
+            switch (GameDataManager.RenderDistance)
             {
-               case 10 :
+               case 10:
                   value = 0;
                   break;
                case 50:
@@ -137,7 +149,7 @@ namespace Launching_Interface
                case 100000:
                   value = 10;
                   break;
-            }       
+            }
          }
          else
          {
@@ -197,7 +209,7 @@ namespace Launching_Interface
             }
          }
          rdvalue.Text = GameDataManager.RenderDistance.ToString();
-        
+
       }
       private void PerformanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
       {
@@ -240,11 +252,10 @@ namespace Launching_Interface
 
          Application.Current.MainWindow.WindowState = WindowState.Normal;
          Application.Current.MainWindow.WindowStyle = WindowStyle.SingleBorderWindow;
-         Application.Current.MainWindow.ResizeMode  = ResizeMode.CanResize;
+         Application.Current.MainWindow.ResizeMode = ResizeMode.CanResize;
       }
       private void ButFull_Checked(object sender, RoutedEventArgs e)
       {
-         
          GameDataManager.FullscreenMode = 1;
          GameDataManager.FirstFile = false;
 
@@ -257,31 +268,33 @@ namespace Launching_Interface
             ButFull.Content = LanguagesList[29];
          }
 
-
-         //Application.Current.MainWindow.WindowState = WindowState.Maximized;
-         //Application.Current.MainWindow.WindowStyle = WindowStyle.None;
-         //Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
-
-         Application.Current.MainWindow.WindowStyle = WindowStyle.None;
-         Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
-         Application.Current.MainWindow.Left = 0;
-         Application.Current.MainWindow.Top = 0;
-         Application.Current.MainWindow.Width = SystemParameters.VirtualScreenWidth;
-         Application.Current.MainWindow.Height = SystemParameters.VirtualScreenHeight;
-         Application.Current.MainWindow.Topmost = true;
-
-
-
-
+         if(IsFirstTime == true)
+         {
+            IsFirstTime = false;
+            Application.Current.MainWindow.WindowState = WindowState.Maximized;
+            Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+            Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+         }
+         else
+         {
+            Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+            Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+            Application.Current.MainWindow.Left = 0;
+            Application.Current.MainWindow.Top = 0;
+            Application.Current.MainWindow.Width = SystemParameters.VirtualScreenWidth;
+            Application.Current.MainWindow.Height = SystemParameters.VirtualScreenHeight;
+            Application.Current.MainWindow.Topmost = true;
+         }
       }
       private void ButCont_Unchecked(object sender, RoutedEventArgs e)
-      {    
-         GameDataManager.KeyboardMode = 0;
+      {
+         GameDataManager.KeyboardMode = 1;
+         
          ManageSettings();
       }
       private void ButCont_Checked(object sender, RoutedEventArgs e)
-      {        
-         GameDataManager.KeyboardMode = 1;
+      {
+         GameDataManager.KeyboardMode = 0;
          GameDataManager.FirstFile = false;
          ManageSettings();
       }
@@ -330,7 +343,7 @@ namespace Launching_Interface
          SEff.Text = LanguagesList[13];
          GMus.Text = LanguagesList[12];
 
-         TitleSett.Text = LanguagesList[11];
+         TitleSett.Text = LanguagesList[35];
          Backtext.Text = LanguagesList[0];
          Resettext2.Text = LanguagesList[33];
 
@@ -338,6 +351,12 @@ namespace Launching_Interface
          Perfo.Text = LanguagesList[19];
          Inp.Text = LanguagesList[21];
          Full.Text = LanguagesList[20];
+
+         saveText.Text = LanguagesList[37];
+         if (GameDataManager.Language == 0) { saveText.Margin = new Thickness(29, 60, 118, 48); }
+         else { saveText.Margin = new Thickness(40,64,118,48); }
+
+         menuText.Text = LanguagesList[36];
 
          if (GameDataManager.FullscreenMode == 1)
          {
@@ -352,17 +371,16 @@ namespace Launching_Interface
 
          if (GameDataManager.KeyboardMode == 1)
          {
-            ButCont.Content = LanguagesList[22];
-            ButCont.IsChecked = true;
+            ButCont.Content = LanguagesList[23];
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
+            ButCont.IsChecked = false;
          }
          else if (GameDataManager.KeyboardMode == 0)
          {
-            ButCont.Content = LanguagesList[23];
-            ButCont.IsChecked = false;
+            ButCont.Content = LanguagesList[22];
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
+            ButCont.IsChecked = true;
          }
-
-         
-
       }
 
       void ManageLanguages()
@@ -434,17 +452,17 @@ namespace Launching_Interface
          {
             PerformanceSlider.Value = 10;
          }
-         if(PerformanceSlider.Value < 0.2) { perfValue.Text = "30 FPS"; }  // temporaire
+         if (PerformanceSlider.Value < 0.2) { perfValue.Text = "30 FPS"; }  // temporaire
       }
       void ManageRenderDistance()
       {
          int a = 500;
-         if (GameDataManager.RenderDistance == 10)  { a = 10; }
-         if (GameDataManager.RenderDistance == 50)  { a = 50; }
+         if (GameDataManager.RenderDistance == 10) { a = 10; }
+         if (GameDataManager.RenderDistance == 50) { a = 50; }
          if (GameDataManager.RenderDistance == 100) { a = 100; }
          if (GameDataManager.RenderDistance == 500) { a = 500; }
-         if (GameDataManager.RenderDistance == 1000)  { a = 1000; }
-         if (GameDataManager.RenderDistance == 5000)  { a = 5000; }
+         if (GameDataManager.RenderDistance == 1000) { a = 1000; }
+         if (GameDataManager.RenderDistance == 5000) { a = 5000; }
          if (GameDataManager.RenderDistance == 10000) { a = 10000; }
          if (GameDataManager.RenderDistance == 50000) { a = 50000; }
          if (GameDataManager.RenderDistance == 100000) { a = 100000; }
@@ -466,7 +484,6 @@ namespace Launching_Interface
          double value = slider.Value;
          GameDataManager.SoundEffectVolume = (int)Math.Round(value, 0);
          soundvalue.Text = GameDataManager.SoundEffectVolume.ToString();
-         
       }
 
       private void ResetButton_Click(object sender, RoutedEventArgs e)
@@ -491,6 +508,53 @@ namespace Launching_Interface
       {
          GameMusicSlider.Value = GameDataManager.MusicVolume;
          SoundEffectsSlider.Value = GameDataManager.SoundEffectVolume;
+      }
+
+      private void MenuButton_Click(object sender, RoutedEventArgs e)
+      {
+         StreamWriter writer = new StreamWriter("../../Saves/save.txt");
+         writer.WriteLine();
+         writer.WriteLine("false");
+         this.NavigationService.Navigate(new MainPage());
+      }
+
+      void GoodScreenshot()
+      {
+         string nameImage = "";
+
+         StreamReader dataReader = new StreamReader("../../Saves/save.txt");
+         switch (dataReader.ReadLine())
+         {
+               case "0":
+                  nameImage = "screenshot0.png";
+                  break;
+               case "1":
+                  nameImage = "screenshot1.png";
+                  break;
+               case "2":
+                  nameImage = "screenshot2.png";
+                  break;
+         }
+         dataReader.Close();
+            //ImageFond.Source = new BitmapImage(new Uri(@"Pictures/SavesScreenshots/save0.bmp", UriKind.Relative));
+            //ImageFond.Source = new BitmapImage(new Uri(@"../../Saves/" + nameImage, UriKind.Relative));
+
+            //ImageFond = new Image();
+            BitmapImage src = new BitmapImage();
+            src.BeginInit();
+            src.UriSource = new Uri(@"../../Saves/" + nameImage, UriKind.Relative);
+            src.CacheOption = BitmapCacheOption.OnLoad;
+            src.EndInit();
+            ImageFond.Source = src;
+
+            //BitmapImage src = new BitmapImage(new Uri(@"Saves/" + nameImage, UriKind.Relative));
+            //src.CacheOption = BitmapCacheOption.OnLoad;
+            //ImageFond.Source = src;
+        }
+
+      private void saveButton_Click(object sender, RoutedEventArgs e)
+      {
+
       }
    }
 }

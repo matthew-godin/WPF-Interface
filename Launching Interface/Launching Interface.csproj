@@ -86,6 +86,9 @@
       <DependentUpon>HighscoresPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameDataManager.cs" />
+    <Compile Include="InGameMenu.xaml.cs">
+      <DependentUpon>InGameMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="InGameMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewGamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -213,7 +220,39 @@
     <Resource Include="Pictures\CreateJA.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Saves\" />
+    <Folder Include="Pictures\Instructions\GameControllerButtons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\Controller2Sides.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\keyboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\KeyboardKeys\WASD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\KeyboardKeys\KeyboardArrows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\KeyboardKeys\E.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\KeyboardKeys\P.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\KeyboardKeys\Shift.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Instructions\KeyboardKeys\SpaceBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Saves\save.txt" />
+    <Resource Include="Saves\save0.txt" />
+    <Resource Include="Saves\save1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Saves\screenshot0.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
