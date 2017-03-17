@@ -43,7 +43,8 @@ namespace Launching_Interface
         private void Save0Button_Click(object sender, RoutedEventArgs e)
         {
             CreateSave("0");
-            string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            //string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            string path = "C:/Users/Matthew/Source/Repos/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
             ProcessStartInfo p = new ProcessStartInfo();
             p.FileName = path;
             p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
@@ -78,7 +79,8 @@ namespace Launching_Interface
         private void Save1Button_Click(object sender, RoutedEventArgs e)
         {
             CreateSave("1");
-            string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            //string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            string path = "C:/Users/Matthew/Source/Repos/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
             ProcessStartInfo p = new ProcessStartInfo();
             p.FileName = path;
             p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
@@ -89,7 +91,8 @@ namespace Launching_Interface
         private void Save2Button_Click(object sender, RoutedEventArgs e)
         {
             CreateSave("2");
-            string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            //string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+            string path = "C:/Users/Matthew/Source/Repos/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
             ProcessStartInfo p = new ProcessStartInfo();
             p.FileName = path;
             p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
