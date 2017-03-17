@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Resources;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Launching_Interface
 {
@@ -513,12 +514,44 @@ namespace Launching_Interface
       private void MenuButton_Click(object sender, RoutedEventArgs e)
       {
          StreamWriter writer = new StreamWriter("../../Saves/save.txt");
-         writer.WriteLine();
+         writer.WriteLine("0");
          writer.WriteLine("false");
+            writer.Close();
+            KillHyperV();
          this.NavigationService.Navigate(new MainPage());
       }
 
-      void GoodScreenshot()
+        void KillHyperV()
+        {
+            Process[] procs = Process.GetProcessesByName("HyperV");
+            Process hypervProc = procs[0];
+
+            hypervProc.Kill();
+
+            //try
+            //{
+            //    procs = Process.GetProcessesByName("HyperV");
+
+            //    Process hypervProc = procs[0];
+
+            //    if (!hypervProc.HasExited)
+            //    {
+            //        hypervProc.Kill();
+            //    }
+            //}
+            //finally
+            //{
+            //    if (procs != null)
+            //    {
+            //        foreach (Process p in procs)
+            //        {
+            //            p.Dispose();
+            //        }
+            //    }
+            //}
+        }
+
+        void GoodScreenshot()
       {
          string nameImage = "";
 
