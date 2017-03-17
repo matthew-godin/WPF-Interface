@@ -48,15 +48,11 @@ namespace Launching_Interface
             ProcessStartInfo p = new ProcessStartInfo();
             p.FileName = path;
             p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
-         Process.Start(p);
-
-
-
-
+            Process.Start(p);
             Application.Current.Shutdown();
-
-
-
+            //Application.Current.MainWindow.Visibility = Visibility.Collapsed;
+            //Application.Current.MainWindow.ShowInTaskbar = false;
+            //this.NavigationService.Navigate(new InGameMenu());
         }
 
         void CreateSave(string saveNumber)
@@ -65,9 +61,10 @@ namespace Launching_Interface
 
             writer.WriteLine("Level: 0");
             writer.WriteLine("Position: {X:5 Y:5 Z:5}");
-            writer.WriteLine("Language: " + GameDataManager.Language);
-            writer.WriteLine("World: Lobby");
-            writer.WriteLine("Percentage: 0%");
+            writer.WriteLine("Direction: {X:5 Y:5 Z:5}");
+            //writer.WriteLine("Language: " + GameDataManager.Language);
+            //writer.WriteLine("World: Lobby");
+            //writer.WriteLine("Percentage: 0%");
             writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
             writer.Close();
             writer = new StreamWriter("../../Saves/save.txt");

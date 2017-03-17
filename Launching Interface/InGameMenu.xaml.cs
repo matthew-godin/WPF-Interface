@@ -15,6 +15,7 @@ using System.IO;
 using System.Resources;
 using System.Reflection;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Launching_Interface
 {
@@ -95,10 +96,17 @@ namespace Launching_Interface
 
          GameDataManager.ÉcrireFichier(DataListToSend);
 
+            PlaceMouseInTheCenter();
          Application.Current.Shutdown();
       }
 
+        [DllImport("User32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
 
+        void PlaceMouseInTheCenter()
+        {
+            SetCursorPos((int)(((Panel)Application.Current.MainWindow.Content).ActualWidth / 2), (int)(((Panel)Application.Current.MainWindow.Content).ActualHeight / 2));
+        }
 
       private void MusicVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
       {
@@ -511,7 +519,16 @@ namespace Launching_Interface
          SoundEffectsSlider.Value = GameDataManager.SoundEffectVolume;
       }
 
-      private void MenuButton_Click(object sender, RoutedEventArgs e)
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Application.Current.MainWindow.Visibility = Visibility.Visible;
+                Application.Current.MainWindow.ShowInTaskbar = true;
+            }
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
       {
          StreamWriter writer = new StreamWriter("../../Saves/save.txt");
          writer.WriteLine("0");
