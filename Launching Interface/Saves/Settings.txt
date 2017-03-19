@@ -1,5 +1,5 @@
-Music: 100
-Sound: 35
+Music: 50
+Sound: 50
 Language: 1
 Render Distance: 500
 Frame Rate: 60

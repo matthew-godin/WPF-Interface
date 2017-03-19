@@ -214,6 +214,7 @@ namespace Launching_Interface
             //writer.WriteLine("Percentage: 0%");
             writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
             writer.Close();
+            File.Copy("../../Saves/startscreenshot.png", "../../Saves/screenshot" + saveNumber + ".png", true);
         }
 
         private void ManagePause(string saveNumber)

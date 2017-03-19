@@ -615,6 +615,7 @@ namespace Launching_Interface
             //ImageFond.Source = new BitmapImage(new Uri(@"../../Saves/" + nameImage, UriKind.Relative));
 
             //ImageFond = new Image();
+
             BitmapImage src = new BitmapImage();
             src.BeginInit();
             src.UriSource = new Uri(@"../../Saves/pendingscreenshot.png", UriKind.Relative);
