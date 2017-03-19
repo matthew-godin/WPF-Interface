@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace Launching_Interface
@@ -25,7 +27,6 @@ namespace Launching_Interface
       List<string> LanguagesMainPage { get; set; }
       public MainPage()
       {
-        
          LanguagesMainPage = new List<string>();
          InitializeComponent();
          if (GameDataManager.Language == 0) { LanguagesMainPage = GameDataManager.FrenchList; }
@@ -59,22 +60,25 @@ namespace Launching_Interface
       }
       private void LoadGameButton_Click(object sender, RoutedEventArgs e)
       {
-         NavigationService.Navigate(new Uri("LoadGamePage.xaml", UriKind.Relative));
-        
-      }
+            //NavigationService.Navigate(new Uri("LoadGamePage.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new LoadGamePage());
+        }
       private void SettingsButton_Click(object sender, RoutedEventArgs e)
       {
-         NavigationService.Navigate(new Uri("SettingsPage.xaml", UriKind.Relative));
-      }
+            //NavigationService.Navigate(new Uri("SettingsPage.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new SettingsPage());
+        }
       private void NewGameButton_Click(object sender, RoutedEventArgs e)
       {
-         NavigationService.Navigate(new Uri("NewGamePage.xaml", UriKind.Relative));
-      }
+            //NavigationService.Navigate(new Uri("NewGamePage.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new NewGamePage());
+        }
 
       private void CreditsButton_Click(object sender, RoutedEventArgs e)
       {
-         NavigationService.Navigate(new Uri("CreditsPage.xaml", UriKind.Relative));
-      }
+            //NavigationService.Navigate(new Uri("CreditsPage.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new CreditsPage());
+        }
 
       private void Highscores_Click(object sender, RoutedEventArgs e)
       {

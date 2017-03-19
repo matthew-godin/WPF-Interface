@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Create.xaml.cs">
+      <DependentUpon>Create.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreditsPage.xaml.cs">
       <DependentUpon>CreditsPage.xaml</DependentUpon>
     </Compile>
@@ -91,6 +94,9 @@
     <Compile Include="InGameMenu.xaml.cs">
       <DependentUpon>InGameMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Rows.xaml.cs">
+      <DependentUpon>Rows.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -98,6 +104,10 @@
       <DependentUpon>XnaControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="XnaImageSource.cs" />
+    <Page Include="Create.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreditsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewGamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Rows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,7 +268,18 @@
     <Resource Include="Saves\save1.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Saves\screenshot0.png" />
+    <Content Include="Saves\screenshot0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Saves\save2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Saves\screenshot1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Saves\screenshot2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

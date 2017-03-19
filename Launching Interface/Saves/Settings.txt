@@ -1,0 +1,7 @@
+Music: 100
+Sound: 35
+Language: 1
+Render Distance: 500
+Frame Rate: 60
+Fullscreen: 1
+Input: 1
