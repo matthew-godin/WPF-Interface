@@ -31,8 +31,15 @@ On
 Off
 Language
    Load Game   
-  Reset
+Reset
 Exit Game
 Pause
 Menu
 Save
+Run
+Jump
+Move Character
+View direction
+Pick-up
+L
+R

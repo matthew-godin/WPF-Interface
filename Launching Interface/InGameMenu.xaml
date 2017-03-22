@@ -34,7 +34,7 @@
                     <RowDefinition Height="4.7*" />
                     <RowDefinition Height="4.7*" />
                     <RowDefinition Height="4.7*" />
-                    
+
                     <RowDefinition Height="5*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -157,13 +157,59 @@
 
 
                 <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="2" Grid.Row="7" VerticalAlignment="Stretch">
-                    <Image Source="Pictures/Instructions/Controller2Sides.png" Stretch="Fill" Margin="-1700,-1000,660,0" Name="ImageInstructions" />
+                    <Image Source="Pictures/Instructions/keyboard.png" Stretch="Fill" Margin="-1700,-1000,660,0" Name="ImageInstructions" />
+                </Viewbox>
+
+
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="6" VerticalAlignment="Stretch">
+                    <Image Source="Pictures/Instructions/GameControllerButtons/Stick_Xbox.png" Stretch="Fill" Margin="2700,950,5800,-1000" Name="wasd" />
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="7" VerticalAlignment="Stretch" Margin="0,39.4,0,4.6" Grid.RowSpan="2">
+                    <Image Source="Pictures/Instructions/KeyboardKeys/P.png" Stretch="Fill" Margin="165,-200,275,-230" Name="p" />
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch">
+                    <Image Source="Pictures/Instructions/KeyboardKeys/KeyboardArrows.png" Stretch="Fill" Margin="10,-28,400,-278" Name="KeyboardArrows" />
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="8" VerticalAlignment="Stretch">
+                    <Image Source="Pictures/Instructions/GameControllerButtons/X_Xbox.png" Stretch="Fill" Margin="1500,0,3000,100" Name="e" />
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="9" VerticalAlignment="Stretch">
+                    <Image Source="Pictures/Instructions/KeyboardKeys/Shift.png" Stretch="Fill" Margin="166,-235,213,-260" Name="Shift" />
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="8" VerticalAlignment="Stretch" Margin="0,39.4,0,4.6" Grid.RowSpan="2">
+                    <Image Source="Pictures/Instructions/KeyboardKeys/SpaceBar.png" Stretch="Fill" Margin="-40,-269,300,-184" Name="SpaceBar"    />
                 </Viewbox>
                 
-                                
-                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="2" Grid.Row="7" VerticalAlignment="Stretch">
-                    <Image Source="Pictures/Instructions/KeyboardKeys/WASD.png" Stretch="Fill" Margin="-1700,-1000,660,0" Name="wasd" />
+                
+
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="215,30,-40,-15">
+                    <TextBox Name="textWASD" Text="Deplacer Personnage"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0,0,0,0" BorderThickness="0" Height="16"/>
                 </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="235,30,-45,-9">
+                    <TextBox Name="textFleches" Text="Onothingter Vue"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0" BorderThickness="0" Height="16"/>
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="190,0,90,18">
+                    <TextBox Name="textP" Text="Pause"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0" BorderThickness="0" Height="16"/>
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="190,1,63,18">
+                    <TextBox Name="textE" Text="Ramasser"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0" BorderThickness="0" Height="16"/>
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="190,20,110,0">
+                    <TextBox Name="textShift" Text="Courir"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0" BorderThickness="0" Height="16"/>
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="270,20,0,0">
+                    <TextBox Name="textSpace" Text="Sauter"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0" BorderThickness="0" Height="16"/>
+                </Viewbox>
+
+
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="115,38,225,-5">
+                    <TextBox Name="textL" Text="L"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0" BorderThickness="0" Height="16"/>
+                </Viewbox>
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="125,38,216,-5">
+                    <TextBox Name="textR" Text="R"  IsHitTestVisible="False" Background="Transparent" Foreground="White" BorderBrush="Transparent" FontWeight="DemiBold" Margin="0" BorderThickness="0" Height="16"/>
+                </Viewbox>
+
+
 
 
             </Grid>

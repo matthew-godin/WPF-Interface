@@ -26,7 +26,7 @@ namespace Launching_Interface
          
          InitializeComponent();
          List<string> ListReceived = new List<string>();
-
+         
          StreamReader dataReader = new StreamReader("../../Saves/save.txt");
          while (!dataReader.EndOfStream)
          {
@@ -34,16 +34,14 @@ namespace Launching_Interface
          }
          dataReader.Close();
 
-         if (ListReceived[1] == "true")
-         {
+         //if (ListReceived[1] == "true")
+         //{
             MainFrame.Navigate(new InGameMenu());
-         }
-         else
-         {
-            MainFrame.Navigate(new MainPage());
-         }
-          
-         
+         //}
+         //else
+         //{
+         //   MainFrame.Navigate(new MainPage());
+         //}         
       }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)
