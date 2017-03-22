@@ -38,7 +38,7 @@ namespace Launching_Interface
          LanguagesList = new List<string>();
          DataListToSend = new List<int>();
 
-         AssociateDataToSend();
+            AddDataToSend();//AssociateDataToSend();
 
          InitializeComponent();
 
@@ -82,7 +82,7 @@ namespace Launching_Interface
             reader.Close();
         }
 
-      void AssociateDataToSend()
+      void AddDataToSend()//AssociateDataToSend()
       {
 
          if (GameDataManager.FirstFile == true)
@@ -98,34 +98,34 @@ namespace Launching_Interface
          else
          {
             DataListToSend = GameDataManager.ListeInfosRecus;
-            DataListToSend[0] = GameDataManager.Language;
-            DataListToSend[1] = GameDataManager.Fps;
-            DataListToSend[2] = GameDataManager.RenderDistance;
-            DataListToSend[3] = GameDataManager.MusicVolume;
-            DataListToSend[4] = GameDataManager.SoundEffectVolume;
-            DataListToSend[5] = GameDataManager.FullscreenMode;
-            DataListToSend[6] = GameDataManager.KeyboardMode;
-         }
+                AssociateDataToSend();
+            }
       }
 
       private void BackButton_Click(object sender, RoutedEventArgs e)
       {
             SaveSettings();
-         // this.NavigationService.Navigate(new MainPage());
+            // this.NavigationService.Navigate(new MainPage());
 
-         DataListToSend[0] = GameDataManager.Language;
-         DataListToSend[1] = GameDataManager.Fps;
-         DataListToSend[2] = GameDataManager.RenderDistance;
-         DataListToSend[3] = GameDataManager.MusicVolume;
-         DataListToSend[4] = GameDataManager.SoundEffectVolume;
-         DataListToSend[5] = GameDataManager.FullscreenMode;
-         DataListToSend[6] = GameDataManager.KeyboardMode;
+            AssociateDataToSend();
 
-         GameDataManager.ÉcrireFichier(DataListToSend);
+            GameDataManager.ÉcrireFichier(DataListToSend);
 
             PlaceMouseInTheCenter();
          Application.Current.Shutdown();
       }
+
+        void AssociateDataToSend()
+        {
+            int cpt = 0;
+            DataListToSend[cpt] = GameDataManager.Language; ++cpt;
+            DataListToSend[cpt] = GameDataManager.Fps; ++cpt;
+            DataListToSend[cpt] = GameDataManager.RenderDistance; ++cpt;
+            DataListToSend[cpt] = GameDataManager.MusicVolume; ++cpt;
+            DataListToSend[cpt] = GameDataManager.SoundEffectVolume; ++cpt;
+            DataListToSend[cpt] = GameDataManager.FullscreenMode; ++cpt;
+            DataListToSend[cpt] = GameDataManager.KeyboardMode;
+        }
 
         private void SaveSettings()
         {
@@ -339,15 +339,17 @@ namespace Launching_Interface
       private void ButCont_Unchecked(object sender, RoutedEventArgs e)
       {
          GameDataManager.KeyboardMode = 1;
-         
-         ManageSettings();
-      }
+
+            //ManageSettings();
+            Instructions();
+        }
       private void ButCont_Checked(object sender, RoutedEventArgs e)
       {
          GameDataManager.KeyboardMode = 0;
          GameDataManager.FirstFile = false;
-         ManageSettings();
-      }
+            //ManageSettings();
+            Instructions();
+        }
 
       // Languages
       #region 
@@ -419,57 +421,94 @@ namespace Launching_Interface
             ButFull.IsChecked = false;
          }
 
-         if (GameDataManager.KeyboardMode == 1)
-         {
-            ButCont.Content = LanguagesList[23];
-            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
-            ButCont.IsChecked = false;
-         }
-         else if (GameDataManager.KeyboardMode == 0)
-         {
-            ButCont.Content = LanguagesList[22];
-            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
-            ButCont.IsChecked = true;
-         }
-      }
+            //if (GameDataManager.KeyboardMode == 1)
+            //{
+            //   ButCont.Content = LanguagesList[23];
+            //   ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
+            //   ButCont.IsChecked = false;
+            //}
+            //else if (GameDataManager.KeyboardMode == 0)
+            //{
+            //   ButCont.Content = LanguagesList[22];
+            //   ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
+            //   ButCont.IsChecked = true;
+            //}
+            textFleches.Text = LanguagesList[41];
+            textWASD.Text = LanguagesList[40];
+            textShift.Text = LanguagesList[38];
+            textE.Text = LanguagesList[42];
+            textP.Text = LanguagesList[35];
+            textSpace.Text = LanguagesList[39];
+
+            Instructions();
+        }
 
       void ManageLanguages()
       {
-         if (GameDataManager.Language == 0)
-         {
-            LanguagesList = GameDataManager.FrenchList;
-            RBfr.IsChecked = true;
-            RBan.IsChecked = false;
-            RBes.IsChecked = false;
-            RBjp.IsChecked = false;
-         }
-         if (GameDataManager.Language == 1)
-         {
-            LanguagesList = GameDataManager.EnglishList;
-            RBfr.IsChecked = false;
-            RBan.IsChecked = true;
-            RBes.IsChecked = false;
-            RBjp.IsChecked = false;
-         }
-         if (GameDataManager.Language == 2)
-         {
-            LanguagesList = GameDataManager.SpanishList;
-            RBfr.IsChecked = false;
-            RBan.IsChecked = false;
-            RBes.IsChecked = true;
-            RBjp.IsChecked = false;
-         }
-         if (GameDataManager.Language == 3)
-         {
-            LanguagesList = GameDataManager.JapaneseList;
-            RBfr.IsChecked = false;
-            RBan.IsChecked = false;
-            RBes.IsChecked = false;
-            RBjp.IsChecked = true;
-         }
-      }
-      //on s'en fou de ces trois la
-      private void musicvalue_TextChanged(object sender, TextChangedEventArgs e)
+            //if (GameDataManager.Language == 0)
+            //{
+            //   LanguagesList = GameDataManager.FrenchList;
+            //   RBfr.IsChecked = true;
+            //   RBan.IsChecked = false;
+            //   RBes.IsChecked = false;
+            //   RBjp.IsChecked = false;
+            //}
+            //if (GameDataManager.Language == 1)
+            //{
+            //   LanguagesList = GameDataManager.EnglishList;
+            //   RBfr.IsChecked = false;
+            //   RBan.IsChecked = true;
+            //   RBes.IsChecked = false;
+            //   RBjp.IsChecked = false;
+            //}
+            //if (GameDataManager.Language == 2)
+            //{
+            //   LanguagesList = GameDataManager.SpanishList;
+            //   RBfr.IsChecked = false;
+            //   RBan.IsChecked = false;
+            //   RBes.IsChecked = true;
+            //   RBjp.IsChecked = false;
+            //}
+            //if (GameDataManager.Language == 3)
+            //{
+            //   LanguagesList = GameDataManager.JapaneseList;
+            //   RBfr.IsChecked = false;
+            //   RBan.IsChecked = false;
+            //   RBes.IsChecked = false;
+            //   RBjp.IsChecked = true;
+            //}
+            if (GameDataManager.Language == 0)
+            {
+                LanguagesList = GameDataManager.FrenchList;
+                CocherLanguages(true, false, false, false);
+            }
+            if (GameDataManager.Language == 1)
+            {
+                LanguagesList = GameDataManager.EnglishList;
+                CocherLanguages(false, true, false, false);
+            }
+            if (GameDataManager.Language == 2)
+            {
+                LanguagesList = GameDataManager.SpanishList;
+                CocherLanguages(false, false, true, false);
+            }
+            if (GameDataManager.Language == 3)
+            {
+                LanguagesList = GameDataManager.JapaneseList;
+                CocherLanguages(false, false, false, true);
+            }
+        }
+
+        void CocherLanguages(bool fr, bool an, bool es, bool jp)
+        {
+            RBfr.IsChecked = fr;
+            RBan.IsChecked = an;
+            RBes.IsChecked = es;
+            RBjp.IsChecked = jp;
+        }
+
+        //on s'en fou de ces trois la
+        private void musicvalue_TextChanged(object sender, TextChangedEventArgs e)
       {
 
       }
@@ -629,7 +668,86 @@ namespace Launching_Interface
             //ImageFond.Source = src;
         }
 
-      private void saveButton_Click(object sender, RoutedEventArgs e)
+        void Instructions()
+        {
+            if (GameDataManager.KeyboardMode == 1)
+            {
+                ButCont.Content = LanguagesList[23];
+                ButCont.IsChecked = false;
+                ChangeKeyboardImages();
+                ChangeKeyboardMargins();
+
+                textL.Text = " ";
+                textR.Text = " ";
+            }
+            else
+            {
+                ButCont.Content = LanguagesList[22];
+                ButCont.IsChecked = true;
+                ChangeGameControllerImages();
+                ChangeGameControllerMargins();
+
+                textL.Text = LanguagesList[43];
+                textR.Text = LanguagesList[44];
+            }
+
+
+        }
+
+        void ChangeKeyboardImages()
+        {
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
+            wasd.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/WASD.png", UriKind.Relative));
+            e.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/E.png", UriKind.Relative));
+            SpaceBar.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/SpaceBar.png", UriKind.Relative));
+            Shift.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/Shift.png", UriKind.Relative));
+            p.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/P.png", UriKind.Relative));
+            KeyboardArrows.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/KeyboardArrows.png", UriKind.Relative));
+        }
+        void ChangeKeyboardMargins()
+        {
+            textWASD.Margin = new Thickness(0);
+            textSpace.Margin = new Thickness(0);
+            textFleches.Margin = new Thickness(0);
+
+            wasd.Margin = new Thickness(50, -100, 500, -375);
+            e.Margin = new Thickness(206, -280, 250, -212);
+            p.Margin = new Thickness(165, -200, 275, -230);
+            SpaceBar.Margin = new Thickness(-40, -210, 300, -184);
+            Shift.Margin = new Thickness(166, -235, 213, -260);
+            KeyboardArrows.Margin = new Thickness(10, -28, 400, -278);
+
+        }
+        void ChangeGameControllerImages()
+        {
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
+            wasd.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Stick_Xbox.png", UriKind.Relative));
+            e.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/X_Xbox.png", UriKind.Relative));
+            p.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Start_Xbox.png", UriKind.Relative));
+            SpaceBar.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/A_Xbox.png", UriKind.Relative));
+            Shift.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/LT_Xbox.png", UriKind.Relative));
+            KeyboardArrows.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Stick_Xbox.png", UriKind.Relative));
+        }
+        void ChangeGameControllerMargins()
+        {
+            textWASD.Margin = new Thickness(-10, 0, 0, 0);
+            textSpace.Margin = new Thickness(-22.5, 0, 20, 0);
+
+            textFleches.Margin = new Thickness(-17, 0, 15, 0);
+
+            wasd.Margin = new Thickness(4200, 950, 8600, -1000);
+            e.Margin = new Thickness(5800, 180, 9900, 700);
+            p.Margin = new Thickness(170, -47, 770, -100);
+            SpaceBar.Margin = new Thickness(2260, 740, 3820, -20);
+            Shift.Margin = new Thickness(175, 20, 370, -9);
+            KeyboardArrows.Margin = new Thickness(4550, 950, 8170, -1000);
+
+            if (GameDataManager.Language == 3) { textFleches.Margin = new Thickness(-10, 0, 5, 0); }
+            if (GameDataManager.Language == 2) { textFleches.Margin = new Thickness(-20, 0, 5, 0); }
+
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
       {
             StreamReader r = new StreamReader("../../Saves/save.txt");
             int n = int.Parse(r.ReadLine());
