@@ -235,9 +235,7 @@
     <Resource Include="Pictures\CreateFR.png" />
     <Resource Include="Pictures\CreateJA.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pictures\Instructions\GameControllerButtons\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Pictures\Instructions\Controller2Sides.png" />
   </ItemGroup>
@@ -268,6 +266,11 @@
     <Resource Include="Saves\save1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Pictures\Instructions\GameControllerButtons\A_Xbox.png" />
+    <Resource Include="Pictures\Instructions\GameControllerButtons\LT_Xbox.png" />
+    <Resource Include="Pictures\Instructions\GameControllerButtons\Start_Xbox.png" />
+    <Resource Include="Pictures\Instructions\GameControllerButtons\Stick_Xbox.png" />
+    <Resource Include="Pictures\Instructions\GameControllerButtons\X_Xbox.png" />
     <Content Include="Saves\screenshot0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

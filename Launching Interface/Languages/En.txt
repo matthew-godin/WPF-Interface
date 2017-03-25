@@ -36,3 +36,10 @@ Exit Game
 Pause
 Menu
 Save
+Run
+Jump
+Move Character
+View direction
+Pick-up
+L
+R

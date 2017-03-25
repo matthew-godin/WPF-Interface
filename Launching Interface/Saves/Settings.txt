@@ -4,4 +4,4 @@ Language: 1
 Render Distance: 500
 Frame Rate: 60
 Fullscreen: 1
-Input: 1
+Input: 0
