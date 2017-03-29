@@ -1,6 +1,6 @@
 Level: 0
 Position: {X:5 Y:5 Z:5}
-Language: 3
+Language: 1
 World: Lobby
 Percentage: 0%
 Time Played: 00:00:00
