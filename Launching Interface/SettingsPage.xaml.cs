@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Launching_Interface
 {
-   /// <summary>
-   /// Interaction logic for SettingsPage.xaml
-   /// </summary>
+    //enum Language
+    //{
+    //    French, English, Spanish, Japanese
+    //}
 
-   public partial class SettingsPage : Page
+    //enum Input
+    //{
+    //    Controller, Keyboard
+    //}
+
+    /// <summary>
+    /// Interaction logic for SettingsPage.xaml
+    /// </summary>
+    public partial class SettingsPage : Page
    {
       List<string> LanguagesList { get; set; }
       List<int> ListeInfosÀEnvoyer { get; set; }
@@ -45,7 +56,7 @@ namespace Launching_Interface
          ManageSettings();
       }
 
-      void AssocierListeEnvoyer()
+        void AssocierListeEnvoyer()
       {
 
          if (GameDataManager.FirstFile == true)
@@ -71,8 +82,9 @@ namespace Launching_Interface
          }
       }
 
-      private void BackButton_Click(object sender, RoutedEventArgs e)
+      public void BackButton_Click(object sender, RoutedEventArgs e)
       {
+            SaveSettings();
          this.NavigationService.Navigate(new MainPage());
 
          ListeInfosÀEnvoyer[0] = GameDataManager.Language;
@@ -85,6 +97,20 @@ namespace Launching_Interface
 
          GameDataManager.ÉcrireFichier(ListeInfosÀEnvoyer);
       }
+
+        private void SaveSettings()
+        {
+            StreamWriter w = new StreamWriter("../../Saves/Settings.txt");
+
+            w.WriteLine("Music: " + GameDataManager.MusicVolume.ToString());
+            w.WriteLine("Sound: " + GameDataManager.SoundEffectVolume.ToString());
+            w.WriteLine("Language: " + GameDataManager.Language.ToString());
+            w.WriteLine("Render Distance: " + GameDataManager.RenderDistance.ToString());
+            w.WriteLine("Frame Rate: " + GameDataManager.Fps.ToString());
+            w.WriteLine("Fullscreen: " + GameDataManager.FullscreenMode.ToString());
+            w.WriteLine("Input: " + GameDataManager.KeyboardMode.ToString());
+            w.Close();
+        }
 
       private void MusicVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
       {
@@ -465,6 +491,7 @@ namespace Launching_Interface
          double value = slider.Value;
          GameDataManager.SoundEffectVolume = (int)Math.Round(value, 0);
          soundvalue.Text = GameDataManager.SoundEffectVolume.ToString();
+         
       }
 
       private void ResetButton_Click(object sender, RoutedEventArgs e)

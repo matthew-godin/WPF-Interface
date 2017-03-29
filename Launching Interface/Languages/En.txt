@@ -18,7 +18,7 @@ Spanish
 Japnese
 Render Distance
 Frame Rate
-FullScreen
+Fullscreen
 Input
 Controller
 Keyboard
@@ -33,3 +33,13 @@ Language
    Load Game   
   Reset
 Exit Game
+Pause
+Menu
+Save
+Run
+Jump
+Move Character
+View direction
+Pick-up
+L
+R

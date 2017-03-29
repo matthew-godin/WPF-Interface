@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Launching_Interface
 {
@@ -20,11 +21,60 @@ namespace Launching_Interface
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
+      public MainWindow()
+      {
+         
+         InitializeComponent();
+         List<string> ListReceived = new List<string>();
+
+         StreamReader dataReader = new StreamReader("../../Saves/save.txt");
+         while (!dataReader.EndOfStream)
+         {
+            ListReceived.Add( dataReader.ReadLine());           
+         }
+         dataReader.Close();
+
+            RefreshData();
+
+         if (ListReceived[1] == "true")
+         {
+            MainFrame.Navigate(new InGameMenu());
+         }
+         else
+         {
             MainFrame.Navigate(new MainPage());
+         }
+          
+         
       }
+
+        private void RefreshData()
+        {
+            //StreamReader reader = new StreamReader("F:/programmation clg/quatrième session/WPFINTERFACE/Launching Interface/Saves/Settings.txt");
+            StreamReader reader = new StreamReader("C:/Users/Matthew/Source/Repos/WPFINTERFACE/Launching Interface/Saves/Settings.txt");
+            string line = reader.ReadLine();
+            string[] parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.MusicVolume = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.SoundEffectVolume = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.Language = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.RenderDistance = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.Fps = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.FullscreenMode = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.KeyboardMode = int.Parse(parts[1]);
+            reader.Close();
+        }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)
         {
