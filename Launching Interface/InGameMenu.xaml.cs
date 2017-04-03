@@ -577,7 +577,7 @@ namespace Launching_Interface
 
       private void ResetButton_Click(object sender, RoutedEventArgs e)
       {
-         GameDataManager.FirstFile = true;
+         GameDataManager.FirstFile = true; //nothing for commit
          GameDataManager.AAAA = true;
          GameDataManager.BasicSettings();
          ManageSettings();
