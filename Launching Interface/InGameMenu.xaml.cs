@@ -57,7 +57,8 @@ namespace Launching_Interface
         private void RefreshData()
         {
             //StreamReader reader = new StreamReader("F:/programmation clg/quatrième session/WPFINTERFACE/Launching Interface/Saves/Settings.txt");
-            StreamReader reader = new StreamReader("C:/Users/Matthew/Source/Repos/WPFINTERFACE/Launching Interface/Saves/Settings.txt");
+            //StreamReader reader = new StreamReader("C:/Users/Matthew/Source/Repos/WPFINTERFACE/Launching Interface/Saves/Settings.txt");
+            StreamReader reader = new StreamReader("../../Saves/Settings.txt");
             string line = reader.ReadLine();
             string[] parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
             GameDataManager.MusicVolume = int.Parse(parts[1]);
