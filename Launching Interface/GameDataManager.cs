@@ -13,7 +13,7 @@ namespace Launching_Interface
       const string WRITING_PATH = "../../FilesModified/";
       const string FILE_SENT_NAME = "toXna.txt";
 
-      public static bool AAAA = true;
+      public static bool AAAA = true; // nothing
 
       const int LANGUAGE_BASE = 0; 
       const int FPS_BASE = 60;     
