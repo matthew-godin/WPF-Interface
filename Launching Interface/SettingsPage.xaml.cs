@@ -34,10 +34,7 @@ namespace Launching_Interface
    {
       List<string> LanguagesList { get; set; }
       List<int> ListeInfosÀEnvoyer { get; set; }
-
-      int LanguageOficielle { get; set; }
-
-      
+      int LanguageOficielle { get; set; }   
 
       public SettingsPage()
       {
@@ -48,12 +45,12 @@ namespace Launching_Interface
          InitializeComponent();
 
          ManageFPS();
-         GameDataManager.AAAA = true;
+         GameDataManager.ChoisirRenderDistance = true;
          ManageLanguages();
          ManageRenderDistance();
          ManageSound();          
 
-         ManageSettings();
+         ChangerLanguageReglages();
       }
 
         void AssocierListeEnvoyer()
@@ -130,9 +127,9 @@ namespace Launching_Interface
       private void RDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) // Render Distance
       {
          double value = 0;
-         if(GameDataManager.AAAA == true)
+         if(GameDataManager.ChoisirRenderDistance == true)
          {
-            GameDataManager.AAAA = false;
+            GameDataManager.ChoisirRenderDistance = false;
             switch(GameDataManager.RenderDistance)
             {
                case 10 :
@@ -281,12 +278,6 @@ namespace Launching_Interface
          {
             ButFull.Content = LanguagesList[29];
          }
-
-
-         //Application.Current.MainWindow.WindowState = WindowState.Maximized;
-         //Application.Current.MainWindow.WindowStyle = WindowStyle.None;
-         //Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
-
          Application.Current.MainWindow.WindowStyle = WindowStyle.None;
          Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
          Application.Current.MainWindow.Left = 0;
@@ -294,21 +285,17 @@ namespace Launching_Interface
          Application.Current.MainWindow.Width = SystemParameters.VirtualScreenWidth;
          Application.Current.MainWindow.Height = SystemParameters.VirtualScreenHeight;
          Application.Current.MainWindow.Topmost = true;
-
-
-
-
       }
       private void ButCont_Unchecked(object sender, RoutedEventArgs e)
       {    
          GameDataManager.KeyboardMode = 0;
-         ManageSettings();
+         ChangerLanguageReglages();
       }
       private void ButCont_Checked(object sender, RoutedEventArgs e)
       {        
          GameDataManager.KeyboardMode = 1;
          GameDataManager.FirstFile = false;
-         ManageSettings();
+         ChangerLanguageReglages();
       }
 
       // Languages
@@ -319,32 +306,31 @@ namespace Launching_Interface
          GameDataManager.Language = 2;
          LanguagesList = GameDataManager.SpanishList;
          GameDataManager.FirstFile = false;
-         ManageSettings();
+         ChangerLanguageReglages();
       }
       private void RBjp_Checked(object sender, RoutedEventArgs e)
       {
          GameDataManager.Language = 3;
          LanguagesList = GameDataManager.JapaneseList;
          GameDataManager.FirstFile = false;
-         ManageSettings();
+         ChangerLanguageReglages();
       }
       private void RBfr_Checked(object sender, RoutedEventArgs e)
       {
          GameDataManager.Language = 0;
          LanguagesList = GameDataManager.FrenchList;
-         ManageSettings();
+         ChangerLanguageReglages();
       }
       private void RBan_Checked(object sender, RoutedEventArgs e)
       {
          GameDataManager.Language = 1;
          LanguagesList = GameDataManager.EnglishList;
          GameDataManager.FirstFile = false;
-         ManageSettings();
+         ChangerLanguageReglages();
       }
 
-      void ManageSettings()
+      void ChangerLanguageReglages()
       {
-
          Lang.Text = LanguagesList[31];
 
          RBan.Content = LanguagesList[15];
@@ -497,9 +483,9 @@ namespace Launching_Interface
       private void ResetButton_Click(object sender, RoutedEventArgs e)
       {
          GameDataManager.FirstFile = true;
-         GameDataManager.AAAA = true;
+         GameDataManager.ChoisirRenderDistance = true;
          GameDataManager.BasicSettings();
-         ManageSettings();
+         ChangerLanguageReglages();
          ManageFPS();
          ManageRenderDistance();
          ManageLanguages();
