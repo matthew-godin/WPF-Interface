@@ -21,32 +21,32 @@ namespace Launching_Interface
     /// </summary>
     public partial class MainWindow : Window
     {
-      public MainWindow()
-      {
-         
-         InitializeComponent();
-         List<string> ListReceived = new List<string>();
+        public MainWindow()
+        {
 
-         StreamReader dataReader = new StreamReader("../../Saves/save.txt");
-         while (!dataReader.EndOfStream)
-         {
-            ListReceived.Add( dataReader.ReadLine());           
-         }
-         dataReader.Close();
+            InitializeComponent();
+            List<string> ListReceived = new List<string>();
+
+            StreamReader dataReader = new StreamReader("../../Saves/save.txt");
+            while (!dataReader.EndOfStream)
+            {
+                ListReceived.Add(dataReader.ReadLine());
+            }
+            dataReader.Close();
 
             RefreshData();
 
-         if (ListReceived[1] == "true")
-         {
-            MainFrame.Navigate(new InGameMenu());
-         }
-         else
-         {
-            MainFrame.Navigate(new MainPage());
-         }
-          
-         
-      }
+            if (ListReceived[1] == "true")
+            {
+                MainFrame.Navigate(new InGameMenu());
+            }
+            else
+            {
+                MainFrame.Navigate(new MainPage());
+            }
+
+
+        }
 
         private void RefreshData()
         {
@@ -80,7 +80,7 @@ namespace Launching_Interface
         private void MainFrame_ContentRendered(object sender, EventArgs e)
         {
             MainFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
-         
+
         }
     }
 }
