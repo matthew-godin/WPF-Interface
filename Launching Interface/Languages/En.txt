@@ -18,7 +18,7 @@ Spanish
 Japnese
 Render Distance
 Frame Rate
-FullScreen
+Fullscreen
 Input
 Controller
 Keyboard

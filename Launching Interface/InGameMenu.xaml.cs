@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Resources;
+using System.Reflection;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Launching_Interface
 {
@@ -24,29 +28,64 @@ namespace Launching_Interface
       bool IsFirstTime { get; set; }
       List<string> LanguagesList { get; set; }
       List<int> DataListToSend { get; set; }
-      int LanguageIndex { get; set; }
 
+      int LanguageIndex { get; set; }
       public InGameMenu()
       {
-         IsFirstTime = true;
-         GameDataManager.ChoisirRenderDistance = true;
+            RefreshData();
 
+         IsFirstTime = true;
          LanguagesList = new List<string>();
          DataListToSend = new List<int>();
-         AddDataToSend();
+
+            AddDataToSend();//AssociateDataToSend();
+
          InitializeComponent();
 
-         //GoodScreenshot();          À REMETTRE
+         GoodScreenshot();
+
          ManageFPS();
+         GameDataManager.AAAA = true;
          ManageLanguages();
          ManageRenderDistance();
          ManageSound();
+
          ManageSettings();
 
       }
 
-      void AddDataToSend()
+        private void RefreshData()
+        {
+            //StreamReader reader = new StreamReader("F:/programmation clg/quatrième session/WPFINTERFACE/Launching Interface/Saves/Settings.txt");
+            //StreamReader reader = new StreamReader("C:/Users/Matthew/Source/Repos/WPFINTERFACE/Launching Interface/Saves/Settings.txt");
+            StreamReader reader = new StreamReader("../../Saves/Settings.txt");
+            string line = reader.ReadLine();
+            string[] parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.MusicVolume = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.SoundEffectVolume = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.Language = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.RenderDistance = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.Fps = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.FullscreenMode = int.Parse(parts[1]);
+            line = reader.ReadLine();
+            parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            GameDataManager.KeyboardMode = int.Parse(parts[1]);
+            reader.Close();
+        }
+
+      void AddDataToSend()//AssociateDataToSend()
       {
+
          if (GameDataManager.FirstFile == true)
          {
             DataListToSend.Add(GameDataManager.Language);
@@ -60,36 +99,78 @@ namespace Launching_Interface
          else
          {
             DataListToSend = GameDataManager.ListeInfosRecus;
-            AssociateDataToSend();
-         }
+                AssociateDataToSend();
+            }
       }
 
       private void BackButton_Click(object sender, RoutedEventArgs e)
-      {       
-         NavigationService.Navigate(new MainPage());
-         AssociateDataToSend();
-         GameDataManager.ÉcrireFichier(DataListToSend);
+      {
+            SaveSettings();
+            // this.NavigationService.Navigate(new MainPage());
+
+            AssociateDataToSend();
+
+            GameDataManager.ÉcrireFichier(DataListToSend);
+
+            PlaceMouseInTheCenter();
          Application.Current.Shutdown();
       }
 
-      void AssociateDataToSend()
+        void AssociateDataToSend()
+        {
+            int cpt = 0;
+            DataListToSend[cpt] = GameDataManager.Language; ++cpt;
+            DataListToSend[cpt] = GameDataManager.Fps; ++cpt;
+            DataListToSend[cpt] = GameDataManager.RenderDistance; ++cpt;
+            DataListToSend[cpt] = GameDataManager.MusicVolume; ++cpt;
+            DataListToSend[cpt] = GameDataManager.SoundEffectVolume; ++cpt;
+            DataListToSend[cpt] = GameDataManager.FullscreenMode; ++cpt;
+            DataListToSend[cpt] = GameDataManager.KeyboardMode;
+        }
+
+        private void SaveSettings()
+        {
+            StreamWriter w = new StreamWriter("../../Saves/Settings.txt");
+
+            w.WriteLine("Music: " + GameDataManager.MusicVolume.ToString());
+            w.WriteLine("Sound: " + GameDataManager.SoundEffectVolume.ToString());
+            w.WriteLine("Language: " + GameDataManager.Language.ToString());
+            w.WriteLine("Render Distance: " + GameDataManager.RenderDistance.ToString());
+            w.WriteLine("Frame Rate: " + GameDataManager.Fps.ToString());
+            w.WriteLine("Fullscreen: " + GameDataManager.FullscreenMode.ToString());
+            w.WriteLine("Input: " + GameDataManager.KeyboardMode.ToString());
+            w.Close();
+        }
+
+        [DllImport("User32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
+
+        void PlaceMouseInTheCenter()
+        {
+            SetCursorPos((int)(((Panel)Application.Current.MainWindow.Content).ActualWidth / 2), (int)(((Panel)Application.Current.MainWindow.Content).ActualHeight / 2));
+        }
+
+      private void MusicVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
       {
-         int cpt = 0;
-         DataListToSend[cpt] = GameDataManager.Language; ++cpt;
-         DataListToSend[cpt] = GameDataManager.Fps; ++cpt;
-         DataListToSend[cpt] = GameDataManager.RenderDistance; ++cpt;
-         DataListToSend[cpt] = GameDataManager.MusicVolume; ++cpt;
-         DataListToSend[cpt] = GameDataManager.SoundEffectVolume; ++cpt;
-         DataListToSend[cpt] = GameDataManager.FullscreenMode; ++cpt;
-         DataListToSend[cpt] = GameDataManager.KeyboardMode;
+
+      }
+
+      private void SoundVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+      {
+
+      }
+
+      private void RenderDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+      {
+
       }
 
       private void RDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) // Render Distance
       {
          double value = 0;
-         if (GameDataManager.ChoisirRenderDistance == true)
+         if (GameDataManager.AAAA == true)
          {
-            GameDataManager.ChoisirRenderDistance = false;
+            GameDataManager.AAAA = false;
             switch (GameDataManager.RenderDistance)
             {
                case 10:
@@ -238,7 +319,7 @@ namespace Launching_Interface
             ButFull.Content = LanguagesList[29];
          }
 
-         if (IsFirstTime == true)
+         if(IsFirstTime == true)
          {
             IsFirstTime = false;
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
@@ -259,14 +340,17 @@ namespace Launching_Interface
       private void ButCont_Unchecked(object sender, RoutedEventArgs e)
       {
          GameDataManager.KeyboardMode = 1;
-         Instructions();
-      }
+
+            //ManageSettings();
+            Instructions();
+        }
       private void ButCont_Checked(object sender, RoutedEventArgs e)
       {
          GameDataManager.KeyboardMode = 0;
          GameDataManager.FirstFile = false;
-         Instructions();
-      }
+            //ManageSettings();
+            Instructions();
+        }
 
       // Languages
       #region 
@@ -277,7 +361,6 @@ namespace Launching_Interface
          LanguagesList = GameDataManager.SpanishList;
          GameDataManager.FirstFile = false;
          ManageSettings();
-
       }
       private void RBjp_Checked(object sender, RoutedEventArgs e)
       {
@@ -298,13 +381,13 @@ namespace Launching_Interface
          LanguagesList = GameDataManager.EnglishList;
          GameDataManager.FirstFile = false;
          ManageSettings();
-
       }
 
       void ManageSettings()
       {
 
          Lang.Text = LanguagesList[31];
+
          RBan.Content = LanguagesList[15];
          RBfr.Content = LanguagesList[14];
          RBes.Content = LanguagesList[16];
@@ -312,8 +395,6 @@ namespace Launching_Interface
 
          SEff.Text = LanguagesList[13];
          GMus.Text = LanguagesList[12];
-
-
 
          TitleSett.Text = LanguagesList[35];
          Backtext.Text = LanguagesList[0];
@@ -326,7 +407,7 @@ namespace Launching_Interface
 
          saveText.Text = LanguagesList[37];
          if (GameDataManager.Language == 0) { saveText.Margin = new Thickness(29, 60, 118, 48); }
-         else { saveText.Margin = new Thickness(40, 64, 118, 48); }
+         else { saveText.Margin = new Thickness(40,64,118,48); }
 
          menuText.Text = LanguagesList[36];
 
@@ -341,47 +422,106 @@ namespace Launching_Interface
             ButFull.IsChecked = false;
          }
 
-         textFleches.Text = LanguagesList[41];
-         textWASD.Text = LanguagesList[40];
-         textShift.Text = LanguagesList[38];
-         textE.Text = LanguagesList[42];
-         textP.Text = LanguagesList[35];
-         textSpace.Text = LanguagesList[39];
+            //if (GameDataManager.KeyboardMode == 1)
+            //{
+            //   ButCont.Content = LanguagesList[23];
+            //   ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
+            //   ButCont.IsChecked = false;
+            //}
+            //else if (GameDataManager.KeyboardMode == 0)
+            //{
+            //   ButCont.Content = LanguagesList[22];
+            //   ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
+            //   ButCont.IsChecked = true;
+            //}
+            textFleches.Text = LanguagesList[41];
+            textWASD.Text = LanguagesList[40];
+            textShift.Text = LanguagesList[38];
+            textE.Text = LanguagesList[42];
+            textP.Text = LanguagesList[35];
+            textSpace.Text = LanguagesList[39];
 
-         Instructions();
-      }
+            Instructions();
+        }
 
       void ManageLanguages()
       {
-         if (GameDataManager.Language == 0)
-         {
-            LanguagesList = GameDataManager.FrenchList;
-            CocherLanguages(true, false, false, false);
-         }
-         if (GameDataManager.Language == 1)
-         {
-            LanguagesList = GameDataManager.EnglishList;
-            CocherLanguages(false, true, false, false);
-         }
-         if (GameDataManager.Language == 2)
-         {
-            LanguagesList = GameDataManager.SpanishList;
-            CocherLanguages(false, false, true, false);
-         }
-         if (GameDataManager.Language == 3)
-         {
-            LanguagesList = GameDataManager.JapaneseList;
-            CocherLanguages(false, false, false, true);
-         }
+            //if (GameDataManager.Language == 0)
+            //{
+            //   LanguagesList = GameDataManager.FrenchList;
+            //   RBfr.IsChecked = true;
+            //   RBan.IsChecked = false;
+            //   RBes.IsChecked = false;
+            //   RBjp.IsChecked = false;
+            //}
+            //if (GameDataManager.Language == 1)
+            //{
+            //   LanguagesList = GameDataManager.EnglishList;
+            //   RBfr.IsChecked = false;
+            //   RBan.IsChecked = true;
+            //   RBes.IsChecked = false;
+            //   RBjp.IsChecked = false;
+            //}
+            //if (GameDataManager.Language == 2)
+            //{
+            //   LanguagesList = GameDataManager.SpanishList;
+            //   RBfr.IsChecked = false;
+            //   RBan.IsChecked = false;
+            //   RBes.IsChecked = true;
+            //   RBjp.IsChecked = false;
+            //}
+            //if (GameDataManager.Language == 3)
+            //{
+            //   LanguagesList = GameDataManager.JapaneseList;
+            //   RBfr.IsChecked = false;
+            //   RBan.IsChecked = false;
+            //   RBes.IsChecked = false;
+            //   RBjp.IsChecked = true;
+            //}
+            if (GameDataManager.Language == 0)
+            {
+                LanguagesList = GameDataManager.FrenchList;
+                CocherLanguages(true, false, false, false);
+            }
+            if (GameDataManager.Language == 1)
+            {
+                LanguagesList = GameDataManager.EnglishList;
+                CocherLanguages(false, true, false, false);
+            }
+            if (GameDataManager.Language == 2)
+            {
+                LanguagesList = GameDataManager.SpanishList;
+                CocherLanguages(false, false, true, false);
+            }
+            if (GameDataManager.Language == 3)
+            {
+                LanguagesList = GameDataManager.JapaneseList;
+                CocherLanguages(false, false, false, true);
+            }
+        }
+
+        void CocherLanguages(bool fr, bool an, bool es, bool jp)
+        {
+            RBfr.IsChecked = fr;
+            RBan.IsChecked = an;
+            RBes.IsChecked = es;
+            RBjp.IsChecked = jp;
+        }
+
+        //on s'en fou de ces trois la
+        private void musicvalue_TextChanged(object sender, TextChangedEventArgs e)
+      {
+
+      }
+      private void TitleSett_TextChanged(object sender, TextChangedEventArgs e)
+      {
+
+      }
+      private void perfovalue_TextChanged(object sender, TextChangedEventArgs e)
+      {
+
       }
 
-      void CocherLanguages(bool fr,bool an, bool es, bool jp)
-      {
-         RBfr.IsChecked = fr;
-         RBan.IsChecked = an;
-         RBes.IsChecked = es;
-         RBjp.IsChecked = jp;
-      }
       #endregion
 
       void ManageFPS()
@@ -402,7 +542,7 @@ namespace Launching_Interface
          {
             PerformanceSlider.Value = 10;
          }
-         if (PerformanceSlider.Value < 0.2) { perfValue.Text = "30 FPS"; } 
+         if (PerformanceSlider.Value < 0.2) { perfValue.Text = "30 FPS"; }  // temporaire
       }
       void ManageRenderDistance()
       {
@@ -438,8 +578,8 @@ namespace Launching_Interface
 
       private void ResetButton_Click(object sender, RoutedEventArgs e)
       {
-         GameDataManager.FirstFile = true;
-         GameDataManager.ChoisirRenderDistance = true;
+         GameDataManager.FirstFile = true; //nothing for commit
+         GameDataManager.AAAA = true;
          GameDataManager.BasicSettings();
          ManageSettings();
          ManageFPS();
@@ -449,164 +589,172 @@ namespace Launching_Interface
 
       }
 
+      private void rdvalue_TextChanged(object sender, TextChangedEventArgs e)
+      {
+
+      }
+
       void ManageSound()
       {
          GameMusicSlider.Value = GameDataManager.MusicVolume;
          SoundEffectsSlider.Value = GameDataManager.SoundEffectVolume;
       }
 
-      private void MenuButton_Click(object sender, RoutedEventArgs e)
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Application.Current.MainWindow.Visibility = Visibility.Visible;
+                Application.Current.MainWindow.ShowInTaskbar = true;
+            }
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
       {
+            SaveSettings();
          StreamWriter writer = new StreamWriter("../../Saves/save.txt");
-         writer.WriteLine();
+         writer.WriteLine("0");
          writer.WriteLine("false");
+            writer.Close();
+            KillHyperV();
          this.NavigationService.Navigate(new MainPage());
       }
 
-     
-      private void saveButton_Click(object sender, RoutedEventArgs e)
+        void KillHyperV()
+        {
+            Process[] procs = Process.GetProcessesByName("HyperV");
+            Process hypervProc = procs[0];
+
+            hypervProc.Kill();
+
+            //try
+            //{
+            //    procs = Process.GetProcessesByName("HyperV");
+
+            //    Process hypervProc = procs[0];
+
+            //    if (!hypervProc.HasExited)
+            //    {
+            //        hypervProc.Kill();
+            //    }
+            //}
+            //finally
+            //{
+            //    if (procs != null)
+            //    {
+            //        foreach (Process p in procs)
+            //        {
+            //            p.Dispose();
+            //        }
+            //    }
+            //}
+        }
+
+        void GoodScreenshot()
       {
+            //ImageFond.Source = new BitmapImage(new Uri(@"Pictures/SavesScreenshots/save0.bmp", UriKind.Relative));
+            //ImageFond.Source = new BitmapImage(new Uri(@"../../Saves/" + nameImage, UriKind.Relative));
 
-      }
+            //ImageFond = new Image();
 
+            BitmapImage src = new BitmapImage();
+            src.BeginInit();
+            src.UriSource = new Uri(@"../../Saves/pendingscreenshot.png", UriKind.Relative);
+            src.CacheOption = BitmapCacheOption.OnLoad;
+            src.EndInit();
+            ImageFond.Source = src;
 
-      // Specialement instructions
-      #region
-      void GoodScreenshot()
-      {
-         string nameImage = "";
+            //BitmapImage src = new BitmapImage(new Uri(@"Saves/" + nameImage, UriKind.Relative));
+            //src.CacheOption = BitmapCacheOption.OnLoad;
+            //ImageFond.Source = src;
+        }
 
-         StreamReader dataReader = new StreamReader("../../Saves/save.txt");
-         while (!dataReader.EndOfStream)
-         {
-            switch (dataReader.ReadLine())
+        void Instructions()
+        {
+            if (GameDataManager.KeyboardMode == 1)
             {
-               case "0":
-                  nameImage = "screenshot0.png";
-                  break;
-               case "1":
-                  nameImage = "screenshot1.png";
-                  break;
-               case "2":
-                  nameImage = "screenshot2.png";
-                  break;
+                ButCont.Content = LanguagesList[23];
+                ButCont.IsChecked = false;
+                ChangeKeyboardImages();
+                ChangeKeyboardMargins();
+
+                textL.Text = " ";
+                textR.Text = " ";
             }
-         }
-         dataReader.Close();
-         ImageFond.Source = new BitmapImage(new Uri(@"/Pictures/Saves/" + nameImage, UriKind.Relative));
-      }
-      void Instructions()
+            else
+            {
+                ButCont.Content = LanguagesList[22];
+                ButCont.IsChecked = true;
+                ChangeGameControllerImages();
+                ChangeGameControllerMargins();
+
+                textL.Text = LanguagesList[43];
+                textR.Text = LanguagesList[44];
+            }
+
+
+        }
+
+        void ChangeKeyboardImages()
+        {
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
+            wasd.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/WASD.png", UriKind.Relative));
+            e.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/E.png", UriKind.Relative));
+            SpaceBar.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/SpaceBar.png", UriKind.Relative));
+            Shift.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/Shift.png", UriKind.Relative));
+            p.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/P.png", UriKind.Relative));
+            KeyboardArrows.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/KeyboardArrows.png", UriKind.Relative));
+        }
+        void ChangeKeyboardMargins()
+        {
+            textWASD.Margin = new Thickness(0);
+            textSpace.Margin = new Thickness(0);
+            textFleches.Margin = new Thickness(0);
+
+            wasd.Margin = new Thickness(50, -100, 500, -375);
+            e.Margin = new Thickness(206, -280, 250, -212);
+            p.Margin = new Thickness(165, -200, 275, -230);
+            SpaceBar.Margin = new Thickness(-40, -210, 300, -184);
+            Shift.Margin = new Thickness(166, -235, 213, -260);
+            KeyboardArrows.Margin = new Thickness(10, -28, 400, -278);
+
+        }
+        void ChangeGameControllerImages()
+        {
+            ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
+            wasd.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Stick_Xbox.png", UriKind.Relative));
+            e.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/X_Xbox.png", UriKind.Relative));
+            p.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Start_Xbox.png", UriKind.Relative));
+            SpaceBar.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/A_Xbox.png", UriKind.Relative));
+            Shift.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/LT_Xbox.png", UriKind.Relative));
+            KeyboardArrows.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Stick_Xbox.png", UriKind.Relative));
+        }
+        void ChangeGameControllerMargins()
+        {
+            textWASD.Margin = new Thickness(-10, 0, 0, 0);
+            textSpace.Margin = new Thickness(-22.5, 0, 20, 0);
+
+            textFleches.Margin = new Thickness(-17, 0, 15, 0);
+
+            wasd.Margin = new Thickness(4200, 950, 8600, -1000);
+            e.Margin = new Thickness(5800, 180, 9900, 700);
+            p.Margin = new Thickness(170, -47, 770, -100);
+            SpaceBar.Margin = new Thickness(2260, 740, 3820, -20);
+            Shift.Margin = new Thickness(175, 20, 370, -9);
+            KeyboardArrows.Margin = new Thickness(4550, 950, 8170, -1000);
+
+            if (GameDataManager.Language == 3) { textFleches.Margin = new Thickness(-10, 0, 5, 0); }
+            if (GameDataManager.Language == 2) { textFleches.Margin = new Thickness(-20, 0, 5, 0); }
+
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
       {
-         if (GameDataManager.KeyboardMode == 1)
-         {
-            ButCont.Content = LanguagesList[23];
-            ButCont.IsChecked = false;
-            ChangeKeyboardImages();
-            ChangeKeyboardMargins();
-
-            textL.Text = " ";
-            textR.Text = " ";
-         }
-         else
-         {
-            ButCont.Content = LanguagesList[22];
-            ButCont.IsChecked = true;
-            ChangeGameControllerImages();
-            ChangeGameControllerMargins();
-
-            textL.Text = LanguagesList[43];
-            textR.Text = LanguagesList[44];
-         }
-
-
-      }
-      void ChangeKeyboardImages()
-      {
-         ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/keyboard.png", UriKind.Relative));
-         wasd.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/WASD.png", UriKind.Relative));
-         e.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/E.png", UriKind.Relative));
-         SpaceBar.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/SpaceBar.png", UriKind.Relative));
-         Shift.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/Shift.png", UriKind.Relative));
-         p.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/P.png", UriKind.Relative));
-         KeyboardArrows.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/KeyboardKeys/KeyboardArrows.png", UriKind.Relative));
-      }
-      void ChangeKeyboardMargins()
-      {
-         textWASD.Margin = new Thickness(0);
-         textSpace.Margin = new Thickness(0);
-         textFleches.Margin = new Thickness(0);
-
-         wasd.Margin = new Thickness(50, -100, 500, -375);
-         e.Margin = new Thickness(206, -280, 250, -212);
-         p.Margin = new Thickness(165, -200, 275, -230);
-         SpaceBar.Margin = new Thickness(-40, -210, 300, -184);
-         Shift.Margin = new Thickness(166, -235, 213, -260);
-         KeyboardArrows.Margin = new Thickness(10, -28, 400, -278);
-
-      }
-      void ChangeGameControllerImages()
-      {
-         ImageInstructions.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/Controller2Sides.png", UriKind.Relative));
-         wasd.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Stick_Xbox.png", UriKind.Relative));
-         e.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/X_Xbox.png", UriKind.Relative));
-         p.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Start_Xbox.png", UriKind.Relative));
-         SpaceBar.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/A_Xbox.png", UriKind.Relative));
-         Shift.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/LT_Xbox.png", UriKind.Relative));
-         KeyboardArrows.Source = new BitmapImage(new Uri(@"/Pictures/Instructions/GameControllerButtons/Stick_Xbox.png", UriKind.Relative));
-      }
-      void ChangeGameControllerMargins()
-      {
-         textWASD.Margin = new Thickness(-10, 0, 0, 0);
-         textSpace.Margin = new Thickness(-22.5, 0, 20, 0);
-
-         textFleches.Margin = new Thickness(-17, 0, 15, 0);
-
-         wasd.Margin = new Thickness(4200, 950, 8600, -1000);
-         e.Margin = new Thickness(5800, 180, 9900, 700);
-         p.Margin = new Thickness(170, -47, 770, -100);
-         SpaceBar.Margin = new Thickness(2260, 740, 3820, -20);
-         Shift.Margin = new Thickness(175, 20, 370, -9);
-         KeyboardArrows.Margin = new Thickness(4550, 950, 8170, -1000);
-
-         if (GameDataManager.Language == 3) { textFleches.Margin = new Thickness(-10, 0, 5, 0); }
-         if (GameDataManager.Language == 2) { textFleches.Margin = new Thickness(-20, 0, 5, 0); }
-
-      }
-      #endregion
-
-
-      //Sert à nothing
-      #region    
-      private void MusicVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-      {
-
-      }
-
-      private void SoundVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-      {
-
-      }
-
-      private void RenderDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-      {
-
-      }
-      private void rdvalue_TextChanged(object sender, TextChangedEventArgs e)
-      {
-
-      }
-      private void musicvalue_TextChanged(object sender, TextChangedEventArgs e)
-      {
-
-      }
-      private void TitleSett_TextChanged(object sender, TextChangedEventArgs e)
-      {
-
-      }
-      private void perfovalue_TextChanged(object sender, TextChangedEventArgs e)
-      {
-
-      }
-      #endregion
+            StreamReader r = new StreamReader("../../Saves/save.txt");
+            int n = int.Parse(r.ReadLine());
+            r.Close();
+            File.Copy("../../Saves/pendingsave.txt", "../../Saves/save" + n + ".txt", true);
+            File.Copy("../../Saves/pendingscreenshot.png", "../../Saves/screenshot" + n + ".png", true);
+        }
    }
 }
