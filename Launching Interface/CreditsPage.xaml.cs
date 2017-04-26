@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Launching_Interface
 {
@@ -26,9 +15,6 @@ namespace Launching_Interface
          LanguagesCredits = new List<string>();
          InitializeComponent();
          ManageLanguages();
-         
-
-
       }
       private void BackButton_Click(object sender, RoutedEventArgs e)
       {
@@ -37,10 +23,10 @@ namespace Launching_Interface
 
       void ManageLanguages()
       {
-         if (GameDataManager.Language == 0) { LanguagesCredits = GameDataManager.FrenchList; }
-         if (GameDataManager.Language == 1) { LanguagesCredits = GameDataManager.EnglishList; }
-         if (GameDataManager.Language == 2) { LanguagesCredits = GameDataManager.SpanishList; }
-         if (GameDataManager.Language == 3) { LanguagesCredits = GameDataManager.JapaneseList; }
+         if (GameDataManager.Language == 0) { LanguagesCredits = GameDataManager.FrenchList; BackButton.Margin = new Thickness(35, 19, 101, 88); }
+         if (GameDataManager.Language == 1) { LanguagesCredits = GameDataManager.EnglishList;  BackButton.Margin = new Thickness(36, 19, 104, 88); }
+         if (GameDataManager.Language == 2) { LanguagesCredits = GameDataManager.SpanishList; BackButton.Margin = new Thickness(31, 19, 109, 88); }
+         if (GameDataManager.Language == 3) { LanguagesCredits = GameDataManager.JapaneseList; BackButton.Margin = new Thickness(35, 19, 102, 88); }
 
          sim.Text = LanguagesCredits[25];
          clg.Text = LanguagesCredits[26];

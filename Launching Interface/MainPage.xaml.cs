@@ -29,10 +29,10 @@ namespace Launching_Interface
       {
          LanguagesMainPage = new List<string>();
          InitializeComponent();
-         if (GameDataManager.Language == 0) { LanguagesMainPage = GameDataManager.FrenchList; }
-         if (GameDataManager.Language == 1) { LanguagesMainPage = GameDataManager.EnglishList; }
-         if (GameDataManager.Language == 2) { LanguagesMainPage = GameDataManager.SpanishList; }
-         if (GameDataManager.Language == 3) { LanguagesMainPage = GameDataManager.JapaneseList; }
+         if (GameDataManager.Language == 0) { LanguagesMainPage = GameDataManager.FrenchList; lg.Margin = new Thickness(55, 10, 50, 10); ng.Margin = new Thickness(55, 10, 55, 10); se.Margin = new Thickness(55, 10, 55, 10); }
+         if (GameDataManager.Language == 1) { LanguagesMainPage = GameDataManager.EnglishList;  lg.Margin = new Thickness(57, 10, 46, 10); ng.Margin = new Thickness(57, 10, 51, 10); se.Margin = new Thickness(55, 10, 55, 10); }
+         if (GameDataManager.Language == 2) { LanguagesMainPage = GameDataManager.SpanishList; lg.Margin = new Thickness(55, 10, 50, 10); ng.Margin = new Thickness(55, 10, 55, 10); se.Margin = new Thickness(55, 10, 55, 10); }
+         if (GameDataManager.Language == 3) { LanguagesMainPage = GameDataManager.JapaneseList; lg.Margin = new Thickness(55, 10, 50, 10); ng.Margin = new Thickness(57, 10, 51, 10); se.Margin = new Thickness(57, 10, 53, 10); }
 
          ng.Text = LanguagesMainPage[1];
          lg.Text = LanguagesMainPage[32];

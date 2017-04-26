@@ -18,230 +18,353 @@ using System.Windows.Markup;
 
 namespace Launching_Interface
 {
-    /// <summary>
-    /// Interaction logic for NewGamePage.xaml
-    /// </summary>
-    public partial class NewGamePage : Page
-    {
-        List<string> LanguagesLoadPage { get; set; }
-        bool[] GameExists { get; set; }
-        public NewGamePage()
-        {
-            LanguagesLoadPage = new List<string>();
-            InitializeComponent();
-            if (GameDataManager.Language == 0) { LanguagesLoadPage = GameDataManager.FrenchList; }
-            if (GameDataManager.Language == 1) { LanguagesLoadPage = GameDataManager.EnglishList; }
-            if (GameDataManager.Language == 2) { LanguagesLoadPage = GameDataManager.SpanishList; }
-            if (GameDataManager.Language == 3) { LanguagesLoadPage = GameDataManager.JapaneseList; }
-            tbtitle.Text = LanguagesLoadPage[1];
-            BackButton.Text = LanguagesLoadPage[0];
-            CheckForExistingGames();
-            PlaceContent();
-        }
+   /// <summary>
+   /// Interaction logic for NewGamePage.xaml
+   /// </summary>
+   public partial class NewGamePage : Page
+   {
 
-        private void PlaceContent()
-        {
-            for (int i = 0; i < 3; ++i)
-            {
-                PlaceButtonsContent(i);
-            }
-        }
+      List<string> LanguageNewPage { get; set; }
+      List<string> ElementsToShowList { get; set; }
 
-        private void PlaceButtonsContent(int i)
-        {
-            if (GameExists[i])
-            {
-                PlaceRows(i);
-            }
-            else
-            {
-                PlaceCreateImage(i);
-            }
-        }
+      public NewGamePage()
+      {
+         LanguageNewPage = new List<string>();
+         ElementsToShowList  = new List<string>();
 
-        private void PlaceRows(int i)
-        {
-            switch (i)
-            {
-                case 0:
-                    CreateRows(Load0, i);
-                    break;
-                case 1:
-                    CreateRows(Load1, i);
-                    break;
-                case 2:
-                    CreateRows(Load2, i);
-                    break;
-            }
-        }
+         InitializeComponent();
 
-        private void CreateRows(Grid l, int i)
-        {
-            Rows e = new Rows();
-            BitmapImage src;
+         switch (GameDataManager.Language)
+         {
+            case 0:
+               LanguageNewPage = GameDataManager.FrenchList;
+               tbtitle.Margin = new Thickness(-40, 13, 42, 5);
+               BackButton.Margin = new Thickness(28, 17, 113, 52);
+               break;
+            case 1:
+               LanguageNewPage = GameDataManager.EnglishList;
+               tbtitle.Margin = new Thickness(-30, 13, 49, 5);
+               BackButton.Margin = new Thickness(28, 17, 113, 52);
+               break;
+            case 2:
+               LanguageNewPage = GameDataManager.SpanishList;
+               tbtitle.Margin = new Thickness(-40, 13, 42, 5);
+               BackButton.Margin = new Thickness(24, 17, 118, 52);
+               break;
+            case 3:
+               LanguageNewPage = GameDataManager.JapaneseList;
+               tbtitle.Margin = new Thickness(-30, 13, 49, 5);
+               BackButton.Margin = new Thickness(28, 17, 113, 52);
+               break;
 
-            switch (GameDataManager.Language)
-            {
-                case 0:
-                    src = new BitmapImage();
-                    src.BeginInit();
-                    src.UriSource = new Uri(@"../../Saves/screenshot" + i + ".png", UriKind.Relative);
-                    src.CacheOption = BitmapCacheOption.OnLoad;
-                    src.EndInit();
-                    e.Image.Source = src;
-                    e.Text.Text = File.ReadAllText("../../Saves/save" + i + ".txt");
-                    break;
-                case 1:
-                    src = new BitmapImage();
-                    src.BeginInit();
-                    src.UriSource = new Uri(@"../../Saves/screenshot" + i + ".png", UriKind.Relative);
-                    src.CacheOption = BitmapCacheOption.OnLoad;
-                    src.EndInit();
-                    e.Image.Source = src;
-                    e.Text.Text = File.ReadAllText("../../Saves/save" + i + ".txt");
-                    break;
-                case 2:
-                    src = new BitmapImage();
-                    src.BeginInit();
-                    src.UriSource = new Uri(@"../../Saves/screenshot" + i + ".png", UriKind.Relative);
-                    src.CacheOption = BitmapCacheOption.OnLoad;
-                    src.EndInit();
-                    e.Image.Source = src;
-                    e.Text.Text = File.ReadAllText("../../Saves/save" + i + ".txt");
-                    break;
-                case 3:
-                    src = new BitmapImage();
-                    src.BeginInit();
-                    src.UriSource = new Uri(@"../../Saves/screenshot" + i + ".png", UriKind.Relative);
-                    src.CacheOption = BitmapCacheOption.OnLoad;
-                    src.EndInit();
-                    e.Image.Source = src;
-                    e.Text.Text = File.ReadAllText("../../Saves/save" + i + ".txt");
-                    break;
-            }
-            l.Children.Add(e);
-            l.VerticalAlignment = VerticalAlignment.Top;
-        }
+         }
+         tbtitle.Text = LanguageNewPage[1];
+         BackButton.Text = LanguageNewPage[0];
+         CheckForExistingGames();
+         PlaceContent();
+      }
 
-        private void PlaceCreateImage(int i)
-        {
-            switch (i)
-            {
-                case 0:
-                    CreateImage(Load0);
-                    break;
-                case 1:
-                    CreateImage(Load1);
-                    break;
-                case 2:
-                    CreateImage(Load2);
-                    break;
-            }
-        }
+      private void PlaceContent()
+      {
+         for (int i = 0; i < 3; ++i)
+         {
+            PlaceButtonsContent(i);
+         }
+         
+      }
 
-        private void CreateImage(Grid l)
-        {
-            Create e = new Create();
-            switch (GameDataManager.Language)
-            {
-                case 0:
-                    e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateFR.png", UriKind.Relative));
-                    break;
-                case 1:
-                    e.Image.Source = new BitmapImage(new Uri(@"/Pictures/Create.png", UriKind.Relative));
-                    break;
-                case 2:
-                    e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateES.png", UriKind.Relative));
-                    break;
-                case 3:
-                    e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateJA.png", UriKind.Relative));
-                    break;
-            }
-            l.Children.Add(e);
-        }
+      private void PlaceButtonsContent(int i)
+      {
+         if (GameDataManager.GameExists[i])
+         {
+            PlaceRows(i);
+         }
+         else
+         {
+            PlaceCreateImage(i);
+         }
+      }
 
-        private void CheckForExistingGames()
-        {
-            StreamReader r;
+      private void PlaceRows(int i)
+      {
+         switch (i)
+         {
+            case 0:
+               CreateRows(i);
+               break;
+            case 1:
+               CreateRows(i);
+               break;
+            case 2:
+               CreateRows(i);
+               break;
+         }
+      }
 
-            GameExists = new bool[3];
-            for (int i = 0; i < 3; ++i)
-            {
-                r = new StreamReader("../../Saves/save" + i + ".txt");
-                GameExists[i] = r.ReadLine() != "";
-                r.Close();
-            }
-        }
+      private void CreateRows(int i)
+      {
+         BitmapImage src = new BitmapImage();
+         src.BeginInit();
+         src.UriSource = new Uri(@"../../Saves/screenshot" + i + ".png", UriKind.Relative);
+         src.CacheOption = BitmapCacheOption.OnLoad;
+         src.EndInit();
+      
+         ReadNewGameInformation(i);
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new MainPage());
-        }
+         switch (i)
+         {
+            case 0:
+               image0.Source = src;
+               image0.Margin = new Thickness(30);
+               slotA.Text = ÉlementFichiersLanguages(2);
+               Level0.Text= ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0]+ "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               Time0.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];     
+               break;
+            case 1:
+               image1.Source = src;
+               image1.Margin = new Thickness(30);
+               slotB.Text = ÉlementFichiersLanguages(5);
+               Level1.Text= ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               Time1.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               break;
+            case 2:
+               image2.Source = src;
+               image2.Margin = new Thickness(30);
+               slotC.Text = ÉlementFichiersLanguages(8);
+               Level2.Text= ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               Time2.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               break;
+         }
+         ElementsToShowList.Clear();
 
-        private void Save0Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (!GameExists[0])
-            {
-                CreateSave("0");
-            }
-            LoadSave("0");
-        }
+         OrganizeCharacteristicMargins();
+         RendreBoutonsBleus(i);
+      }
 
-        private void LoadSave(string saveNumber)
-        {
-            ManagePause(saveNumber);
-            //string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
-            //string path = "C:/Users/Matthew/Source/Repos/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, @"../../../../bin/x86/Debug/HyperV.exe");
-            ProcessStartInfo p = new ProcessStartInfo();
-            p.FileName = path;
-            p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
-            Process.Start(p);
-            Application.Current.Shutdown();
-            //Application.Current.MainWindow.Visibility = Visibility.Collapsed;
-            //Application.Current.MainWindow.ShowInTaskbar = false;
-            //this.NavigationService.Navigate(new InGameMenu());
-        }
+      string ÉlementFichiersLanguages(int i)
+      {
+         return LanguageNewPage[i].Replace("\n", string.Empty);
+      }
 
-        void CreateSave(string saveNumber)
-        {
-            StreamWriter writer = new StreamWriter("../../Saves/save" + saveNumber + ".txt");
+      void OrganizeCharacteristicMargins()
+      {
+         Thickness margesSave =new Thickness( 0);
+         Thickness margesLevel = new Thickness(0);
 
-            writer.WriteLine("Level: 0");
-            writer.WriteLine("Position: {X:5 Y:5 Z:5}");
-            writer.WriteLine("Direction: {X:5 Y:5 Z:5}");
-            //writer.WriteLine("Language: " + GameDataManager.Language);
-            //writer.WriteLine("World: Lobby");
-            //writer.WriteLine("Percentage: 0%");
-            writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
-            writer.Close();
-            File.Copy("../../Saves/startscreenshot.png", "../../Saves/screenshot" + saveNumber + ".png", true);
-        }
+         if (GameDataManager.Language != 0)
+         {
+            margesSave = new Thickness(20, 0, 20, 0);
+         }
+         slotA.Margin = margesSave;
+         slotB.Margin = margesSave;
+         slotC.Margin = margesSave;
 
-        private void ManagePause(string saveNumber)
-        {
-            StreamWriter writer = new StreamWriter("../../Saves/save.txt");
-            writer.WriteLine(saveNumber);
-            writer.WriteLine("true");
-            writer.Close();
-        }
+      
+         if (GameDataManager.Language ==3)
+         {
+            margesLevel = new Thickness(10, 0, 10, 0);
+         }
+         Level0.Margin = margesLevel;
+         Level1.Margin = margesLevel;
+         Level2.Margin = margesLevel;
 
-        private void Save1Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (!GameExists[1])
-            {
-                CreateSave("1");
-            }
-            LoadSave("1");
-        }
 
-        private void Save2Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (!GameExists[2])
-            {
-                CreateSave("2");
-            }
-            LoadSave("2");
-        }
-    }
+      }
+
+      void RendreBoutonsBleus(int i)
+      {
+         switch (i)
+         {
+            case 0:
+              // slotA.Foreground = Brushes.Blue;   
+               Save0Button.BorderBrush = Brushes.DarkBlue;
+               break;
+            case 1:
+               //slotB.Foreground = Brushes.Blue;        
+               Save1Button.BorderBrush = Brushes.DarkBlue;
+               break;
+            case 2:
+               //slotC.Foreground = Brushes.Blue;
+               Save2Button.BorderBrush = Brushes.DarkBlue;
+               break;
+         }
+
+
+      }
+
+      void ReadNewGameInformation(int i)
+      {
+         StreamReader dataReader = new StreamReader("../../Saves/save" + i + ".txt");
+         string Lignelue = dataReader.ReadLine();
+         string[] separateur = Lignelue.Split(new string[] { "l: " }, StringSplitOptions.None);
+         ElementsToShowList.Add(separateur[1]);
+
+         Lignelue = dataReader.ReadLine();
+         separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
+         ElementsToShowList.Add(separateur[1]);
+
+         Lignelue = dataReader.ReadLine();
+         separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
+         ElementsToShowList.Add(separateur[1]);
+
+         Lignelue = dataReader.ReadLine();
+         separateur = Lignelue.Split(new string[] { "d: " }, StringSplitOptions.None);
+         ElementsToShowList.Add(separateur[1]);
+
+         Lignelue = dataReader.ReadLine();
+         separateur = Lignelue.Split(new string[] { "e: " }, StringSplitOptions.None);
+         ElementsToShowList.Add(separateur[1]);
+
+         Lignelue = dataReader.ReadLine();
+         separateur = Lignelue.Split(new string[] { "k: " }, StringSplitOptions.None);
+         ElementsToShowList.Add(separateur[1]);
+         dataReader.Close();
+      }
+
+      private void PlaceCreateImage(int i)
+      {
+         switch (i)
+         {
+            case 0:
+               CreateImage(Load0);
+               break;
+            case 1:
+               CreateImage(Load1);
+               break;
+            case 2:
+               CreateImage(Load2);
+               break;
+         }
+         ResetButtons(i);
+      }
+
+      private void CreateImage(Grid l)
+      {
+         Create e = new Create();
+         switch (GameDataManager.Language)
+         {
+            case 0:
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateFR.png", UriKind.Relative));
+               break;
+            case 1:
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/Create.png", UriKind.Relative));
+               break;
+            case 2:
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateES.png", UriKind.Relative));
+               break;
+            case 3:
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateJA.png", UriKind.Relative));
+               break;
+         }
+         e.Image.Margin = new Thickness(0, -90, 0, -350);
+         l.Children.Add(e);
+      }
+
+      void CheckForExistingGames()
+      {
+         StreamReader r;
+
+         GameDataManager.GameExists = new bool[3];
+         for (int i = 0; i < 3; ++i)
+         {
+            r = new StreamReader("../../Saves/save" + i + ".txt");
+           GameDataManager. GameExists[i] = r.ReadLine() != "";
+            r.Close();
+         }
+      }
+
+      void BackButton_Click(object sender, RoutedEventArgs e)
+      {
+         this.NavigationService.Navigate(new MainPage());
+      }
+
+      void Save0Button_Click(object sender, RoutedEventArgs e)
+      {
+         if (!GameDataManager.GameExists[0])
+         {
+            CreateSave("0");
+         }
+         LoadSave("0");
+      }
+
+      void LoadSave(string saveNumber)
+      {
+         ManagePause(saveNumber);
+         //string path = "F:/programming/HyperV/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+         //string path = "C:/Users/Matthew/Source/Repos/HyperV/HyperV/HyperV/bin/x86/Debug/HyperV.exe";
+         string path = System.IO.Path.Combine(Environment.CurrentDirectory, @"../../../../bin/x86/Debug/HyperV.exe");
+         ProcessStartInfo p = new ProcessStartInfo();
+         p.FileName = path;
+         p.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
+         Process.Start(p);
+         Application.Current.Shutdown();
+         //Application.Current.MainWindow.Visibility = Visibility.Collapsed;
+         //Application.Current.MainWindow.ShowInTaskbar = false;
+         //this.NavigationService.Navigate(new InGameMenu());
+      }
+
+      void CreateSave(string saveNumber)
+      {
+         StreamWriter writer = new StreamWriter("../../Saves/save" + saveNumber + ".txt");
+
+         writer.WriteLine("Level: 0");
+         writer.WriteLine("Position: {X:5 Y:5 Z:5}");
+         writer.WriteLine("Direction: {X:5 Y:5 Z:5}");
+         //writer.WriteLine("Language: " + GameDataManager.Language);
+         //writer.WriteLine("World: Lobby");
+         //writer.WriteLine("Percentage: 0%");
+         writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
+         writer.Close();
+         File.Copy("../../Saves/startscreenshot.png", "../../Saves/screenshot" + saveNumber + ".png", true);
+      }
+
+      void ManagePause(string saveNumber)
+      {
+         StreamWriter writer = new StreamWriter("../../Saves/save.txt");
+         writer.WriteLine(saveNumber);
+         writer.WriteLine("true");
+         writer.Close();
+      }
+
+      void Save1Button_Click(object sender, RoutedEventArgs e)
+      {
+         if (!GameDataManager.GameExists[1])
+         {
+            CreateSave("1");
+         }
+         LoadSave("1");
+      }
+
+      void Save2Button_Click(object sender, RoutedEventArgs e)
+      {
+         if (!GameDataManager.GameExists[2])
+         {
+            CreateSave("2");
+         }
+         LoadSave("2");
+      }
+
+      void ResetButtons(int i)
+      {
+         switch (i)
+         {
+            case 0:
+               slotA.Text = "";
+               Time0.Text = "";
+               Level0.Text = "";
+               break;
+            case 1:
+               slotB.Text = "";
+               Time1.Text = "";
+               Level1.Text = "";
+               break;
+            case 2:
+               slotC.Text = "";
+               Time2.Text = "";
+               Level2.Text = "";
+               break;
+         }
+      }
+
+   }
 }
