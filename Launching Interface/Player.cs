@@ -7,44 +7,55 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
+
 namespace Launching_Interface
 {
    class Player
    {
-      string Name { get; set; }
-      public TimeSpan TempsLevel1 { get; private set; }
-      public TimeSpan TempsLevel2 { get; private set; }
-      public TimeSpan TempsLevel3 { get; private set; }
+
+      public string Name { get; private set; }
+      public List<TimeSpan> PlayerTimeList { get; private set; }
+
+
+
+      public Player(string name, TimeSpan levelTime1, TimeSpan levelTime2, TimeSpan levelTime3,
+                                TimeSpan levelTime4, TimeSpan levelTime5, TimeSpan levelTime6,
+                                TimeSpan levelTime7, TimeSpan levelTime8)
+      {
+         PlayerTimeList = new List<TimeSpan>();
+         Name = name;
+         PlayerTimeList.Add(levelTime1);
+         PlayerTimeList.Add(levelTime2);
+         PlayerTimeList.Add(levelTime3);
+         PlayerTimeList.Add(levelTime4);
+         PlayerTimeList.Add(levelTime5);
+         PlayerTimeList.Add(levelTime6);
+         PlayerTimeList.Add(levelTime7);
+         PlayerTimeList.Add(levelTime8);
+      }
+
 
       
-      public Player(string name, TimeSpan levelTime1, TimeSpan levelTime2, TimeSpan levelTime3)
-      {
-         Name = name;
-         TempsLevel1 = levelTime1;
-         TempsLevel2 = levelTime2;
-         TempsLevel3 = levelTime3;
-      }
 
-      void ReadPlayerFile(int i)
-      {
-         StreamReader dataReader = new StreamReader("../../Saves/save" + i + ".txt");
-         while (!dataReader.EndOfStream)
-         {
-            for (int j = 0; j < 5; j++)
-            {
-               dataReader.ReadLine();
-            }
+      //void ReadPlayerFile(int i)
+      //{
+      //   StreamReader dataReader = new StreamReader("../../Saves/save" + i + ".txt");
+
+      //      for (int j = 0; j < 5; j++)
+      //      {
+      //         dataReader.ReadLine();
+      //      }
             
 
-            string lineRead = dataReader.ReadLine();
+      //      string lineRead = dataReader.ReadLine();
            
 
-            //lineRead = dataReader.ReadLine();
-            //separator = lineRead.Split(new string[] { "k: " }, StringSplitOptions.None);
-            //ElementsToShowList.Add(separator[1]);
-         }
-         dataReader.Close();
-      }
+      //      //lineRead = dataReader.ReadLine();
+      //      //separator = lineRead.Split(new string[] { "k: " }, StringSplitOptions.None);
+      //      //ElementsToShowList.Add(separator[1]);
+         
+      //   dataReader.Close();
+      //}
 
    }
 }

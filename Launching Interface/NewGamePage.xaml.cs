@@ -60,7 +60,7 @@ namespace Launching_Interface
          }
          tbtitle.Text = LanguageNewPage[1];
          BackButton.Text = LanguageNewPage[0];
-         CheckForExistingGames();
+      //   CheckForExistingGames();
          PlaceContent();
       }
 
@@ -135,7 +135,6 @@ namespace Launching_Interface
                Time2.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
          }
-         ElementsToShowList.Clear();
 
          OrganizeCharacteristicMargins();
          RendreBoutonsBleus(i);
@@ -176,15 +175,12 @@ namespace Launching_Interface
          switch (i)
          {
             case 0:
-              // slotA.Foreground = Brushes.Blue;   
                Save0Button.BorderBrush = Brushes.DarkBlue;
                break;
-            case 1:
-               //slotB.Foreground = Brushes.Blue;        
+            case 1:    
                Save1Button.BorderBrush = Brushes.DarkBlue;
                break;
             case 2:
-               //slotC.Foreground = Brushes.Blue;
                Save2Button.BorderBrush = Brushes.DarkBlue;
                break;
          }
@@ -194,31 +190,20 @@ namespace Launching_Interface
 
       void ReadNewGameInformation(int i)
       {
-         StreamReader dataReader = new StreamReader("../../Saves/save" + i + ".txt");
-         string Lignelue = dataReader.ReadLine();
-         string[] separateur = Lignelue.Split(new string[] { "l: " }, StringSplitOptions.None);
-         ElementsToShowList.Add(separateur[1]);
+         switch (i)
+         {
+            case 0:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList0;
+               break;
+            case 1:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList1;
+               break;
+            case 2:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList2;
+               break;
+          }
+          
 
-         Lignelue = dataReader.ReadLine();
-         separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
-         ElementsToShowList.Add(separateur[1]);
-
-         Lignelue = dataReader.ReadLine();
-         separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
-         ElementsToShowList.Add(separateur[1]);
-
-         Lignelue = dataReader.ReadLine();
-         separateur = Lignelue.Split(new string[] { "d: " }, StringSplitOptions.None);
-         ElementsToShowList.Add(separateur[1]);
-
-         Lignelue = dataReader.ReadLine();
-         separateur = Lignelue.Split(new string[] { "e: " }, StringSplitOptions.None);
-         ElementsToShowList.Add(separateur[1]);
-
-         Lignelue = dataReader.ReadLine();
-         separateur = Lignelue.Split(new string[] { "k: " }, StringSplitOptions.None);
-         ElementsToShowList.Add(separateur[1]);
-         dataReader.Close();
       }
 
       private void PlaceCreateImage(int i)
@@ -260,18 +245,18 @@ namespace Launching_Interface
          l.Children.Add(e);
       }
 
-      void CheckForExistingGames()
-      {
-         StreamReader r;
+      //void CheckForExistingGames()
+      //{
+      //   StreamReader r;
 
-         GameDataManager.GameExists = new bool[3];
-         for (int i = 0; i < 3; ++i)
-         {
-            r = new StreamReader("../../Saves/save" + i + ".txt");
-           GameDataManager. GameExists[i] = r.ReadLine() != "";
-            r.Close();
-         }
-      }
+      //   GameDataManager.GameExists = new bool[3];
+      //   for (int i = 0; i < 3; ++i)
+      //   {
+      //      r = new StreamReader("../../Saves/save" + i + ".txt");
+      //     GameDataManager. GameExists[i] = r.ReadLine() != "";
+      //      r.Close();
+      //   }
+      //}
 
       void BackButton_Click(object sender, RoutedEventArgs e)
       {

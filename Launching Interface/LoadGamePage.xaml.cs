@@ -114,24 +114,45 @@ namespace Launching_Interface
             case 0:
                image0.Source = src;
                image0.Margin = new Thickness(30);
-               slotA.Text = ÉlementFichiersLanguages(7) + " A";
+               slotA.Text = ÉlementFichiersLanguages(2);
                Level0.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
                Time0.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
             case 1:
                image1.Source = src;
                image1.Margin = new Thickness(30);
-               slotB.Text = ÉlementFichiersLanguages(7) + " B";
+               slotB.Text = ÉlementFichiersLanguages(5);
                Level1.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
                Time1.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
             case 2:
                image2.Source = src;
                image2.Margin = new Thickness(30);
-               slotC.Text = ÉlementFichiersLanguages(7) + " C";
+               slotC.Text = ÉlementFichiersLanguages(8);
                Level2.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
                Time2.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
+               //case 0:
+               //   image0.Source = src;
+               //   image0.Margin = new Thickness(30);
+               //   slotA.Text = ÉlementFichiersLanguages(7) + " A";
+               //   Level0.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               //   Time0.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               //   break;
+               //case 1:
+               //   image1.Source = src;
+               //   image1.Margin = new Thickness(30);
+               //   slotB.Text = ÉlementFichiersLanguages(7) + " B";
+               //   Level1.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               //   Time1.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               //   break;
+               //case 2:
+               //   image2.Source = src;
+               //   image2.Margin = new Thickness(30);
+               //   slotC.Text = ÉlementFichiersLanguages(7) + " C";
+               //   Level2.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               //   Time2.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               //   break;
          }
          ElementsToShowList.Clear();
 
@@ -192,34 +213,18 @@ namespace Launching_Interface
 
       void ReadNewGameInformation(int i)
       {
-         StreamReader dataReader = new StreamReader("../../Saves/save" + i + ".txt");
-         while (!dataReader.EndOfStream)
+         switch (i)
          {
-            string Lignelue = dataReader.ReadLine();
-            string[] separateur = Lignelue.Split(new string[] { "l: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "d: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "e: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "k: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
+            case 0:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList0;
+               break;
+            case 1:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList1;
+               break;
+            case 2:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList2;
+               break;
          }
-         dataReader.Close();
       }
 
       private void PlaceCreateImage(int i)

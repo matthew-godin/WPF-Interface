@@ -205,10 +205,10 @@
                 </Viewbox>
 
 
-                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="115,38,225,-5">
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                     <TextBlock Name="textL" Text="L"  IsHitTestVisible="False" Background="Transparent" Foreground="White" FontWeight="DemiBold" Margin="0" Height="16"/>
                 </Viewbox>
-                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="125,38,216,-5">
+                <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="1" Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                     <TextBlock Name="textR" Text="R"  IsHitTestVisible="False" Background="Transparent" Foreground="White"  FontWeight="DemiBold" Margin="0"  Height="16"/>
                 </Viewbox>
 

@@ -4,5 +4,13 @@ Direction: {X:0.9801468 Y:0.07761209 Z:0.1824518}
 Time Played: 00:00:02.2845650
 Max Life: 300
 Attack: 0
-
 False;False;False;
+pierre charbonneau
+Niveau1;00:40:01
+Niveau2;00:40:02
+Niveau3;00:40:03
+Niveau4;00:40:04
+Niveau5;00:40:05
+Niveau6;00:40:06
+Niveau7;00:40:07
+Niveau8;00:40:08
