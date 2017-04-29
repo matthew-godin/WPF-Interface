@@ -17,7 +17,6 @@
             </Grid.RowDefinitions>
 
             <Grid Name="Columns" Grid.Row="0" HorizontalAlignment="Stretch" Width="auto">
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="25*"/>
                     <ColumnDefinition Width="25*"/>
@@ -40,13 +39,8 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-
-
-
-
                 <Button Name="Load0Button"  Height="auto" Width="auto" Grid.Column="0" Margin="90,50,25,70" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="Load1Button_Click" BorderBrush="White" BorderThickness="6" Background="AntiqueWhite"  >
                     <Grid  Name="Load0" Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin=" 0,0,0,0">
-
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30*" />
                             <RowDefinition Height="5*" />
@@ -55,9 +49,9 @@
                             <RowDefinition Height="5*" />
                             <RowDefinition Height="5*" />
                         </Grid.RowDefinitions>
-
-                        <Image Grid.Row="0" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30" Name="image0" />
-
+                        <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image Grid.Row="0" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30" Name="image0" />
+                        </Viewbox>
                         <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,-20,15,20">
                             <TextBlock Name="Level0" Text="level : 3" IsHitTestVisible="False" Margin="0,0,0,0"  Background="Transparent" Foreground="Black"  FontWeight="SemiBold" Height="16" MinHeight="16"/>
                         </Viewbox>
@@ -67,14 +61,8 @@
                         <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,0">
                             <TextBlock Name="Time0" Text="Time Played 0:00:00" IsHitTestVisible="False" Margin="0,0,0,0"  Background="Transparent" Foreground="Black"  FontWeight="SemiBold" Height="16" MinHeight="16"/>
                         </Viewbox>
-
                     </Grid>
                 </Button>
-
-
-
-
-
                 <Button Name="Load1Button"  Height="auto" Width="auto" Grid.Column="1" Margin="50,50,50,70" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="Load2Button_Click" BorderBrush="White" BorderThickness="6" Background="AntiqueWhite">
                     <Grid  Name="Load1" Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <Grid.RowDefinitions>
@@ -85,9 +73,9 @@
                             <RowDefinition Height="5*" />
                             <RowDefinition Height="5*" />
                         </Grid.RowDefinitions>
-
-                        <Image Grid.Row="0" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30" Name="image1" />
-
+                        <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image Grid.Row="0" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30" Name="image1" />
+                        </Viewbox>
                         <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,-20,15,20">
                             <TextBlock Name="Level1" Text="level : 3" IsHitTestVisible="False" Margin="0,0,0,0"  Background="Transparent" Foreground="Black"  FontWeight="SemiBold" Height="16" MinHeight="16"/>
                         </Viewbox>
@@ -97,7 +85,6 @@
                         <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,0">
                             <TextBlock Name="Time1" Text="Time Played 0:00:00" IsHitTestVisible="False" Margin="0,0,0,0"  Background="Transparent" Foreground="Black"  FontWeight="SemiBold" Height="16" MinHeight="16"/>
                         </Viewbox>
-
                     </Grid>
                 </Button>
 
@@ -119,9 +106,9 @@
                             <RowDefinition Height="5*" />
                             <RowDefinition Height="5*" />
                         </Grid.RowDefinitions>
-
-
-
+                        <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image Grid.Row="0" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30" Name="image2" />
+                        </Viewbox>
                         <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,-20,15,20">
                             <TextBlock Name="Level2" Text="level : 3" IsHitTestVisible="False" Margin="0,0,0,0"  Background="Transparent" Foreground="Black"  FontWeight="SemiBold" Height="16" MinHeight="16"/>
                         </Viewbox>
@@ -131,8 +118,6 @@
                         <Viewbox Stretch="Fill" Width="auto" Height="auto" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,0">
                             <TextBlock Name="Time2" Text="Time Played 0:00:00" IsHitTestVisible="False" Margin="0,0,0,0"  Background="Transparent" Foreground="Black"  FontWeight="SemiBold" Height="16" MinHeight="16"/>
                         </Viewbox>
-
-                        <Image  Grid.Row="0" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30" Name="image2" />
                     </Grid>
                 </Button>
             </Grid>

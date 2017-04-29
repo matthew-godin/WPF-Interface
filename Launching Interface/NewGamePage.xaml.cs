@@ -117,27 +117,27 @@ namespace Launching_Interface
                image0.Source = src;
                image0.Margin = new Thickness(30);
                slotA.Text = ÉlementFichiersLanguages(2);
-               Level0.Text= ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0]+ "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               Level0.Text= ÉlementFichiersLanguages(4) + " " + GameDataManager.CountComplete(i) + "/" + GameDataManager.CountLevels(i).ToString();
                Time0.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];     
                break;
             case 1:
                image1.Source = src;
                image1.Margin = new Thickness(30);
                slotB.Text = ÉlementFichiersLanguages(5);
-               Level1.Text= ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               Level1.Text= ÉlementFichiersLanguages(4) + " " + GameDataManager.CountComplete(i) + "/" + GameDataManager.CountLevels(i).ToString();
                Time1.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
             case 2:
                image2.Source = src;
                image2.Margin = new Thickness(30);
                slotC.Text = ÉlementFichiersLanguages(8);
-               Level2.Text= ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               Level2.Text= ÉlementFichiersLanguages(4) + " " + /*ElementsToShowList[0]*/GameDataManager.CountComplete(i) + "/" + GameDataManager.CountLevels(i).ToString();
                Time2.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
          }
 
          OrganizeCharacteristicMargins();
-         RendreBoutonsBleus(i);
+         ChangeBorderBrushColor(i);
       }
 
       string ÉlementFichiersLanguages(int i)
@@ -170,22 +170,20 @@ namespace Launching_Interface
 
       }
 
-      void RendreBoutonsBleus(int i)
+      void ChangeBorderBrushColor(int i)
       {
          switch (i)
          {
             case 0:
-               Save0Button.BorderBrush = Brushes.DarkBlue;
+                    Save0Button.BorderBrush = Brushes.Black;//DarkBlue;
                break;
-            case 1:    
-               Save1Button.BorderBrush = Brushes.DarkBlue;
+            case 1:
+                    Save1Button.BorderBrush = Brushes.Black;//DarkBlue;
                break;
             case 2:
-               Save2Button.BorderBrush = Brushes.DarkBlue;
+                    Save2Button.BorderBrush = Brushes.Black;//DarkBlue;
                break;
          }
-
-
       }
 
       void ReadNewGameInformation(int i)
@@ -220,7 +218,8 @@ namespace Launching_Interface
                CreateImage(Load2);
                break;
          }
-         ResetButtons(i);
+            ChangeBorderBrushColor(i);
+            ResetButtons(i);
       }
 
       private void CreateImage(Grid l)
@@ -299,7 +298,10 @@ namespace Launching_Interface
          //writer.WriteLine("World: Lobby");
          //writer.WriteLine("Percentage: 0%");
          writer.WriteLine("Time Played: " + (new TimeSpan(0, 0, 0)).ToString());
-         writer.Close();
+            writer.WriteLine("Max Life: 300");
+            writer.WriteLine("Attack: 0");
+            writer.WriteLine("false;false;false;false;false;false;false;false");
+            writer.Close();
          File.Copy("../../Saves/startscreenshot.png", "../../Saves/screenshot" + saveNumber + ".png", true);
       }
 

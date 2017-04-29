@@ -651,6 +651,7 @@ namespace Launching_Interface
          r.Close();
          File.Copy("../../Saves/pendingsave.txt", "../../Saves/save" + n + ".txt", true);
          File.Copy("../../Saves/pendingscreenshot.png", "../../Saves/screenshot" + n + ".png", true);
+            GameDataManager.RefreshSaves();
       }
 
       void ManageButtons()

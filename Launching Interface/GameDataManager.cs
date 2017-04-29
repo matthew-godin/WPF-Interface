@@ -9,7 +9,7 @@ namespace Launching_Interface
       const string BASE_PATH = "../../";
 
       public static bool RD = true;
-      public const int NUM_LEVELS = 8;
+      //public const int NUM_LEVELS = 8;
       const int LANGUAGE_BASE = 0;
       const int FPS_BASE = 60;
       const int RENDER_D_BASE = 500;
@@ -171,28 +171,42 @@ namespace Launching_Interface
          CharacteristicsToDisplayList0 = new List<string>();
          CharacteristicsToDisplayList1 = new List<string>();
          CharacteristicsToDisplayList2 = new List<string>();
-
+            InitializeComplete();
          ReadFiles("Languages","En.txt");
          ReadFiles("Languages","Es.txt");
          ReadFiles("Languages","Jp.txt");
          ReadFiles("Languages","Fr.txt");
 
-         CheckForExistingGames();
-         if(GameExists[0])
-         {
-             ReadFiles("Saves","save0.txt");
-         }
 
-         if (GameExists[1])
-         {
-            ReadFiles("Saves", "save1.txt");
-         }
-         if (GameExists[2])
-         {
-            ReadFiles("Saves", "save2.txt");
-         }
-
+            RefreshSaves();
       }
+
+        static void InitializeComplete()
+        {
+            Complete = new List<bool>[3];
+            for (int i = 0; i < 3; ++i)
+            {
+                Complete[i] = new List<bool>();
+            }
+        }
+
+        public static void RefreshSaves()
+        {
+            CheckForExistingGames();
+            if (GameExists[0])
+            {
+                ReadFiles("Saves", "save0.txt");
+            }
+
+            if (GameExists[1])
+            {
+                ReadFiles("Saves", "save1.txt");
+            }
+            if (GameExists[2])
+            {
+                ReadFiles("Saves", "save2.txt");
+            }
+        }
 
       static void ReadFiles(string folderName,string fileName)
       {
@@ -233,9 +247,9 @@ namespace Launching_Interface
       {
          List<string> temporaryCharacteristicList = new List<string>();
 
-         for (int j = 0; j < 7; j++)
+         for (int j = 0; j < 6; j++)
          {
-            string line = dataReader.ReadLine();
+            string line_ = dataReader.ReadLine();
             string separatingSymbol = " ";
             
 
@@ -259,12 +273,12 @@ namespace Launching_Interface
                case 5:
                   separatingSymbol = "k: ";
                   break;
-               case 6:
-                  separatingSymbol = ";";
-                  break;
+               //case 6:
+               //   separatingSymbol = ";";
+               //   break;
             }
-            string[] parts = line.Split(new string[] { separatingSymbol }, StringSplitOptions.None);
-            temporaryCharacteristicList.Add(parts[1]);
+            string[] parts_ = line_.Split(new string[] { separatingSymbol }, StringSplitOptions.None);
+            temporaryCharacteristicList.Add(parts_[1]);
 
             //if (j == 3)
             //{
@@ -283,19 +297,47 @@ namespace Launching_Interface
 
          }
 
-         temporaryCharacteristicList.Add(dataReader.ReadLine());   //  name  (#8)
+            //temporaryCharacteristicList.Add(dataReader.ReadLine());   //  name  (#8)
+            string line = dataReader.ReadLine();
+            string[] parts = line.Split(new char[] { ';' });
+            for (int j = 0; j < parts.Length; ++j)
+            {
+                Complete[i].Add(bool.Parse(parts[j]));
+            }
+            //   string lineRead = dataReader.ReadLine();
+            //   string[] timeSeparator = lineRead.Split(new string[] { ";" }, StringSplitOptions.None);
+            //   for (int k = 0; k < NUM_LEVELS; k++)
+            //{
+            //   //string lineRead = dataReader.ReadLine();
+            //   //string[] timeSeparator = lineRead.Split(new string[] { ";" }, StringSplitOptions.None);
+            //   temporaryCharacteristicList.Add(timeSeparator[/*1*/k]);                       
+            //}
 
-         for (int k = 0; k < NUM_LEVELS; k++)
-         {
-            string lineRead = dataReader.ReadLine();
-            string[] timeSeparator = lineRead.Split(new string[] { ";" }, StringSplitOptions.None);
-            temporaryCharacteristicList.Add(timeSeparator[1]);                       
-         }
-
-         AssociateGoodListToDisplay(i,temporaryCharacteristicList);
+            AssociateGoodListToDisplay(i,temporaryCharacteristicList);
       }
 
-      static void AssociateGoodListToDisplay(int i,List<string> temporaryCharacteristicList)
+        static List<bool>[] Complete { get; set; }
+
+        public static int CountComplete(int i)
+        {
+            int numCompleted = 0;
+
+            foreach (bool e in Complete[i])
+            {
+                if (e)
+                {
+                    ++numCompleted;
+                }
+            }
+            return numCompleted;
+        }
+
+        public static int CountLevels(int i)
+        {
+            return Complete[i].Count;
+        }
+
+        static void AssociateGoodListToDisplay(int i,List<string> temporaryCharacteristicList)
       {
          switch (i)
          {
