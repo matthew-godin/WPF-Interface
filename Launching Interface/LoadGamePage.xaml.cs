@@ -19,53 +19,45 @@ namespace Launching_Interface
 
       public LoadGamePage()
         {
-         LanguagesLoadPage = new List<string>();
-         ElementsToShowList = new List<string>();
-
-         InitializeComponent();
-         switch (GameDataManager.Language)
-         {
-            case 0:
-               LanguagesLoadPage = GameDataManager.FrenchList;
-               tbtitle.Margin = new Thickness(-40, 13, 42, 5);
-               BackButton.Margin = new Thickness(28, 17, 113, 52);
-               break;
-            case 1:
-               LanguagesLoadPage = GameDataManager.EnglishList;
-               tbtitle.Margin = new Thickness(-30, 13, 49, 5);
-               BackButton.Margin = new Thickness(28, 17, 113, 52);
-               break;
-            case 2:
-               LanguagesLoadPage = GameDataManager.SpanishList;
-               tbtitle.Margin = new Thickness(-40, 13, 42, 5);
-               BackButton.Margin = new Thickness(24, 17, 118, 52);
-               break;
-            case 3:
-               LanguagesLoadPage = GameDataManager.JapaneseList;
-               tbtitle.Margin = new Thickness(-30, 13, 49, 5);
-               BackButton.Margin = new Thickness(28, 17, 113, 52);
-               break;
-
-         }
-         tbtitle.Text = LanguagesLoadPage[32];
-         BackButton.Text = LanguagesLoadPage[0];
-
-         CheckForExistingGames();
-         PlaceContent();
+            Refresh();
       }
 
-      void CheckForExistingGames()
-      {
-         StreamReader r;
+        void Refresh()
+        {
+            LanguagesLoadPage = new List<string>();
+            ElementsToShowList = new List<string>();
 
-         GameDataManager.GameExists = new bool[3];
-         for (int i = 0; i < 3; ++i)
-         {
-            r = new StreamReader("../../Saves/save" + i + ".txt");
-           GameDataManager.GameExists[i] = r.ReadLine() != "";
-            r.Close();
-         }
-      }
+            InitializeComponent();
+            switch (GameDataManager.Language)
+            {
+                case 0:
+                    LanguagesLoadPage = GameDataManager.FrenchList;
+                    tbtitle.Margin = new Thickness(-40, 13, 42, 5);
+                    BackButton.Margin = new Thickness(28, 17, 113, 52);
+                    break;
+                case 1:
+                    LanguagesLoadPage = GameDataManager.EnglishList;
+                    tbtitle.Margin = new Thickness(-30, 13, 49, 5);
+                    BackButton.Margin = new Thickness(28, 17, 113, 52);
+                    break;
+                case 2:
+                    LanguagesLoadPage = GameDataManager.SpanishList;
+                    tbtitle.Margin = new Thickness(-40, 13, 42, 5);
+                    BackButton.Margin = new Thickness(24, 17, 118, 52);
+                    break;
+                case 3:
+                    LanguagesLoadPage = GameDataManager.JapaneseList;
+                    tbtitle.Margin = new Thickness(-30, 13, 49, 5);
+                    BackButton.Margin = new Thickness(28, 17, 113, 52);
+                    break;
+
+            }
+            tbtitle.Text = LanguagesLoadPage[32];
+            BackButton.Text = LanguagesLoadPage[0];
+
+            //CheckForExistingGames();
+            PlaceContent();
+        }
 
       private void PlaceContent()
       {
@@ -114,26 +106,47 @@ namespace Launching_Interface
             case 0:
                image0.Source = src;
                image0.Margin = new Thickness(30);
-               slotA.Text = ÉlementFichiersLanguages(7) + " A";
-               Level0.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               slotA.Text = ÉlementFichiersLanguages(2);
+               Level0.Text = ÉlementFichiersLanguages(4) + " " + GameDataManager.CountComplete(i) + "/" + GameDataManager.CountLevels(i).ToString();
                Time0.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
             case 1:
                image1.Source = src;
                image1.Margin = new Thickness(30);
-               slotB.Text = ÉlementFichiersLanguages(7) + " B";
-               Level1.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               slotB.Text = ÉlementFichiersLanguages(5);
+               Level1.Text = ÉlementFichiersLanguages(4) + " " + GameDataManager.CountComplete(i) + "/" + GameDataManager.CountLevels(i).ToString();
                Time1.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
             case 2:
                image2.Source = src;
                image2.Margin = new Thickness(30);
-               slotC.Text = ÉlementFichiersLanguages(7) + " C";
-               Level2.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               slotC.Text = ÉlementFichiersLanguages(8);
+               Level2.Text = ÉlementFichiersLanguages(4) + " " + GameDataManager.CountComplete(i) + "/" + GameDataManager.CountLevels(i).ToString();
                Time2.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
                break;
+               //case 0:
+               //   image0.Source = src;
+               //   image0.Margin = new Thickness(30);
+               //   slotA.Text = ÉlementFichiersLanguages(7) + " A";
+               //   Level0.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               //   Time0.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               //   break;
+               //case 1:
+               //   image1.Source = src;
+               //   image1.Margin = new Thickness(30);
+               //   slotB.Text = ÉlementFichiersLanguages(7) + " B";
+               //   Level1.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               //   Time1.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               //   break;
+               //case 2:
+               //   image2.Source = src;
+               //   image2.Margin = new Thickness(30);
+               //   slotC.Text = ÉlementFichiersLanguages(7) + " C";
+               //   Level2.Text = ÉlementFichiersLanguages(4) + " " + ElementsToShowList[0] + "/" + GameDataManager.NBRE_NIVEAUX.ToString();
+               //   Time2.Text = ÉlementFichiersLanguages(3) + " " + ElementsToShowList[3];
+               //   break;
          }
-         ElementsToShowList.Clear();
+         //ElementsToShowList.Clear();
 
          OrganizeCharacteristicMargins();
          MakeTextRed(i);
@@ -156,70 +169,109 @@ namespace Launching_Interface
                Load2Button.BorderBrush = Brushes.Red;
                break;
          }
-
-         
       }
-      
-      string ÉlementFichiersLanguages(int i)
+
+        void ChangeBorderBrushColor(int i)
+        {
+            switch (i)
+            {
+                case 0:
+                    Load0Button.BorderBrush = Brushes.Black;//DarkBlue;
+                    break;
+                case 1:
+                    Load1Button.BorderBrush = Brushes.Black;//DarkBlue;
+                    break;
+                case 2:
+                    Load2Button.BorderBrush = Brushes.Black;//DarkBlue;
+                    break;
+            }
+        }
+
+        string ÉlementFichiersLanguages(int i)
       {
          return LanguagesLoadPage[i].Replace("\n", string.Empty);
       }
 
-      void OrganizeCharacteristicMargins()
+        //void OrganizeCharacteristicMargins()
+        //{
+        //   Thickness margesSave = new Thickness(10,0,10,0);
+        //   Thickness margesLevel = new Thickness(0);
+
+        //   if (GameDataManager.Language != 0)
+        //   {
+        //      margesSave = new Thickness(20, 0, 20, 0);
+        //   }
+        //   slotA.Margin = margesSave;
+        //   slotB.Margin = margesSave;
+        //   slotC.Margin = margesSave;
+
+
+        //   if (GameDataManager.Language == 3)
+        //   {
+        //      margesLevel = new Thickness(10, 0, 10, 0);
+        //   }
+        //   Level0.Margin = margesLevel;
+        //   Level1.Margin = margesLevel;
+        //   Level2.Margin = margesLevel;
+
+
+        //}
+
+        void OrganizeCharacteristicMargins()
+        {
+            switch (GameDataManager.Language)
+            {
+                case 0:
+                    LanguagesLoadPage = GameDataManager.FrenchList;
+                    tbtitle.Margin = new Thickness(-38, 13, 43, 5);
+                    BackButton.Margin = new Thickness(36, 17, 105, 50);
+                    slotA.Margin = slotB.Margin = slotC.Margin = new Thickness(15, -11, 15, 10);
+                    Level0.Margin = Level1.Margin = Level2.Margin = new Thickness(5, -5, 5, 5);
+                    Time0.Margin = Time1.Margin = Time2.Margin = new Thickness(20, 0, 20, 0);
+
+                    break;
+                case 1:
+                    LanguagesLoadPage = GameDataManager.EnglishList;
+                    tbtitle.Margin = new Thickness(-35, 13, 49, 5);
+                    BackButton.Margin = new Thickness(36, 17, 105, 50);
+                    slotA.Margin = slotB.Margin = slotC.Margin = new Thickness(33, -11, 33, 10);
+                    Level0.Margin = Level1.Margin = Level2.Margin = new Thickness(5, -5, 5, 5);
+                    Time0.Margin = Time1.Margin = Time2.Margin = new Thickness(20, 0, 20, 0);
+                    break;
+                case 2:
+                    LanguagesLoadPage = GameDataManager.SpanishList;
+                    tbtitle.Margin = new Thickness(-39, 13, 42, 5);
+                    BackButton.Margin = new Thickness(33, 17, 107, 52);
+                    slotA.Margin = slotB.Margin = slotC.Margin = new Thickness(27, -11, 27, 10);
+                    Level0.Margin = Level1.Margin = Level2.Margin = new Thickness(5, -5, 5, 5);
+                    Time0.Margin = Time1.Margin = Time2.Margin = new Thickness(20, 0, 20, 0);
+                    break;
+                case 3:
+                    LanguagesLoadPage = GameDataManager.JapaneseList;
+                    tbtitle.Margin = new Thickness(-41, 13, 53, 5);
+                    BackButton.Margin = new Thickness(36, 17, 105, 52);
+                    slotA.Margin = slotB.Margin = slotC.Margin = new Thickness(26, -11, 26, 10);
+                    Level0.Margin = Level1.Margin = Level2.Margin = new Thickness(14, -5, 14, 5);
+                    Time0.Margin = Time1.Margin = Time2.Margin = new Thickness(20, 0, 20, 0);
+                    break;
+
+            }
+        }
+
+            void ReadNewGameInformation(int i)
       {
-         Thickness margesSave = new Thickness(10,0,10,0);
-         Thickness margesLevel = new Thickness(0);
-
-         if (GameDataManager.Language != 0)
+         switch (i)
          {
-            margesSave = new Thickness(20, 0, 20, 0);
+            case 0:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList0;
+               break;
+            case 1:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList1;
+               break;
+            case 2:
+               ElementsToShowList = GameDataManager.CharacteristicsToDisplayList2;
+               break;
          }
-         slotA.Margin = margesSave;
-         slotB.Margin = margesSave;
-         slotC.Margin = margesSave;
-
-
-         if (GameDataManager.Language == 3)
-         {
-            margesLevel = new Thickness(10, 0, 10, 0);
-         }
-         Level0.Margin = margesLevel;
-         Level1.Margin = margesLevel;
-         Level2.Margin = margesLevel;
-
-
-      }
-
-      void ReadNewGameInformation(int i)
-      {
-         StreamReader dataReader = new StreamReader("../../Saves/save" + i + ".txt");
-         while (!dataReader.EndOfStream)
-         {
-            string Lignelue = dataReader.ReadLine();
-            string[] separateur = Lignelue.Split(new string[] { "l: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "n: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "d: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "e: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-
-            Lignelue = dataReader.ReadLine();
-            separateur = Lignelue.Split(new string[] { "k: " }, StringSplitOptions.None);
-            ElementsToShowList.Add(separateur[1]);
-         }
-         dataReader.Close();
       }
 
       private void PlaceCreateImage(int i)
@@ -236,6 +288,7 @@ namespace Launching_Interface
                CreateImage(Load2);
                break;
          }
+            ChangeBorderBrushColor(i);
          ResetButtons(i);
       }
 
@@ -245,16 +298,16 @@ namespace Launching_Interface
          switch (GameDataManager.Language)
          {
             case 0:
-               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateFR.png", UriKind.Relative));
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/EmptyFR.png", UriKind.Relative));
                break;
             case 1:
-               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/Create.png", UriKind.Relative));
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/Empty.png", UriKind.Relative));
                break;
             case 2:
-               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateES.png", UriKind.Relative));
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/EmptyES.png", UriKind.Relative));
                break;
             case 3:
-               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/CreateJA.png", UriKind.Relative));
+               e.Image.Source = new BitmapImage(new Uri(@"/Pictures/EmptyJA.png", UriKind.Relative));
                break;
          }
          e.Image.Margin = new Thickness(0, -90, 0, -350);
@@ -290,19 +343,31 @@ namespace Launching_Interface
             this.NavigationService.Navigate(new MainPage());
         }
 
-      private void Load1Button_Click(object sender, RoutedEventArgs e)
-      {
+        void DeleteSave(string saveNumber)
+        {
+            StreamWriter writer = new StreamWriter("../../Saves/save" + saveNumber + ".txt");
+            writer.WriteLine();
+            writer.Close();
+            GameDataManager.RefreshSaves();
+            image0.Source = null;
+            image1.Source = null;
+            image2.Source = null;
+            Refresh();
+        }
 
+        private void Load1Button_Click(object sender, RoutedEventArgs e)
+      {
+            DeleteSave("0");
       }
 
       private void Load2Button_Click(object sender, RoutedEventArgs e)
       {
-
-      }
+            DeleteSave("1");
+        }
 
       private void Load3Button_Click(object sender, RoutedEventArgs e)
       {
-
-      }
+            DeleteSave("2");
+        }
    }
 }

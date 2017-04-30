@@ -270,6 +270,11 @@
     <Resource Include="Pictures\Instructions\GameControllerButtons\Start_Xbox.png" />
     <Resource Include="Pictures\Instructions\GameControllerButtons\Stick_Xbox.png" />
     <Resource Include="Pictures\Instructions\GameControllerButtons\X_Xbox.png" />
+    <Resource Include="Pictures\Empty.png" />
+    <Resource Include="Pictures\EmptyES.png" />
+    <Resource Include="Pictures\EmptyFR.png" />
+    <Resource Include="Pictures\EmptyJA.png" />
+    <Resource Include="Saves\pendingsave.txt" />
     <Content Include="Saves\screenshot0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

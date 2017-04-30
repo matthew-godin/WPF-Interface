@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Launching_Interface
 {
    public static class GameDataManager
    {
-      const string READING_PATH = "../../";
-      const string WRITING_PATH = "../../FilesModified/";
-      const string FILE_SENT_NAME = "toXna.txt";
+      const string BASE_PATH = "../../";
 
       public static bool RD = true;
-      public static int NUM_LEVELS = 5;
+      //public const int NUM_LEVELS = 8;
       const int LANGUAGE_BASE = 0;
       const int FPS_BASE = 60;
       const int RENDER_D_BASE = 500;
       const int VOL_MUS_BASE = 50;
       const int VOL_EFF_BASE = 50;
       const int NUM_LEVELS_BASE = 0;
+      const int NBRE_CARACTÉRISTIQUES = 7;
       static TimeSpan TEMPS_BASE = new TimeSpan(0,0,0);  //pour nous, constante
 
       enum Languages { French, English, Spanish, japonais }
@@ -32,6 +28,7 @@ namespace Launching_Interface
       static int fullscreen;
       static int controller;
       static int nbreLevelxFinis;
+  //    static TimeSpan time;
 
       public static int Language
       {
@@ -51,8 +48,8 @@ namespace Launching_Interface
       }
       public static int Fps;    // 30,60,90,120
       public static int RenderDistance; // 10,50,100,500,1000,5000,10000,50000,100000
-      public static int MusicVolume;     // de 0 à 100
-      public static int SoundEffectVolume;     // de 0 à 100
+      public static int MusicVolume; // de 0 à 100
+      public static int SoundEffectVolume; // de 0 à 100
       public static int FullscreenMode // 0 = false || 1 = true
       {
          get { return fullscreen; }
@@ -68,7 +65,7 @@ namespace Launching_Interface
             }
          }
       } 
-      public static int KeyboardMode// 0 = false || 1 = true
+      public static int KeyboardMode // 0 = false || 1 = true
       {
          get { return controller; }
          set
@@ -83,7 +80,7 @@ namespace Launching_Interface
             }
          }
       }
-      public static int NbLevelxCompletes// 1,2,3,4,5,6,7,8
+      public static int NbLevelxCompletes // 1,2,3,4,5,6,7,8
       {
          get { return nbreLevelxFinis; }
          set
@@ -100,86 +97,261 @@ namespace Launching_Interface
       }     
       public static bool FirstFile;
       public static TimeSpan Temps;
+      //{
+      //   get { return time; }
+      //   set
+      //   {
+      //      value = new TimeSpan(value.Hours, value.Minutes,int.Parse( string.Format("00", value.Seconds)));
+      //      time = value;
+      //      //a.Seconds = string.Format("00", value.Seconds);
+      //      //if (value = strSeconds )
+      //      //{
+      //      //   language = value;
+      //      //}
+      //      //else
+      //      //{
+      //      //   //throw new ArgumentException("Language invalide");
+      //      //   language = (int)Languages.French;
+      //      //}
+      //   }
+      //}
 
       public static List<string> FrenchList { get; private set; }
-      public static List<string> EnglishList { get; private set; }
+      public static List<string> EnglishList  { get; private set; }
       public static List<string> SpanishList { get; private set; }
       public static List<string> JapaneseList { get; private set; }
 
+      public static List<string> CharacteristicsToDisplayList0 { get; private set; }
+      public static List<string> CharacteristicsToDisplayList1 { get; private set; }
+      public static List<string> CharacteristicsToDisplayList2 { get; private set; }
       public static bool[] GameExists;
 
       public static void InitGameDataManager(StreamReader reader)
       {
-         string line = reader.ReadLine();
-         string[] parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         MusicVolume = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         SoundEffectVolume = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         Language = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         RenderDistance = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         Fps = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         FullscreenMode = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         KeyboardMode = int.Parse(parts[1]);
+         for (int i = 0; i < NBRE_CARACTÉRISTIQUES; i++)
+         {
+            string line = reader.ReadLine();
+            string[] parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
+            int characteristic = int.Parse(parts[1]);
+
+            switch (i)
+            {
+               case 0:
+                  MusicVolume = characteristic;
+                  break;
+               case 1:
+                  SoundEffectVolume = characteristic;
+                  break;
+               case 2:
+                  Language = characteristic;
+                  break;
+               case 3:
+                  RenderDistance = characteristic;
+                  break;
+               case 4:
+                  Fps = characteristic;
+                  break;
+               case 5:
+                  FullscreenMode = characteristic;
+                  break;
+               case 6:
+                  KeyboardMode = characteristic;
+                  break;
+            }          
+         }
          reader.Close();
       }
 
       static GameDataManager()
       {
          FrenchList = new List<string>();
-         EnglishList = new List<string>();
+         EnglishList  = new List<string>();
          SpanishList = new List<string>();
          JapaneseList = new List<string>();
+         CharacteristicsToDisplayList0 = new List<string>();
+         CharacteristicsToDisplayList1 = new List<string>();
+         CharacteristicsToDisplayList2 = new List<string>();
+            //InitializeComplete();
+         ReadFiles("Languages","En.txt");
+         ReadFiles("Languages","Es.txt");
+         ReadFiles("Languages","Jp.txt");
+         ReadFiles("Languages","Fr.txt");
 
-         ReadFile("Languages/En.txt");
-         ReadFile("Languages/Es.txt");
-         ReadFile("Languages/Jp.txt");
-         ReadFile("Languages/Fr.txt");
+
+            RefreshSaves();
       }
 
-      static void ReadFile(string fileName)
+        static void InitializeComplete()
+        {
+            Complete = new List<bool>[3];
+            for (int i = 0; i < 3; ++i)
+            {
+                Complete[i] = new List<bool>();
+            }
+        }
+
+        public static void RefreshSaves()
+        {
+            InitializeComplete();
+            CheckForExistingGames();
+            if (GameExists[0])
+            {
+                ReadFiles("Saves", "save0.txt");
+            }
+
+            if (GameExists[1])
+            {
+                ReadFiles("Saves", "save1.txt");
+            }
+            if (GameExists[2])
+            {
+                ReadFiles("Saves", "save2.txt");
+            }
+        }
+
+      static void ReadFiles(string folderName,string fileName)
       {
-         StreamReader dataReader = new StreamReader(READING_PATH + fileName);
+         StreamReader dataReader = new StreamReader(BASE_PATH + folderName+"/" + fileName);
          while (!dataReader.EndOfStream)
          {
             switch (fileName)
             {
-               case "Languages/Fr.txt":
+               case "Fr.txt":
                   FrenchList.Add(dataReader.ReadLine() + '\n');
                   break;
-               case "Languages/En.txt":
+               case "En.txt":
                   EnglishList.Add(dataReader.ReadLine() + '\n');
                   break;
-               case "Languages/Es.txt":
+               case "Es.txt":
                   SpanishList.Add(dataReader.ReadLine() + '\n');
                   break;
-               case "Languages/Jp.txt":
+               case "Jp.txt":
                   JapaneseList.Add(dataReader.ReadLine() + '\n');
                   break;
+               case "save0.txt":
+                  ManageSaveFiles(dataReader, 0);
+                  break;
+               case "save1.txt":
+                  ManageSaveFiles(dataReader, 1);
+                  break;
+               case "save2.txt":
+                  ManageSaveFiles(dataReader, 2);
+                  break;
+               default:
+                  throw new Exception("No file has been read in the static class");                  
             }
          }
          dataReader.Close();
       }
 
-      public static void ÉcrireFichier(List<int> listeInfo)
+      static void ManageSaveFiles(StreamReader dataReader,int i)
       {
-         StreamWriter ecrivainDonnees = new StreamWriter(WRITING_PATH + FILE_SENT_NAME);
+         List<string> temporaryCharacteristicList = new List<string>();
 
-         foreach (int info in listeInfo)
+         for (int j = 0; j < 6; j++)
          {
-            ecrivainDonnees.WriteLine(info.ToString());
+            string line_ = dataReader.ReadLine();
+            string separatingSymbol = " ";
+            
+
+            switch (j)
+            {
+               case 0:
+                  separatingSymbol = "l: ";
+                  break;
+               case 1:
+                  separatingSymbol = "n: ";
+                  break;
+               case 2:
+                  separatingSymbol = "n: ";
+                  break;
+               case 3:
+                  separatingSymbol = "d: ";
+                  break;
+               case 4:
+                  separatingSymbol = "e: ";
+                  break;
+               case 5:
+                  separatingSymbol = "k: ";
+                  break;
+               //case 6:
+               //   separatingSymbol = ";";
+               //   break;
+            }
+            string[] parts_ = line_.Split(new string[] { separatingSymbol }, StringSplitOptions.None);
+            temporaryCharacteristicList.Add(parts_[1]);
+
+            //if (j == 3)
+            //{
+
+            //   string[] separator = parts[1].Split(new string[] { ":" }, StringSplitOptions.None);
+            //   string timeFormater = separator[2].Remove(2);
+            //   string aa = parts[1].Remove(6) + timeFormater;
+            //   temporaryCharacteristicList.Add(aa);
+            //}
+            //else
+            //{
+
+            //}
+
+
+
          }
-         ecrivainDonnees.Close();
+
+            //temporaryCharacteristicList.Add(dataReader.ReadLine());   //  name  (#8)
+            string line = dataReader.ReadLine();
+            string[] parts = line.Split(new char[] { ';' });
+            for (int j = 0; j < parts.Length; ++j)
+            {
+                Complete[i].Add(bool.Parse(parts[j]));
+            }
+            //   string lineRead = dataReader.ReadLine();
+            //   string[] timeSeparator = lineRead.Split(new string[] { ";" }, StringSplitOptions.None);
+            //   for (int k = 0; k < NUM_LEVELS; k++)
+            //{
+            //   //string lineRead = dataReader.ReadLine();
+            //   //string[] timeSeparator = lineRead.Split(new string[] { ";" }, StringSplitOptions.None);
+            //   temporaryCharacteristicList.Add(timeSeparator[/*1*/k]);                       
+            //}
+
+            AssociateGoodListToDisplay(i,temporaryCharacteristicList);
+      }
+
+        static List<bool>[] Complete { get; set; }
+
+        public static int CountComplete(int i)
+        {
+            int numCompleted = 0;
+
+            foreach (bool e in Complete[i])
+            {
+                if (e)
+                {
+                    ++numCompleted;
+                }
+            }
+            return numCompleted;
+        }
+
+        public static int CountLevels(int i)
+        {
+            return Complete[i].Count;
+        }
+
+        static void AssociateGoodListToDisplay(int i,List<string> temporaryCharacteristicList)
+      {
+         switch (i)
+         {
+            case 0:
+               CharacteristicsToDisplayList0 = temporaryCharacteristicList;
+               break;
+            case 1:
+               CharacteristicsToDisplayList1 = temporaryCharacteristicList;
+               break;
+            case 2:
+               CharacteristicsToDisplayList2 = temporaryCharacteristicList;
+               break;
+         }
       }
 
       public static void BasicSettings()
@@ -195,30 +367,52 @@ namespace Launching_Interface
          Temps = TEMPS_BASE;
       }
 
-      //static void ModifiedSettings()
-      //{
-      //   Language = InfoReceivedList[0];
-      //   RenderDistance = InfoReceivedList[2];
-      //   Fps = InfoReceivedList[1];
-      //   MusicVolume = InfoReceivedList[3];
-      //   SoundEffectVolume = InfoReceivedList[4];
-      //   FullscreenMode = InfoReceivedList[5];
-      //   KeyboardMode = InfoReceivedList[6];
-      //   NbLevelxCompletes = InfoReceivedList[7];
-      //   Temps = new TimeSpan(InfoReceivedList[8], InfoReceivedList[9], 0);
-      //}
+      static void CheckForExistingGames()
+      {
+         StreamReader r;
 
-      //static void SelectSettings()
-      //{
-      //   if (FirstFile == true)
-      //   {
-      //      BasicSettings();
-      //   }
-      //   else
-      //   {
-      //      ModifiedSettings();
-      //   }
-      //}
+         GameDataManager.GameExists = new bool[3];
+         for (int i = 0; i < 3; ++i)
+         {
+            r = new StreamReader("../../Saves/save" + i + ".txt");
+            GameDataManager.GameExists[i] = r.ReadLine() != "";
+            r.Close();
+         }
+      }
+
+
+      //string lineRead = dataReader.ReadLine();
+      //string[] separator = lineRead.Split(new string[] { "l: " }, StringSplitOptions.None);
+      //temporaryCharacteristicList.Add(separator[1]);
+
+      //lineRead = dataReader.ReadLine();
+      //separator = lineRead.Split(new string[] { "n: " }, StringSplitOptions.None);
+      //temporaryCharacteristicList.Add(separator[1]);
+
+      //lineRead = dataReader.ReadLine();
+      //separator = lineRead.Split(new string[] { "n: " }, StringSplitOptions.None);
+      //temporaryCharacteristicList.Add(separator[1]);
+
+      //lineRead = dataReader.ReadLine();
+      //separator = lineRead.Split(new string[] { "d: " }, StringSplitOptions.None);
+      //temporaryCharacteristicList.Add(separator[1]);
+
+      //lineRead = dataReader.ReadLine();
+      //separator = lineRead.Split(new string[] { "e: " }, StringSplitOptions.None);   //   #5
+      //temporaryCharacteristicList.Add(separator[1]);
+
+      //lineRead = dataReader.ReadLine();
+      //separator = lineRead.Split(new string[] { "k: " }, StringSplitOptions.None);
+      //temporaryCharacteristicList.Add(separator[1]);
+
+
+      //lineRead = dataReader.ReadLine();
+      //separator = lineRead.Split(new string[] { ";" }, StringSplitOptions.None);    //   #7
+      //temporaryCharacteristicList.Add(separator[1]);
+
+      //-----------------------------------------------------------------------------------------------------------------
+      // Caracteristiques du participant (1 name,8 time)
+      //    temporaryCharacteristicList.Add(dataReader.ReadLine());   //  false;false;false
    }
 }
 
