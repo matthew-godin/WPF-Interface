@@ -171,8 +171,9 @@ namespace Launching_Interface
          CharacteristicsToDisplayList0 = new List<string>();
          CharacteristicsToDisplayList1 = new List<string>();
          CharacteristicsToDisplayList2 = new List<string>();
+            PlayerList = new List<Player>();
             //InitializeComplete();
-         ReadFiles("Languages","En.txt");
+            ReadFiles("Languages","En.txt");
          ReadFiles("Languages","Es.txt");
          ReadFiles("Languages","Jp.txt");
          ReadFiles("Languages","Fr.txt");
@@ -208,6 +209,8 @@ namespace Launching_Interface
                 ReadFiles("Saves", "save2.txt");
             }
         }
+
+        public static List<Player> PlayerList { get; private set; }
 
       static void ReadFiles(string folderName,string fileName)
       {
@@ -316,7 +319,98 @@ namespace Launching_Interface
 
             AssociateGoodListToDisplay(i,temporaryCharacteristicList);
       }
+        // DÉBUT
+        //static void ManageSaveFiles(StreamReader dataReader, int i)
+        //{
+        //    List<string> temporaryCharacteristicList = new List<string>();
+        //    string separatingSymbol = " ", line = "";
+        //    string[] parts;
 
+        //    for (int j = 0; j < 7; j++)
+        //    {
+        //        line = dataReader.ReadLine();
+        //        switch (j)
+        //        {
+        //            case 0:
+        //                separatingSymbol = "l: ";
+        //                break;
+        //            case 1:
+        //                separatingSymbol = "n: ";
+        //                break;
+        //            case 2:
+        //                separatingSymbol = "n: ";
+        //                break;
+        //            case 3:
+        //                separatingSymbol = "d: ";
+        //                break;
+        //            case 4:
+        //                separatingSymbol = "e: ";
+        //                break;
+        //            case 5:
+        //                separatingSymbol = "k: ";
+        //                break;
+        //            case 6:
+        //                separatingSymbol = ";";
+        //                break;
+        //        }
+        //        parts = line.Split(new string[] { separatingSymbol }, StringSplitOptions.None);
+        //        if (i != 6)
+        //        {
+        //            temporaryCharacteristicList.Add(parts[1]);
+        //        }
+        //        else
+        //        {
+        //            temporaryCharacteristicList.Add(parts[0]);
+        //            temporaryCharacteristicList.Add(parts[1]);
+        //            temporaryCharacteristicList.Add(parts[2]);
+        //        }
+        //    }
+        //    AssociateGoodListToDisplay(i, temporaryCharacteristicList);
+
+        //    // temporaryCharacteristicList.Add(dataReader.ReadLine());   //  name  (#8)
+
+        //    ManageTime(dataReader, dataReader.ReadLine());
+
+        //}
+
+        //static void AssociateGoodListToDisplay(int i, List<string> temporaryCharacteristicList)
+        //{
+        //    switch (i)
+        //    {
+        //        case 0:
+        //            CharacteristicsToDisplayList0 = temporaryCharacteristicList;
+        //            break;
+        //        case 1:
+        //            CharacteristicsToDisplayList1 = temporaryCharacteristicList;
+        //            break;
+        //        case 2:
+        //            CharacteristicsToDisplayList2 = temporaryCharacteristicList;
+        //            break;
+        //    }
+        //}
+
+        //static void ManageTime(StreamReader dataReader, string namePlayer)
+        //{
+        //    string line;
+        //    string[] timeSpanSeparator, parts;
+
+        //    List<TimeSpan> temporaryTimeList = new List<TimeSpan>();
+        //    for (int k = 0; k < NUM_LEVELS; k++)
+        //    {
+        //        line = dataReader.ReadLine();
+        //        parts = line.Split(new string[] { ";" }, StringSplitOptions.None);
+        //        timeSpanSeparator = parts[1].Split(new string[] { ":" }, StringSplitOptions.None);
+        //        temporaryTimeList.Add(new TimeSpan(int.Parse(timeSpanSeparator[0]),
+        //                                              int.Parse(timeSpanSeparator[1]),
+        //                                              int.Parse(timeSpanSeparator[2])));
+        //    }
+        //    Player player = new Player(namePlayer, temporaryTimeList[0], temporaryTimeList[1],
+        //                                          temporaryTimeList[2], temporaryTimeList[3],
+        //                                          temporaryTimeList[4], temporaryTimeList[5],
+        //                                          temporaryTimeList[6], temporaryTimeList[7]);
+        //    PlayerList.Add(player);
+        //}
+        // FIN
         static List<bool>[] Complete { get; set; }
 
         public static int CountComplete(int i)
