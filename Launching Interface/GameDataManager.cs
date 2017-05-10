@@ -474,39 +474,6 @@ namespace Launching_Interface
          }
       }
 
-
-      //string lineRead = dataReader.ReadLine();
-      //string[] separator = lineRead.Split(new string[] { "l: " }, StringSplitOptions.None);
-      //temporaryCharacteristicList.Add(separator[1]);
-
-      //lineRead = dataReader.ReadLine();
-      //separator = lineRead.Split(new string[] { "n: " }, StringSplitOptions.None);
-      //temporaryCharacteristicList.Add(separator[1]);
-
-      //lineRead = dataReader.ReadLine();
-      //separator = lineRead.Split(new string[] { "n: " }, StringSplitOptions.None);
-      //temporaryCharacteristicList.Add(separator[1]);
-
-      //lineRead = dataReader.ReadLine();
-      //separator = lineRead.Split(new string[] { "d: " }, StringSplitOptions.None);
-      //temporaryCharacteristicList.Add(separator[1]);
-
-      //lineRead = dataReader.ReadLine();
-      //separator = lineRead.Split(new string[] { "e: " }, StringSplitOptions.None);   //   #5
-      //temporaryCharacteristicList.Add(separator[1]);
-
-      //lineRead = dataReader.ReadLine();
-      //separator = lineRead.Split(new string[] { "k: " }, StringSplitOptions.None);
-      //temporaryCharacteristicList.Add(separator[1]);
-
-
-      //lineRead = dataReader.ReadLine();
-      //separator = lineRead.Split(new string[] { ";" }, StringSplitOptions.None);    //   #7
-      //temporaryCharacteristicList.Add(separator[1]);
-
-      //-----------------------------------------------------------------------------------------------------------------
-      // Caracteristiques du participant (1 name,8 time)
-      //    temporaryCharacteristicList.Add(dataReader.ReadLine());   //  false;false;false
    }
 }
 

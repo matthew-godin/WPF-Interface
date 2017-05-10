@@ -38,7 +38,7 @@ namespace Launching_Interface
          lg.Text = LanguagesMainPage[32];
          se.Text = LanguagesMainPage[11];
          cr.Text = LanguagesMainPage[24];
-         hi.Text = LanguagesMainPage[28];
+         //hi.Text = LanguagesMainPage[28];
          exit.Text = LanguagesMainPage[34];
 
 
