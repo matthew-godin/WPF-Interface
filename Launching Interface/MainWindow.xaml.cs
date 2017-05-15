@@ -49,29 +49,8 @@ namespace Launching_Interface
         private void RefreshData()
         {
          StreamReader reader = new StreamReader("../../Saves/Settings.txt");
-         //GameDataManager.InitGameDataManager(reader);
-         string line = reader.ReadLine();
-         string[] parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         GameDataManager.MusicVolume = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         GameDataManager.SoundEffectVolume = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         GameDataManager.Language = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         GameDataManager.RenderDistance = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         GameDataManager.Fps = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         GameDataManager.FullscreenMode = int.Parse(parts[1]);
-         line = reader.ReadLine();
-         parts = line.Split(new string[] { ": " }, StringSplitOptions.None);
-         GameDataManager.KeyboardMode = int.Parse(parts[1]);
-         reader.Close();
+         GameDataManager.InitialiserGameDataManager(reader);
+
       }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)

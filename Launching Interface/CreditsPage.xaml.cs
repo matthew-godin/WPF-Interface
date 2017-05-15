@@ -23,11 +23,27 @@ namespace Launching_Interface
 
       void ManageLanguages()
       {
-         if (GameDataManager.Language == 0) { LanguagesCredits = GameDataManager.FrenchList; BackButton.Margin = new Thickness(35, 19, 101, 88); }
-         if (GameDataManager.Language == 1) { LanguagesCredits = GameDataManager.EnglishList;  BackButton.Margin = new Thickness(36, 19, 104, 88); }
-         if (GameDataManager.Language == 2) { LanguagesCredits = GameDataManager.SpanishList; BackButton.Margin = new Thickness(31, 19, 109, 88); }
-         if (GameDataManager.Language == 3) { LanguagesCredits = GameDataManager.JapaneseList; BackButton.Margin = new Thickness(35, 19, 102, 88); }
+         switch (GameDataManager.Language)
+         {
+            case GameDataManager.Languages.French:
+               LanguagesCredits = GameDataManager.FrenchList;
+               BackButton.Margin = new Thickness(35, 19, 101, 88);
+               break;
+            case GameDataManager.Languages.English:
+               LanguagesCredits = GameDataManager.EnglishList;
+               BackButton.Margin = new Thickness(36, 19, 104, 88);
+               break;
+            case GameDataManager.Languages.Spanish:
+               LanguagesCredits = GameDataManager.SpanishList;
+               BackButton.Margin = new Thickness(31, 19, 109, 88);
+               break;
+            case GameDataManager.Languages.Japanese:
+               LanguagesCredits = GameDataManager.JapaneseList;
+               BackButton.Margin = new Thickness(35, 19, 102, 88);
+               break;
 
+
+         }
          sim.Text = LanguagesCredits[25];
          clg.Text = LanguagesCredits[26];
          TitleSett.Text = LanguagesCredits[24];

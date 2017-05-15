@@ -7,16 +7,6 @@ using System.Windows.Controls;
 
 namespace Launching_Interface
 {
-   //enum Language
-   //{
-   //    French, English, Spanish, Japanese
-   //}
-
-   //enum Input
-   //{
-   //    Controller, Keyboard
-   //}
-
    /// <summary>
    /// Interaction logic for SettingsPage.xaml
    /// </summary>
@@ -30,41 +20,41 @@ namespace Launching_Interface
 
          InitializeComponent();
          ManageFPS();
-         GameDataManager.RD = true;
-         ManageLanguages();
+         GameDataManager.RenderDistanceModified = true;
+         InitializeLanguagesList();
          ManageRenderDistance();
          ManageSound();
          ManageButtons();
          ManageSettings();
-         
+
       }
 
       public void BackButton_Click(object sender, RoutedEventArgs e)
       {
          SaveSettings();
-         this.NavigationService.Navigate(new MainPage());
+         NavigationService.Navigate(new MainPage());
       }
 
       private void SaveSettings()
       {
-         StreamWriter w = new StreamWriter("../../Saves/Settings.txt");
 
+         StreamWriter w = new StreamWriter("../../Saves/Settings.txt");
          w.WriteLine("Music: " + GameDataManager.MusicVolume.ToString());
          w.WriteLine("Sound: " + GameDataManager.SoundEffectVolume.ToString());
-         w.WriteLine("Language: " + GameDataManager.Language.ToString());
+         w.WriteLine("Language: " + (Convert.ToInt32(GameDataManager.Language)).ToString());
          w.WriteLine("Render Distance: " + GameDataManager.RenderDistance.ToString());
          w.WriteLine("Frame Rate: " + GameDataManager.Fps.ToString());
-         w.WriteLine("Fullscreen: " + GameDataManager.FullscreenMode.ToString());
-         w.WriteLine("Input: " + GameDataManager.KeyboardMode.ToString());
+         w.WriteLine("Fullscreen: " + (Convert.ToInt32(GameDataManager.FullscreenMode)).ToString());
+         w.WriteLine("Input: " + (Convert.ToInt32(GameDataManager.KeyboardMode)).ToString());
          w.Close();
       }
-  
-      private void RDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) 
+
+      private void RDistanceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
       {
          double value = 0;
-         if (GameDataManager.RD == true)
+         if (GameDataManager.RenderDistanceModified == true)
          {
-            GameDataManager.RD = false;
+            GameDataManager.RenderDistanceModified = false;
             switch (GameDataManager.RenderDistance)
             {
                case 10:
@@ -94,8 +84,8 @@ namespace Launching_Interface
                case 100000:
                   value = 10;
                   break;
+            }
          }
-      }
          else
          {
             var slider = sender as Slider;
@@ -119,12 +109,12 @@ namespace Launching_Interface
                GameDataManager.RenderDistance = 100;
                RDistanceSlider.Value = 2.5;
             }
-           else  if (value > 3.7 && value < 3.8)
+            else if (value > 3.7 && value < 3.8)
             {
                GameDataManager.RenderDistance = 500;
                RDistanceSlider.Value = 3.75;
             }
-           else  if (value > 4.9 && value < 5.1)
+            else if (value > 4.9 && value < 5.1)
             {
                GameDataManager.RenderDistance = 1000;
                RDistanceSlider.Value = 5;
@@ -187,37 +177,25 @@ namespace Launching_Interface
 
       private void ButFull_Unchecked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.FullscreenMode = 0;
+         GameDataManager.FullscreenMode = GameDataManager.Fullscreen.no;
          ManageButtons();
-
-         Application.Current.MainWindow.WindowState = WindowState.Normal;
-         Application.Current.MainWindow.WindowStyle = WindowStyle.SingleBorderWindow;
-         Application.Current.MainWindow.ResizeMode = ResizeMode.CanResize;
       }
 
       private void ButFull_Checked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.FullscreenMode = 1;
+         GameDataManager.FullscreenMode = GameDataManager.Fullscreen.yes;
          ManageButtons();
-
-         Application.Current.MainWindow.WindowStyle = WindowStyle.None;
-         Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
-         Application.Current.MainWindow.Left = 0;
-         Application.Current.MainWindow.Top = 0;
-         Application.Current.MainWindow.Width = SystemParameters.VirtualScreenWidth;
-         Application.Current.MainWindow.Height = SystemParameters.VirtualScreenHeight;
-         Application.Current.MainWindow.Topmost = true;
       }
 
       private void ButCont_Unchecked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.KeyboardMode = 0;
+         GameDataManager.KeyboardMode = GameDataManager.Controller.GameController;
          ManageButtons();
       }
 
       private void ButCont_Checked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.KeyboardMode = 1;
+         GameDataManager.KeyboardMode = GameDataManager.Controller.Keyboard;
          ManageButtons();
       }
 
@@ -226,16 +204,15 @@ namespace Launching_Interface
 
       private void RBes_Checked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.Language = 2;
+         GameDataManager.Language = GameDataManager.Languages.Spanish;
          LanguagesList = GameDataManager.SpanishList;
-
          ManageSettings();
          ManageButtons();
       }
 
       private void RBjp_Checked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.Language = 3;
+         GameDataManager.Language = GameDataManager.Languages.Japanese;
          LanguagesList = GameDataManager.JapaneseList;
          ManageSettings();
          ManageButtons();
@@ -243,7 +220,7 @@ namespace Launching_Interface
 
       private void RBfr_Checked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.Language = 0;
+         GameDataManager.Language = GameDataManager.Languages.French;
          LanguagesList = GameDataManager.FrenchList;
          ManageSettings();
          ManageButtons();
@@ -251,7 +228,7 @@ namespace Launching_Interface
 
       private void RBan_Checked(object sender, RoutedEventArgs e)
       {
-         GameDataManager.Language = 1;
+         GameDataManager.Language = GameDataManager.Languages.English;
          LanguagesList = GameDataManager.EnglishList;
          ManageSettings();
          ManageButtons();
@@ -271,13 +248,13 @@ namespace Launching_Interface
          Perfo.Text = LanguagesList[19];
          Inp.Text = LanguagesList[21];
          Full.Text = LanguagesList[20];
-         Lang.Text = LanguagesList[31];       
+         Lang.Text = LanguagesList[31];
          Resettext2.Text = LanguagesList[33];
 
          ManageCharacteristics();
       }
 
-      void ManageLanguages()
+      void InitializeLanguagesList()
       {
          RBfr.IsChecked = false;
          RBan.IsChecked = false;
@@ -286,19 +263,19 @@ namespace Launching_Interface
 
          switch (GameDataManager.Language)
          {
-            case 0:
+            case GameDataManager.Languages.French:
                LanguagesList = GameDataManager.FrenchList;
                RBfr.IsChecked = true;
                break;
-            case 1:
+            case GameDataManager.Languages.English:
                LanguagesList = GameDataManager.EnglishList;
                RBan.IsChecked = true;
                break;
-            case 2:
+            case GameDataManager.Languages.Spanish:
                LanguagesList = GameDataManager.SpanishList;
                RBes.IsChecked = true;
                break;
-            case 3:
+            case GameDataManager.Languages.Japanese:
                LanguagesList = GameDataManager.JapaneseList;
                RBjp.IsChecked = true;
                break;
@@ -310,11 +287,11 @@ namespace Launching_Interface
       void ManageFPS()
       {
          float perfValuermance = 0;
-         switch(GameDataManager.Fps)
+         switch (GameDataManager.Fps)
          {
             case 30:
                perfValuermance = 0;
-            break;
+               break;
             case 60:
                perfValuermance = 3.3333f;
                break;
@@ -326,13 +303,13 @@ namespace Launching_Interface
                break;
          }
          PerformanceSlider.Value = perfValuermance;
-        
-         if (PerformanceSlider.Value < 0.2) { perfValue.Text = "30 FPS"; } 
+
+         if (PerformanceSlider.Value < 0.2) { perfValue.Text = "30 FPS"; }
       }
 
       void ManageRenderDistance()
-      {        
-         RDistanceSlider.Value = GameDataManager.RenderDistance;       
+      {
+         RDistanceSlider.Value = GameDataManager.RenderDistance;
       }
 
       void GameMusicSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -354,16 +331,16 @@ namespace Launching_Interface
 
       void ResetButton_Click(object sender, RoutedEventArgs e)
       {
-         GameDataManager.RD = true;
+         GameDataManager.RenderDistanceModified = true;
          GameDataManager.BasicSettings();
          ManageSettings();
          ManageFPS();
          ManageRenderDistance();
-         ManageLanguages();
+         InitializeLanguagesList();
          ManageSound();
          ManageButtons();
 
-      } 
+      }
 
       void ManageSound()
       {
@@ -373,27 +350,28 @@ namespace Launching_Interface
 
       void ManageButtons()
       {
-         if (GameDataManager.FullscreenMode == 1)
+         if (GameDataManager.FullscreenMode == GameDataManager.Fullscreen.yes)
          {
             ButFull.Content = LanguagesList[29];
             ButFull.IsChecked = true;
-            
+            ApplyBackground();
          }
          else
          {
             ButFull.Content = LanguagesList[30];
             ButFull.IsChecked = false;
-           
+            RemoveBackground();
+
          }
 
-         if (GameDataManager.KeyboardMode == 0)
+         if (GameDataManager.KeyboardMode == GameDataManager.Controller.GameController)
          {
             ButCont.Content = LanguagesList[23];
             ButCont.IsChecked = false;
          }
          else
          {
-            GameDataManager.KeyboardMode = 1;
+
             ButCont.Content = LanguagesList[22];
             ButCont.IsChecked = true;
          }
@@ -402,29 +380,54 @@ namespace Launching_Interface
 
       void ManageCharacteristics()
       {
-         switch(GameDataManager.Language)
+         switch (GameDataManager.Language)
          {
-            case 0:
-               Resettext2.Margin= new Thickness(33, 64, 126, 48);
-               Backtext.Margin  = new Thickness(28, 19, 113, 88);
+            case GameDataManager.Languages.French:
+               Resettext2.Margin = new Thickness(33, 64, 126, 48);
+               Backtext.Margin = new Thickness(28, 19, 113, 88);
                TitleSett.Margin = new Thickness(-25, 11, 40, 11);
                break;
-            case 1:
-               Resettext2.Margin= new Thickness(43, 64, 126, 48);
-               Backtext.Margin  = new Thickness(28, 19, 113, 88);
+            case GameDataManager.Languages.English:
+               Resettext2.Margin = new Thickness(43, 64, 126, 48);
+               Backtext.Margin = new Thickness(28, 19, 113, 88);
                TitleSett.Margin = new Thickness(-24, 11, 38, 11);
                break;
-            case 2:
+            case GameDataManager.Languages.Spanish:
                Resettext2.Margin = new Thickness(37, 64, 122, 48);
-               Backtext.Margin   = new Thickness(22, 19, 114, 88);
-               TitleSett.Margin  = new Thickness(-21, 11, 35, 11);
+               Backtext.Margin = new Thickness(22, 19, 114, 88);
+               TitleSett.Margin = new Thickness(-21, 11, 35, 11);
                break;
-            case 3:
-               Resettext2.Margin= new Thickness(39, 64, 123, 48);
-               Backtext.Margin  = new Thickness(28, 19, 113, 88);
+            case GameDataManager.Languages.Japanese:
+               Resettext2.Margin = new Thickness(39, 64, 123, 48);
+               Backtext.Margin = new Thickness(28, 19, 113, 88);
                TitleSett.Margin = new Thickness(-14, 11, 44, 11);
                break;
          }
+      }
+
+      void ApplyBackground()
+      {
+         Application.Current.MainWindow.WindowStyle = WindowStyle.None;
+         Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
+         Application.Current.MainWindow.Left = 0;
+         Application.Current.MainWindow.Top = 0;
+         Application.Current.MainWindow.Width = SystemParameters.VirtualScreenWidth;
+         Application.Current.MainWindow.Height = SystemParameters.VirtualScreenHeight;
+         Application.Current.MainWindow.Topmost = true;
+      }
+
+      void RemoveBackground()
+      {
+         int screenWidth = 1500;
+         int screenHeight = 800;
+
+         Application.Current.MainWindow.Height = screenHeight;
+         Application.Current.MainWindow.Width = screenWidth;
+
+         Application.Current.MainWindow.WindowState = WindowState.Normal;
+         Application.Current.MainWindow.WindowStyle = WindowStyle.SingleBorderWindow;
+         Application.Current.MainWindow.ResizeMode = ResizeMode.CanResize;
+
       }
 
       //Unused methods
